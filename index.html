@@ -300,6 +300,7 @@ let score      = 0;    // 맞게 누른 횟수
 let timeLeft   = 15;
 let timerInt   = null;
 let gameActive = false;
+let isLocked   = false; // 추가: 동시 탭 방지 및 1초 페널티 잠금용
 
 /* ── 유틸 ── */
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -374,13 +375,20 @@ function updateActiveCard() {
 
 /* ── 카드 탭 ── */
 function onCard(idx) {
-  if (!gameActive) return;
+  // 게임이 멈췄거나 현재 잠금(페널티/처리 중) 상태라면 입력을 무시
+  if (!gameActive || isLocked) return;
+  
+  isLocked = true; // 처리 시작 시 잠금 (멀티 터치 및 동시 입력 방지)
+  
   const cell = cells[idx];
 
   if (cell.num !== nextExp) {
-    // 틀림 → 흔들림만
+    // 틀렸을 경우: 흔들림 애니메이션 실행 및 1초 잠금
     cell.el.classList.add('wrong');
-    setTimeout(() => cell.el.classList.remove('wrong'), 350);
+    setTimeout(() => {
+      cell.el.classList.remove('wrong');
+      isLocked = false; // 1초 후 잠금 해제되어 다시 입력 가능
+    }, 1000); 
     return;
   }
 
@@ -406,6 +414,9 @@ function onCard(idx) {
   });
 
   updateActiveCard();
+  
+  // 정상 입력 처리 후 즉시 잠금 해제
+  isLocked = false;
 }
 
 /* ── 타이머 ── */
@@ -426,6 +437,7 @@ function stopTimer() { clearInterval(timerInt); timerInt = null; }
 function resetGame() {
   stopTimer();
   nextExp = 1; score = 0; gameActive = false;
+  isLocked = false; // 추가: 게임 리셋 시 락 해제
   timeLeft = 15;
   $('timer').textContent = '15';
   $('timer').classList.remove('urgent');
@@ -442,6 +454,7 @@ async function startGame() {
   $('start-btn').disabled = true;
   $('start-btn').style.display = 'none';
   nextExp = 1; score = 0;
+  isLocked = false; // 추가: 카운트다운 시작 시 락 해제 보장
   $('score-disp').textContent = '0';
   buildGrid();
 
