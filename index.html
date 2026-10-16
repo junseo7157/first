@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080f18">
-<title>협곡 전략 연구소 - Ultimate Pro Map Edition</title>
+<title>협곡 전략 연구소 - Ultimate Authentic Rift Edition</title>
 <style>
 :root{
   --bg: #080f18;
@@ -254,7 +254,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   border: 1px solid #1e3142;
   border-radius: 10px;
   padding: 12px;
-  height: 150px;
+  height: 160px;
   overflow-y: auto;
   font-family: monospace;
   font-size: 13px;
@@ -297,8 +297,8 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </head>
 <body>
 <header>
-<h1>⚔️ 협곡 전략 연구소 — Ultimate Pro Map Edition</h1>
-<p class="sub">정교한 미니맵 구조 · 오브젝트(바론·전령·용·유충) 표시 · 30배속 대형 관전</p>
+<h1>⚔️ 협곡 전략 연구소 — Ultimate Authentic Rift Edition</h1>
+<p class="sub">소환사의 협곡 정밀 고증 맵 · 본진 정상 출발 및 라인/오브젝트 이동 · 30배속 대형 관전</p>
 </header>
 
 <div class="wrap">
@@ -371,7 +371,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <section class="page" id="sim">
 <div class="panel">
 <h2>30배속 대형 미니맵 전투 관전 시뮬레이터 (1분 완료)</h2>
-<p class="muted">확장된 대형 미니맵에서 바론, 전령, 유충, 드래곤 위치와 캐릭터 일러스트 얼굴 원형(팀 테두리)의 움직임을 관전합니다.</p>
+<p class="muted">소환사의 협곡 정식 맵 구조에서 본진 출발 후 라인 전투 및 바론·전령·유충·드래곤 오브젝트 교전을 관전합니다.</p>
 <div class="grid3">
 <div class="field"><label>교전 개시 방식</label><select id="engage"><option value="blue">블루 팀 선진입 (이니시에이팅)</option><option value="red">레드 팀 선진입 (이니시에이팅)</option><option value="poke">포킹 및 거리 조절 후 개시</option><option value="flank">측면 기습 및 백도어 시도</option><option value="front">정면 5:5 대치 후 한타</option></select></div>
 <div class="field"><label>블루 팀 시야 장악력</label><select id="blueVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
@@ -392,8 +392,8 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
    <span id="gameTimerDisplay" style="color:var(--muted)">00:00</span>
    <span class="red">🔴 레드 팀 킬: <b id="redKills">0</b></span>
   </div>
-  <!-- Larger Mini-map Canvas -->
-  <canvas id="simCanvas" width="680" height="380" style="width:100%; max-width:680px; background:#08101a; border-radius:14px; border:2px solid #2a3f55; display:block; margin:0 auto 14px;"></canvas>
+  <!-- Expanded Authentic Rift Map Canvas -->
+  <canvas id="simCanvas" width="720" height="420" style="width:100%; max-width:720px; background:#08101a; border-radius:14px; border:2px solid #2a3f55; display:block; margin:0 auto 14px;"></canvas>
 
   <div class="progress-container">
    <div id="pbProgress" class="progress-fill"></div>
@@ -416,7 +416,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </div>
 </section>
 
-<div class="footer">협곡 전략 연구소 Ultimate Pro Map Edition — 리그 오브 레전드 전략 시뮬레이터</div>
+<div class="footer">협곡 전략 연구소 Ultimate Authentic Rift Edition — 리그 오브 레전드 전략 시뮬레이터</div>
 </div>
 
 <script>
@@ -666,7 +666,7 @@ function loadRandomPreset(){
  analysis();
 }
 
-// 30x Speed Large Map Simulation with Objectives (Baron, Herald, Voidgrubs, Dragon)
+// 30x Speed Large Authentic Rift Map Simulation
 function runSimulationPlayback(){
  const blue=getTeam("blue"),red=getTeam("red");
  if(uniqueTeam(blue).length===0||uniqueTeam(red).length===0){
@@ -683,28 +683,43 @@ function runSimulationPlayback(){
  $("blueKills").textContent = "0";
  $("redKills").textContent = "0";
  $("pbProgress").style.width = "0%";
- $("pbStatus").textContent = "30배속 대형 미니맵 관전 중 (1분 소요)...";
+ $("pbStatus").textContent = "30배속 협곡 관전 중 (1분 소요)...";
 
  const b=compMetrics(blue), r=compMetrics(red);
  const diff = (b.teamfight - r.teamfight) * 0.5;
 
  const events = [
-  {m: "01:00", text: "게임 시작! 양 팀 챔피언들이 소환사의 협곡 소환진을 떠납니다."},
-  {m: "03:15", text: "인베이드 대치전 및 양 팀 정글러 진영 동선 체크."},
-  {m: "05:30", text: "[공허 유충 🐛] 등장! 바론 지역 유충 싸움 및 첫 교전 발생."},
+  {m: "01:00", text: "게임 시작! 블루/레드 팀 본진(우물)에서 부활하여 협곡으로 진격합니다."},
+  {m: "03:15", text: "인베이드 대치전 및 정글러 동선 진입."},
+  {m: "05:30", text: "[공허 유충 🐛] 등장! 탑쪽 유충 둥지 쟁탈전 교전 발생."},
   {m: "08:45", text: "바텀 라인 2:2 교전 및 첫 킬 스코어 획득."},
-  {m: "11:20", text: "[드래곤 🐉] 첫 번째 화염/대지 드래곤 둥지 앞 대치전."},
-  {m: "14:00", text: "[협곡의 전령 👁️] 활성화! 탑/미드 전령 압박 시도."},
-  {m: "17:30", text: "시야 싸움 중 정글 한타 및 주요 궁극기 쿨타임 교전."},
-  {m: "20:10", text: "[드래곤 🐉] 영혼이 걸린 세 번째 드래곤 한타 개시! [🔥 궁극기 작렬]"},
-  {m: "23:45", text: "사이드 라인 스플릿과 억제기 압박 구도."},
-  {m: "27:10", text: "[내셔 남작 🪱 (바론)] 버스트 시도! 바론을 두고 벌어지는 최후의 공방전."},
-  {m: "29:30", text: "[장로 드래곤] 및 넥서스 진격을 위한 마지막 5:5 대규모 한타!"},
+  {m: "11:20", text: "[드래곤 🐉] 첫 번째 화염/대지 드래곤 둥지 앞 5:5 대치."},
+  {m: "14:00", text: "[협곡의 전령 👁️] 활성화! 상단 라인 전령 압박."},
+  {m: "17:30", text: "정글 시야 싸움 및 주요 궁극기 쿨타임 교전."},
+  {m: "20:10", text: "[드래곤 🐉] 영혼이 걸린 세 번째 드래곤 앞 한타! [🔥 궁극기 작렬]"},
+  {m: "23:45", text: "사이드 라인 스플릿 및 억제기 공성전."},
+  {m: "27:10", text: "[내셔 남작 🪱 (바론)] 버스트 시도! 바론 둥지 앞 치열한 공방전."},
+  {m: "29:30", text: "[장로 드래곤] 및 넥서스 앞 마지막 최후의 5:5 대규모 한타!"},
   {m: "31:00", text: "넥서스 파괴 및 최종 승부 결정!"}
  ];
 
  const canvas = $("simCanvas");
  const ctx = canvas.getContext("2d");
+
+ // Authentic Summoner's Rift Map Layout Coordinates (720 x 420)
+ const blueBase = {x: 70, y: 360};   // Bottom-left fountain
+ const redBase = {x: 650, y: 60};   // Top-right fountain
+
+ const lanePositions = {
+  blue: [{x: 70, y: 110}, {x: 180, y: 240}, {x: 360, y: 210}, {x: 580, y: 360}, {x: 550, y: 360}],
+  red:  [{x: 210, y: 60}, {x: 520, y: 180}, {x: 360, y: 210}, {x: 650, y: 130}, {x: 650, y: 160}]
+ };
+
+ const objectivePositions = {
+  baron: {x: 270, y: 130},
+  dragon: {x: 450, y: 300},
+  midTeamfight: {x: 360, y: 210}
+ };
 
  function drawMap(progressRatio, activeUltChamps = []) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -713,57 +728,57 @@ function runSimulationPlayback(){
   ctx.fillStyle = "#09121d";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // --- Map Lanes & Base structures ---
-  // Top Lane
-  ctx.strokeStyle = "#16283c"; ctx.lineWidth = 14;
-  ctx.beginPath(); ctx.moveTo(50, 330); ctx.lineTo(50, 45); ctx.lineTo(630, 45); ctx.stroke();
-  // Mid Lane
-  ctx.beginPath(); ctx.moveTo(50, 330); ctx.lineTo(630, 45); ctx.stroke();
-  // Bot Lane
-  ctx.beginPath(); ctx.moveTo(50, 330); ctx.lineTo(630, 330); ctx.lineTo(630, 45); ctx.stroke();
+  // --- Authentic Rift Layout & Lanes ---
+  // Top Lane (curves along left and top)
+  ctx.strokeStyle = "#16283c"; ctx.lineWidth = 16;
+  ctx.beginPath(); ctx.moveTo(70, 360); ctx.lineTo(70, 60); ctx.lineTo(650, 60); ctx.stroke();
+  // Mid Lane (diagonal straight)
+  ctx.beginPath(); ctx.moveTo(70, 360); ctx.lineTo(650, 60); ctx.stroke();
+  // Bot Lane (curves along bottom and right)
+  ctx.beginPath(); ctx.moveTo(70, 360); ctx.lineTo(650, 360); ctx.lineTo(650, 60); ctx.stroke();
 
-  // River
-  ctx.strokeStyle = "#1b3550"; ctx.lineWidth = 34;
-  ctx.beginPath(); ctx.moveTo(80, 20); ctx.lineTo(600, 360); ctx.stroke();
+  // River (diagonal from top-left-ish to bottom-right)
+  ctx.strokeStyle = "#1b3550"; ctx.lineWidth = 38;
+  ctx.beginPath(); ctx.moveTo(110, 20); ctx.lineTo(610, 400); ctx.stroke();
 
   // Bases (Blue bottom-left, Red top-right)
-  ctx.fillStyle = "rgba(30, 144, 255, 0.22)";
-  ctx.beginPath(); ctx.arc(50, 330, 40, 0, Math.PI*2); ctx.fill();
-  ctx.fillStyle = "rgba(255, 71, 87, 0.22)";
-  ctx.beginPath(); ctx.arc(630, 45, 40, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "rgba(30, 144, 255, 0.25)";
+  ctx.beginPath(); ctx.arc(blueBase.x, blueBase.y, 45, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "rgba(255, 71, 87, 0.25)";
+  ctx.beginPath(); ctx.arc(redBase.x, redBase.y, 45, 0, Math.PI*2); ctx.fill();
 
   // --- Objective Markers ---
-  // 1. Baron / Rift Herald Pit (Top-left river area: x=240, y=120)
+  // Baron / Rift Herald Pit
   ctx.fillStyle = "#9b59b6";
-  ctx.beginPath(); ctx.arc(240, 120, 12, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(objectivePositions.baron.x, objectivePositions.baron.y, 14, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#e0d0f0"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
-  ctx.fillText("🪱 바론/전령", 240, 98);
+  ctx.fillText("🪱 바론/전령", objectivePositions.baron.x, objectivePositions.baron.y - 18);
 
-  // 2. Voidgrubs Pit (Near Baron: x=190, y=100)
+  // Voidgrubs Pit
   ctx.fillStyle = "#e67e22";
-  ctx.beginPath(); ctx.arc(190, 100, 8, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(210, 100, 9, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#f8c471"; ctx.font = "10px sans-serif";
-  ctx.fillText("🐛 유충", 190, 84);
+  ctx.fillText("🐛 유충", 210, 84);
 
-  // 3. Dragon Pit (Bottom-right river area: x=460, y=260)
+  // Dragon Pit
   ctx.fillStyle = "#e74c3c";
-  ctx.beginPath(); ctx.arc(460, 260, 12, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(objectivePositions.dragon.x, objectivePositions.dragon.y, 14, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#f5b7b1"; ctx.font = "bold 11px sans-serif";
-  ctx.fillText("🐉 드래곤", 460, 286);
+  ctx.fillText("🐉 드래곤", objectivePositions.dragon.x, objectivePositions.dragon.y + 24);
 
   // Helper function to draw champion avatar node
   function drawChampNode(c, x, y, teamColor) {
    ctx.save();
    ctx.beginPath();
-   ctx.arc(x, y, 18, 0, Math.PI * 2);
+   ctx.arc(x, y, 19, 0, Math.PI * 2);
    ctx.closePath();
    ctx.clip();
 
    if (c.img && c.img.complete && c.img.naturalWidth !== 0) {
-    ctx.drawImage(c.img, x - 18, y - 18, 36, 36);
+    ctx.drawImage(c.img, x - 19, y - 19, 38, 38);
    } else {
     ctx.fillStyle = "#1b2a38";
-    ctx.fillRect(x - 18, y - 18, 36, 36);
+    ctx.fillRect(x - 19, y - 19, 38, 38);
     ctx.fillStyle = "#fff";
     ctx.font = "bold 11px sans-serif";
     ctx.textAlign = "center";
@@ -774,9 +789,9 @@ function runSimulationPlayback(){
 
    // Team border (Blue / Red)
    ctx.strokeStyle = teamColor;
-   ctx.lineWidth = 3.5;
+   ctx.lineWidth = 4;
    ctx.beginPath();
-   ctx.arc(x, y, 18, 0, Math.PI * 2);
+   ctx.arc(x, y, 19, 0, Math.PI * 2);
    ctx.stroke();
 
    // Ultimate Indicator (R)
@@ -784,29 +799,74 @@ function runSimulationPlayback(){
     ctx.strokeStyle = "#ffd36a";
     ctx.lineWidth = 2.5;
     ctx.beginPath();
-    ctx.arc(x, y, 22, 0, Math.PI * 2);
+    ctx.arc(x, y, 23, 0, Math.PI * 2);
     ctx.stroke();
 
     ctx.fillStyle = "#ffd36a";
     ctx.font = "bold 10px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("[ R ]", x, y - 24);
+    ctx.fillText("[ R ]", x, y - 25);
    }
   }
 
-  // Draw Blue Champions movement across map
+  // Calculate coordinates based on progress ratio (Game flow: Base -> Lanes -> Objectives -> Teamfights)
   const blueChamps = uniqueTeam(blue);
   blueChamps.forEach((c, idx) => {
-   const targetX = 100 + idx * 95 + Math.sin(progressRatio * Math.PI * 2 + idx) * 45;
-   const targetY = 280 - idx * 50 + Math.cos(progressRatio * Math.PI * 2 + idx) * 30;
+   const baseLane = lanePositions.blue[idx] || lanePositions.blue[0];
+   let targetX, targetY;
+
+   if (progressRatio <= 0.1) {
+    // Start at Blue Fountain Base
+    targetX = blueBase.x + (idx * 6) - 15;
+    targetY = blueBase.y - (idx * 6);
+   } else if (progressRatio <= 0.4) {
+    // Moving out to lanes
+    const t = (progressRatio - 0.1) / 0.3;
+    targetX = blueBase.x + (baseLane.x - blueBase.x) * t;
+    targetY = blueBase.y + (baseLane.y - blueBase.y) * t;
+   } else if (progressRatio <= 0.7) {
+    // Mid game objective skirmishes (Dragon / Baron)
+    const objTarget = (idx % 2 === 0) ? objectivePositions.dragon : objectivePositions.baron;
+    const t = (progressRatio - 0.4) / 0.3;
+    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.sin(progressRatio * Math.PI * 4 + idx) * 15;
+    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.cos(progressRatio * Math.PI * 4 + idx) * 15;
+   } else {
+    // Late game teamfights around mid / enemy base
+    const t = (progressRatio - 0.7) / 0.3;
+    targetX = objectivePositions.midTeamfight.x + (redBase.x - objectivePositions.midTeamfight.x) * t + Math.sin(idx) * 20;
+    targetY = objectivePositions.midTeamfight.y + (redBase.y - objectivePositions.midTeamfight.y) * t + Math.cos(idx) * 20;
+   }
+
    drawChampNode(c, targetX, targetY, "#1e90ff");
   });
 
-  // Draw Red Champions movement across map
   const redChamps = uniqueTeam(red);
   redChamps.forEach((c, idx) => {
-   const targetX = 580 - idx * 95 + Math.cos(progressRatio * Math.PI * 2 + idx) * 45;
-   const targetY = 90 + idx * 50 + Math.sin(progressRatio * Math.PI * 2 + idx) * 30;
+   const baseLane = lanePositions.red[idx] || lanePositions.red[0];
+   let targetX, targetY;
+
+   if (progressRatio <= 0.1) {
+    // Start at Red Fountain Base
+    targetX = redBase.x - (idx * 6) + 15;
+    targetY = redBase.y + (idx * 6);
+   } else if (progressRatio <= 0.4) {
+    // Moving out to lanes
+    const t = (progressRatio - 0.1) / 0.3;
+    targetX = redBase.x + (baseLane.x - redBase.x) * t;
+    targetY = redBase.y + (baseLane.y - redBase.y) * t;
+   } else if (progressRatio <= 0.7) {
+    // Mid game objective skirmishes
+    const objTarget = (idx % 2 === 0) ? objectivePositions.dragon : objectivePositions.baron;
+    const t = (progressRatio - 0.4) / 0.3;
+    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.cos(progressRatio * Math.PI * 4 + idx) * 15;
+    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.sin(progressRatio * Math.PI * 4 + idx) * 15;
+   } else {
+    // Late game teamfights
+    const t = (progressRatio - 0.7) / 0.3;
+    targetX = objectivePositions.midTeamfight.x + (blueBase.x - objectivePositions.midTeamfight.x) * t + Math.cos(idx) * 20;
+    targetY = objectivePositions.midTeamfight.y + (blueBase.y - objectivePositions.midTeamfight.y) * t + Math.sin(idx) * 20;
+   }
+
    drawChampNode(c, targetX, targetY, "#ff4757");
   });
  }
