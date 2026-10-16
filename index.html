@@ -249,7 +249,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   border: 1px solid #1e3142;
   border-radius: 10px;
   padding: 12px;
-  height: 180px;
+  height: 140px;
   overflow-y: auto;
   font-family: monospace;
   font-size: 13px;
@@ -271,7 +271,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <body>
 <header>
 <h1>⚔️ 협곡 전략 연구소 — Ultimate Meta Edition</h1>
-<p class="sub">전체 챔피언 검색 · 플레이어 티어 설정 · 실전 메타 조합 프리셋 및 랜덤 추천 · 10배속 라이브 관전 시뮬레이터</p>
+<p class="sub">전체 챔피언 검색 · 플레이어 티어 설정 · 미니맵 전투 관전 시뮬레이터</p>
 </header>
 
 <div class="wrap">
@@ -284,7 +284,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 
 <!-- PAGE 1: BUILDER -->
 <section class="page active" id="builder">
-<div class="notice">💡 검색창에 챔피언 이름을 입력해 모든 챔피언을 선택하고, 프로 경기/솔로랭크 메타 조합 프리셋이나 랜덤 조합을 불러와 보세요.</div>
+<div class="notice">💡 검색창에 챔피언 이름을 입력하여 모든 챔피언을 빠르고 정확하게 검색할 수 있습니다.</div>
 
 <div class="preset-bar">
 <span>🔥 실전 메타 조합 & 랜덤:</span>
@@ -328,7 +328,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <section class="page" id="lanes">
 <div class="panel">
 <h2>라인별 상성 분석</h2>
-<p class="muted">모든 챔피언 검색 및 티어를 선택하여 상성 구도를 확인하세요.</p>
+<p class="muted">챔피언 검색 및 티어를 선택하여 상성 구도를 확인하세요.</p>
 <div class="grid2">
 <div class="field"><label>라인 선택</label><select id="lanePick"><option value="TOP">탑</option><option value="JUNGLE">정글</option><option value="MID">미드</option><option value="ADC">바텀 원딜</option><option value="SUPPORT">서포터</option></select></div>
 <div class="field"><label>게임 단계</label><select id="laneTime"><option value="early">초반 라인전</option><option value="mid">중반 교전</option><option value="late">후반 한타</option></select></div>
@@ -343,21 +343,21 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <!-- PAGE 3: SIMULATOR -->
 <section class="page" id="sim">
 <div class="panel">
-<h2>10배속 라이브 전투 시뮬레이터</h2>
-<p class="muted">선택한 조합과 플레이어 티어를 바탕으로, 실제 경기 타임라인을 10배속으로 빠르게 관전합니다.</p>
+<h2>10배속 전투 시뮬레이터</h2>
+<p class="muted">선택한 조합과 티어를 바탕으로, 미니맵 상에서 팀 색상 태두리의 캐릭터들이 이동하며 교전하는 모습을 10배속으로 관전합니다.</p>
 <div class="grid3">
 <div class="field"><label>교전 개시 방식</label><select id="engage"><option value="blue">블루 팀 선진입 (이니시에이팅)</option><option value="red">레드 팀 선진입 (이니시에이팅)</option><option value="poke">포킹 및 거리 조절 후 개시</option><option value="flank">측면 기습 및 백도어 시도</option><option value="front">정면 5:5 대치 후 한타</option></select></div>
 <div class="field"><label>블루 팀 시야 장악력</label><select id="blueVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
 <div class="field"><label>레드 팀 시야 장악력</label><select id="redVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
 </div>
 <div class="controls">
-<button class="btn" id="runSimPlayback">▶ 10배속 라이브 시뮬레이션 시작</button>
+<button class="btn" id="runSimPlayback">▶ 10배속 미니맵 관전 시작</button>
 </div>
 
 <div id="simPlaybackContainer" style="display:none;">
  <div class="playback-box">
   <div class="playback-header">
-   <h3 style="margin:0; color:var(--gold);">🎮 실시간 경기 관전 중 (10배속 재생)</h3>
+   <h3 style="margin:0; color:var(--gold);">🎮 미니맵 실시간 관전 중 (10배속 재생)</h3>
    <span id="pbStatus" class="pill">진행 중...</span>
   </div>
   <div class="live-scoreboard">
@@ -365,6 +365,9 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
    <span id="gameTimerDisplay" style="color:var(--muted)">00:00</span>
    <span class="red">🔴 레드 팀 킬: <b id="redKills">0</b></span>
   </div>
+  <!-- Mini-map Canvas -->
+  <canvas id="simCanvas" width="480" height="280" style="width:100%; max-width:480px; background:#08101a; border-radius:12px; border:2px solid #2a3f55; display:block; margin:0 auto 14px;"></canvas>
+
   <div class="progress-container">
    <div id="pbProgress" class="progress-fill"></div>
   </div>
@@ -403,12 +406,11 @@ const TIERS=[
 ];
 
 const FALLBACK=[
-["Aatrox","아트록스","Fighter"],["Ahri","아리","Mage,Assassin"],["Akali","아칼리","Assassin"],["Alistar","알리스타","Tank,Support"],["Amumu","아무무","Tank,Support"],["Annie","애니","Mage"],["Ashe","애쉬","Marksman,Support"],["AurelionSol","아우렐리온 솔","Mage"],["Blitzcrank","블리츠크랭크","Tank,Support"],["Braum","브라움","Tank,Support"],["Caitlyn","케이틀린","Marksman"],["Camille","카밀","Fighter,Assassin"],["Darius","다리우스","Fighter,Tank"],["Diana","다이애나","Fighter,Mage"],["DrMundo","문도 박사","Fighter,Tank"],["Ekko","에코","Assassin,Mage"],["Ezreal","이즈리얼","Marksman,Mage"],["Fiora","피오라","Fighter,Assassin"],["Garen","가렌","Fighter,Tank"],["Gnar","나르","Fighter,Tank"],["Gragas","그라가스","Fighter,Mage,Tank"],["Graves","그레이브즈","Marksman,Fighter"],["Hecarim","헤카림","Fighter"],["Irelia","이렐리아","Fighter,Assassin"],["Janna","잔나","Support,Mage"],["JarvanIV","자르반 4세","Tank,Fighter"],["Jax","잭스","Fighter"],["Jhin","진","Marksman,Mage"],["Jinx","징크스","Marksman"],["KaiSa","카이사","Marksman,Assassin"],["Kalista","칼리스타","Marksman"],["Karma","카르마","Mage,Support"],["Kassadin","카사딘","Assassin,Mage"],["Katarina","카타리나","Assassin,Mage"],["Kayle","케일","Mage,Marksman"],["Kayn","케인","Fighter,Assassin"],["Kennen","케넨","Mage,Marksman"],["KhaZix","카직스","Assassin"],["Kindred","킨드레드","Marksman"],["Kled","클레드","Fighter"],["LeBlanc","르블랑","Assassin,Mage"],["LeeSin","리 신","Fighter,Assassin"],["Leona","레오나","Tank,Support"],["Lillia","릴리아","Fighter,Mage"],["Lissandra","리산드라","Mage"],["Lucian","루시안","Marksman"],["Lulu","룰루","Support,Mage"],["Lux","럭스","Mage,Support"],["Malphite","말파이트","Tank,Mage"],["Maokai","마오카이","Tank,Support"],["MissFortune","미스 포츈","Marksman"],["Mordekaiser","모데카이저","Fighter,Mage"],["Morgana","모르가나","Mage,Support"],["Nami","나미","Support,Mage"],["Nasus","나서스","Fighter,Tank"],["Nautilus","노틸러스","Tank,Support"],["Neeko","니코","Mage,Support"],["Nidalee","니달리","Mage,Assassin"],["Nocturne","녹턴","Assassin,Fighter"],["Olaf","올라프","Fighter,Tank"],["Orianna","오리아나","Mage,Support"],["Ornn","오른","Tank"],["Pantheon","판테온","Fighter,Assassin"],["Poppy","뽀삐","Tank,Fighter"],["Pyke","파이크","Support,Assassin"],["Rakan","라칸","Support,Tank"],["Rammus","람머스","Tank"],["RekSai","렉사이","Fighter"],["Renekton","레넥톤","Fighter,Tank"],["Rengar","렝가","Assassin"],["Riven","리븐","Fighter,Assassin"],["Rumble","럼블","Fighter,Mage"],["Ryze","라이즈","Mage"],["Samira","사미라","Marksman,Assassin"],["Sejuani","세주아니","Tank"],["Senna","세나","Marksman,Support"],["Seraphine","세라핀","Mage,Support"],["Sett","세트","Fighter,Tank"],["Shen","쉔","Tank,Support"],["Shyvana","쉬바나","Fighter,Mage"],["Sion","사이온","Tank"],["Sivir","시비르","Marksman"],["Skarner","스카너","Tank,Fighter"],["Smolder","스몰더","Marksman"],["Sona","소나","Support,Mage"],["Soraka","소라카","Support,Mage"],["Swain","스웨인","Mage,Tank"],["Sylas","사일러스","Mage,Fighter"],["Syndra","신드라","Mage"],["TahmKench","탐 켄치","Tank,Support"],["Taliyah","탈리야","Mage,Support"],["Talon","탈론","Assassin"],["Taric","타릭","Support,Tank"],["Teemo","티모","Marksman,Mage"],["Thresh","쓰레쉬","Support,Tank"],["Tristana","트리스타나","Marksman,Assassin"],["Trundle","트런들","Fighter,Tank"],["Tryndamere","트린다미어","Fighter,Assassin"],["TwistedFate","트위스티드 페이트","Mage"],["Twitch","트위치","Marksman,Assassin"],["Udyr","우디르","Fighter,Tank"],["Urgot","우르곳","Fighter,Tank"],["Varus","바루스","Marksman,Mage"],["Vayne","베인","Marksman,Assassin"],["Veigar","베이가","Mage"],["Velkoz","벨코즈","Mage"],["Vex","벡스","Mage"],["Vi","바이","Fighter"],["Viego","비에고","Fighter,Assassin"],["Viktor","빅토르","Mage"],["Vladimir","블라디미르","Mage"],["Volibear","볼리베어","Fighter,Tank"],["Warwick","워윅","Fighter,Tank"],["Wukong","오공","Fighter,Tank"],["Xayah","자야","Marksman"],["Xerath","제라스","Mage"],["XinZhao","신 짜오","Fighter"],["Yasuo","야스오","Fighter,Assassin"],["Yone","요네","Fighter,Assassin"],["Yorick","요릭","Fighter,Tank"],["Yuumi","유미","Support,Mage"],["Zac","자크","Tank"],["Zed","제드","Assassin"],["Zeri","제리","Marksman"],["Ziggs","직с","Mage,Marksman"],["Zilean","질리언","Support,Mage"],["Zoe","조이","Mage"],["Zyra","자이라","Mage,Support"]
+["Aatrox","아트록스","Fighter"],["Ahri","아리","Mage,Assassin"],["Akali","아칼리","Assassin"],["Alistar","알리스타","Tank,Support"],["Amumu","아무무","Tank,Support"],["Annie","애니","Mage"],["Ashe","애쉬","Marksman,Support"],["AurelionSol","아우렐리온 솔","Mage"],["Blitzcrank","블리츠크랭크","Tank,Support"],["Braum","브라움","Tank,Support"],["Caitlyn","케이틀린","Marksman"],["Camille","카밀","Fighter,Assassin"],["Darius","다리우스","Fighter,Tank"],["Diana","다이애나","Fighter,Mage"],["DrMundo","문도 박사","Fighter,Tank"],["Ekko","에코","Assassin,Mage"],["Ezreal","이즈리얼","Marksman,Mage"],["Fiora","피오라","Fighter,Assassin"],["Garen","가렌","Fighter,Tank"],["Gnar","나르","Fighter,Tank"],["Gragas","그라가스","Fighter,Mage,Tank"],["Graves","그레이브즈","Marksman,Fighter"],["Hecarim","헤카림","Fighter"],["Irelia","이렐리아","Fighter,Assassin"],["Janna","잔나","Support,Mage"],["JarvanIV","자르반 4세","Tank,Fighter"],["Jax","잭스","Fighter"],["Jhin","진","Marksman,Mage"],["Jinx","징크스","Marksman"],["KaiSa","카이사","Marksman,Assassin"],["Kalista","칼리스타","Marksman"],["Karma","카르마","Mage,Support"],["Kassadin","카사딘","Assassin,Mage"],["Katarina","카타리나","Assassin,Mage"],["Kayle","케일","Mage,Marksman"],["Kayn","케인","Fighter,Assassin"],["Kennen","케넨","Mage,Marksman"],["KhaZix","카직스","Assassin"],["Kindred","킨드레드","Marksman"],["Kled","클레드","Fighter"],["LeBlanc","르블랑","Assassin,Mage"],["LeeSin","리 신","Fighter,Assassin"],["Leona","레오나","Tank,Support"],["Lillia","릴리아","Fighter,Mage"],["Lissandra","리산드라","Mage"],["Lucian","루시안","Marksman"],["Lulu","룰루","Support,Mage"],["Lux","럭스","Mage,Support"],["Malphite","말파이트","Tank,Mage"],["Maokai","마오카이","Tank,Support"],["MissFortune","미스 포츈","Marksman"],["Mordekaiser","모데카이저","Fighter,Mage"],["Morgana","모르가나","Mage,Support"],["Nami","나미","Support,Mage"],["Nasus","나서스","Fighter,Tank"],["Nautilus","노틸러스","Tank,Support"],["Neeko","니코","Mage,Support"],["Nidalee","니달리","Mage,Assassin"],["Nocturne","녹턴","Assassin,Fighter"],["Olaf","올라프","Fighter,Tank"],["Orianna","오리아나","Mage,Support"],["Ornn","오른","Tank"],["Pantheon","판테온","Fighter,Assassin"],["Poppy","뽀삐","Tank,Fighter"],["Pyke","파이크","Support,Assassin"],["Rakan","라칸","Support,Tank"],["Rammus","람머스","Tank"],["RekSai","렉사이","Fighter"],["Renekton","레넥톤","Fighter,Tank"],["Rengar","렝가","Assassin"],["Riven","리븐","Fighter,Assassin"],["Rumble","럼블","Fighter,Mage"],["Ryze","라이즈","Mage"],["Samira","사미라","Marksman,Assassin"],["Sejuani","세주아니","Tank"],["Senna","세나","Marksman,Support"],["Seraphine","세라핀","Mage,Support"],["Sett","세트","Fighter,Tank"],["Shen","쉔","Tank,Support"],["Shyvana","쉬바나","Fighter,Mage"],["Sion","사이온","Tank"],["Sivir","시비르","Marksman"],["Skarner","스카너","Tank,Fighter"],["Smolder","스몰더","Marksman"],["Sona","소나","Support,Mage"],["Soraka","소라카","Support,Mage"],["Swain","스웨인","Mage,Tank"],["Sylas","사일러스","Mage,Fighter"],["Syndra","신드라","Mage"],["TahmKench","탐 켄치","Tank,Support"],["Taliyah","탈리야","Mage,Support"],["Talon","탈론","Assassin"],["Taric","타릭","Support,Tank"],["Teemo","티모","Marksman,Mage"],["Thresh","쓰레쉬","Support,Tank"],["Tristana","트리스타나","Marksman,Assassin"],["Trundle","트런들","Fighter,Tank"],["Tryndamere","트린다미어","Fighter,Assassin"],["TwistedFate","트위스티드 페이트","Mage"],["Twitch","트위치","Marksman,Assassin"],["Udyr","우디르","Fighter,Tank"],["Urgot","우르곳","Fighter,Tank"],["Varus","바루스","Marksman,Mage"],["Vayne","베인","Marksman,Assassin"],["Veigar","베이가","Mage"],["Velkoz","벨코즈","Mage"],["Vex","벡스","Mage"],["Vi","바이","Fighter"],["Viego","비에고","Fighter,Assassin"],["Viktor","빅토르","Mage"],["Vladimir","블라디미르","Mage"],["Volibear","볼리베어","Fighter,Tank"],["Warwick","워윅","Fighter,Tank"],["Wukong","오공","Fighter,Tank"],["Xayah","자야","Marksman"],["Xerath","제라스","Mage"],["XinZhao","신 짜오","Fighter"],["Yasuo","야스오","Fighter,Assassin"],["Yone","요네","Fighter,Assassin"],["Yorick","요릭","Fighter,Tank"],["Yuumi","유미","Support,Mage"],["Zac","자크","Tank"],["Zed","제드","Assassin"],["Zeri","제리","Marksman"],["Ziggs","직스","Mage,Marksman"],["Zilean","질리언","Support,Mage"],["Zoe","조이","Mage"],["Zyra","자이라","Mage,Support"]
 ];
 
 const EXTRA={};
 
-// Expanded real LoL meta team compositions presets library
 const PRESETS = {
   dive: { blue: ["오른", "자르반 4세", "아리", "카이사", "레오나"], red: ["말파이트", "신 짜오", "오리아나", "진", "노틸러스"] },
   poke: { blue: ["아트록스", "니달리", "제라스", "바루스", "카르마"], red: ["레넥톤", "리 신", "아리", "케이틀린", "럭스"] },
@@ -458,22 +460,29 @@ function renderSlots(color){
   const search=document.createElement("input");search.type="search";search.className="picker-search";search.placeholder="챔피언 검색…";
   
   const s=document.createElement("select");s.className="champ";s.id=color+"_"+key;
-  s.innerHTML='<option value="미선택">— 챔피언 선택 —</option>'+champs.slice().sort((a,b)=>a.name.localeCompare(b.name,"ko")).map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
   
+  function populateSelect(filterText="") {
+   const q = filterText.trim().toLowerCase();
+   const filtered = champs.filter(c => c.name.toLowerCase().includes(q));
+   s.innerHTML = '<option value="미선택">— 챔피언 선택 —</option>' + filtered.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+  }
+  
+  populateSelect();
+
   search.addEventListener("input",()=>{
-   const q=search.value.trim().toLocaleLowerCase("ko");
-   [...s.options].forEach((o,i)=>{
-    if(i===0) { o.hidden = false; return; }
-    const match = o.text.toLocaleLowerCase("ko").includes(q);
-    o.hidden = !match;
-   });
-   if(q){
-    const firstMatch = [...s.options].find((o,i)=>i>0 && !o.hidden);
-    if(firstMatch) { s.value = firstMatch.value; }
+   const curVal = s.value;
+   populateSelect(search.value);
+   if([...s.options].some(o => o.value === curVal)) {
+    s.value = curVal;
    }
   });
 
-  s.addEventListener("change",()=>{if(s.value!=="미선택")search.value=s.value;});
+  s.addEventListener("change",()=>{
+   if(s.value!=="미선택") {
+    search.value = s.value;
+   }
+  });
+
   wrap.append(search,s);
 
   const ts=document.createElement("select");ts.className="tier-select";ts.id=color+"_"+key+"_tier";
@@ -484,7 +493,12 @@ function renderSlots(color){
 }
 
 function esc(s){return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
-function fillChampionSelect(id,initial){const s=$(id);s.innerHTML=champs.slice().sort((a,b)=>a.name.localeCompare(b.name,"ko")).map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");if(initial)s.value=initial;}
+
+function fillChampionSelect(id,initial){
+ const s=$(id);
+ s.innerHTML='<option value="미선택">— 챔피언 선택 —</option>'+champs.slice().sort((a,b)=>a.name.localeCompare(b.name,"ko")).map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+ if(initial)s.value=initial;
+}
 
 function total(team,key){return uniqueTeam(team).reduce((a,c)=>a+profile(c, c.tierVal)[key],0)}
 
@@ -577,6 +591,7 @@ function loadRandomPreset(){
  analysis();
 }
 
+// 10x Speed Canvas Map Simulation Playback
 function runSimulationPlayback(){
  const blue=getTeam("blue"),red=getTeam("red");
  if(uniqueTeam(blue).length===0||uniqueTeam(red).length===0){
@@ -609,6 +624,79 @@ function runSimulationPlayback(){
   {m: "31:00", text: "상대 본진 압박 및 억제기 파괴, 넥서스 공략!"}
  ];
 
+ const canvas = $("simCanvas");
+ const ctx = canvas.getContext("2d");
+
+ function drawMap(progressRatio) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Background map
+  ctx.fillStyle = "#0c1520";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // River
+  ctx.strokeStyle = "#1b324a";
+  ctx.lineWidth = 24;
+  ctx.beginPath();
+  ctx.moveTo(60, 20), ctx.lineTo(420, 260);
+  ctx.stroke();
+
+  // Lanes
+  ctx.strokeStyle = "#152535";
+  ctx.lineWidth = 10;
+  ctx.beginPath(); ctx.moveTo(40, 240); ctx.lineTo(40, 30); ctx.lineTo(450, 30); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(40, 240); ctx.lineTo(440, 40); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(40, 240); ctx.lineTo(440, 240); ctx.lineTo(440, 30); ctx.stroke();
+
+  // Bases
+  ctx.fillStyle = "rgba(30, 144, 255, 0.2)";
+  ctx.beginPath(); ctx.arc(40, 240, 28, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "rgba(255, 71, 87, 0.2)";
+  ctx.beginPath(); ctx.arc(440, 40, 28, 0, Math.PI*2); ctx.fill();
+
+  // Draw Blue Champions (Team color border: #1e90ff)
+  const blueChamps = uniqueTeam(blue);
+  blueChamps.forEach((c, idx) => {
+   const targetX = 100 + idx * 60 + Math.sin(progressRatio * Math.PI + idx) * 30;
+   const targetY = 200 - idx * 35 + Math.cos(progressRatio * Math.PI + idx) * 20;
+   
+   ctx.fillStyle = "#111d2b";
+   ctx.strokeStyle = "#1e90ff";
+   ctx.lineWidth = 3;
+   ctx.beginPath();
+   ctx.arc(targetX, targetY, 14, 0, Math.PI * 2);
+   ctx.fill();
+   ctx.stroke();
+
+   ctx.fillStyle = "#f0f6fc";
+   ctx.font = "bold 10px sans-serif";
+   ctx.textAlign = "center";
+   ctx.textBaseline = "middle";
+   ctx.fillText(c.name.slice(0, 2), targetX, targetY);
+  });
+
+  // Draw Red Champions (Team color border: #ff4757)
+  const redChamps = uniqueTeam(red);
+  redChamps.forEach((c, idx) => {
+   const targetX = 380 - idx * 60 + Math.cos(progressRatio * Math.PI + idx) * 30;
+   const targetY = 80 + idx * 35 + Math.sin(progressRatio * Math.PI + idx) * 20;
+
+   ctx.fillStyle = "#111d2b";
+   ctx.strokeStyle = "#ff4757";
+   ctx.lineWidth = 3;
+   ctx.beginPath();
+   ctx.arc(targetX, targetY, 14, 0, Math.PI * 2);
+   ctx.fill();
+   ctx.stroke();
+
+   ctx.fillStyle = "#f0f6fc";
+   ctx.font = "bold 10px sans-serif";
+   ctx.textAlign = "center";
+   ctx.textBaseline = "middle";
+   ctx.fillText(c.name.slice(0, 2), targetX, targetY);
+  });
+ }
+
  let step = 0;
  const timer = setInterval(()=>{
   if(step >= events.length){
@@ -617,12 +705,16 @@ function runSimulationPlayback(){
    $("pbStatus").textContent = "시뮬레이션 종료 (" + winner + ")";
    logStream.innerHTML += `<div class="log-item" style="color:var(--gold); font-weight:bold;">[경기 종료] ${winner}</div>`;
    logStream.scrollTop = logStream.scrollHeight;
+   drawMap(1.0);
    return;
   }
 
   const ev = events[step];
+  const ratio = (step + 1) / events.length;
   $("gameTimerDisplay").textContent = ev.m;
-  $("pbProgress").style.width = ((step + 1) / events.length * 100) + "%";
+  $("pbProgress").style.width = (ratio * 100) + "%";
+
+  drawMap(ratio);
 
   let bkInc = Math.random() > 0.4 ? Math.floor(Math.random() * 2) : 0;
   let rkInc = Math.random() > 0.4 ? Math.floor(Math.random() * 2) : 0;
@@ -649,7 +741,13 @@ function setup(){
  $("analyzeBtn").onclick=analysis;
  $("laneAnalyze").onclick=analyzeLane;
  $("runSimPlayback").onclick=runSimulationPlayback;
- $("clearBtn").onclick=()=>{document.querySelectorAll(".champ").forEach(x=>x.value="미선택");document.querySelectorAll(".picker-search").forEach(x=>x.value="");$("analysisOutput").innerHTML="";$("simPlaybackContainer").style.display="none";};
+ $("clearBtn").onclick=()=>{
+  document.querySelectorAll(".champ").forEach(x=>x.value="미선택");
+  document.querySelectorAll(".picker-search").forEach(x=>x.value="");
+  renderSlots("blue"); renderSlots("red");
+  $("analysisOutput").innerHTML="";
+  $("simPlaybackContainer").style.display="none";
+ };
 }
 setup();
 </script>
