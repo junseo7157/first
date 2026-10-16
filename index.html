@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080f18">
-<title>협곡 전략 연구소 - Advanced</title>
+<title>협곡 전략 연구소 - Ultimate Edition</title>
 <style>
 :root{
   --bg: #080f18;
-  --panel: rgba(17, 27, 40, 0.85);
+  --panel: rgba(17, 27, 40, 0.9);
   --panel2: #142232;
   --line: #2a3f55;
   --text: #f0f6fc;
@@ -31,7 +31,7 @@ body{
 }
 header{
   padding:28px 16px 16px;
-  max-width:1300px;
+  max-width:1350px;
   margin:auto;
   text-align: center;
 }
@@ -45,7 +45,7 @@ header h1{
 }
 .sub{color:var(--muted);margin:0;font-size:15px;letter-spacing:-0.3px}
 
-.wrap{max-width:1300px;margin:auto;padding:0 16px 40px}
+.wrap{max-width:1350px;margin:auto;padding:0 16px 40px}
 
 /* Tabs */
 .tabs{
@@ -56,7 +56,7 @@ header h1{
   position:sticky;
   top:0;
   z-index:100;
-  background: rgba(8, 15, 24, 0.9);
+  background: rgba(8, 15, 24, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
   margin-bottom: 16px;
@@ -103,11 +103,11 @@ header h1{
 .red{color:#ff7777}
 
 .slots{display:grid;gap:10px}
-.slot{display:grid;grid-template-columns:60px minmax(0,1fr);gap:10px;align-items:center}
+.slot{display:grid;grid-template-columns:55px minmax(0,1fr) 110px;gap:8px;align-items:center}
 .lane{color:var(--muted);font-size:13px;font-weight:600}
 
 .picker{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;position:relative}
-.picker-search, .champ, .field input, .field select, .field textarea{
+.picker-search, .champ, .tier-select, .field input, .field select, .field textarea{
   width:100%;
   background:#0b141e;
   color:var(--text);
@@ -115,15 +115,15 @@ header h1{
   border-radius:10px;
   padding:10px 12px;
   font:inherit;
-  font-size:14px;
+  font-size:13px;
   outline:none;
   transition: all 0.2s;
 }
-.picker-search:focus, .champ:focus, .field input:focus, .field select:focus{
+.picker-search:focus, .champ:focus, .tier-select:focus, .field input:focus, .field select:focus{
   border-color:var(--blue);
   box-shadow: 0 0 0 3px var(--blue-glow);
 }
-.picker-search{padding:8px 10px;font-size:13px;margin-bottom:2px}
+.picker-search{padding:7px 10px;font-size:12px;margin-bottom:2px}
 
 .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .btn{
@@ -163,8 +163,6 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 
 .pill{display:inline-block;border:1px solid #3d5668;color:#cde5f5;background:#122433;border-radius:999px;padding:4px 10px;font-size:12px;margin:2px;font-weight:500}
 .result{white-space:normal;line-height:1.7;color:#dce7ee}
-.result ul{padding-left:20px;margin:8px 0}
-.result li{margin:6px 0}
 
 .notice{
   border-left:3px solid var(--gold);
@@ -180,70 +178,129 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 .linehead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:4px}
 .small{font-size:12px;color:var(--muted)}
 
-/* Simulation Timelines & MVP styling */
-.sim-stage {
-  border-left: 3px solid var(--blue);
-  padding: 4px 0 12px 14px;
-  margin: 12px 0;
-  position: relative;
-}
-.sim-stage.red-edge { border-left-color: var(--red); }
-.sim-stage h4 { margin: 0 0 6px; font-size: 15px; color: var(--gold); display: flex; align-items: center; gap: 6px; }
-.mvp-box {
-  background: linear-gradient(135deg, rgba(241,196,15,0.15), rgba(17,27,40,0.9));
-  border: 1px solid var(--gold);
-  border-radius: 12px;
-  padding: 14px;
-  margin-top: 14px;
+/* Preset selector bar */
+.preset-bar {
   display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  background: #0d1622;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
   align-items: center;
-  gap: 16px;
 }
-.mvp-badge {
-  background: var(--gold);
-  color: #111;
-  font-weight: 800;
+.preset-bar span { font-size: 13px; color: var(--gold); font-weight: 600; margin-right: 4px; }
+.preset-btn {
+  background: #182b3d;
+  border: 1px solid #3b5975;
+  color: var(--text);
   padding: 6px 12px;
   border-radius: 8px;
-  font-size: 13px;
-  letter-spacing: 0.5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
+.preset-btn:hover { background: #24425e; border-color: var(--blue); }
 
-.recommend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.rec-card{background:#0b141e;border:1px solid #2a4051;border-radius:12px;padding:14px}
-.rec-card h3{margin:0 0 8px;color:#9ed8ff;font-size:15px}
+/* Simulation Playback UI */
+.playback-box {
+  background: #0b131d;
+  border: 1px solid #324c63;
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 14px;
+}
+.playback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.live-scoreboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111d2a;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 1px solid var(--line);
+  margin-bottom: 14px;
+}
+.progress-container {
+  height: 10px;
+  background: #162536;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  border: 1px solid #2b445c;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1e90ff, #2ecc71, #f1c40f);
+  width: 0%;
+  transition: width 0.2s linear;
+}
+.log-stream {
+  background: #070d14;
+  border: 1px solid #1e3142;
+  border-radius: 10px;
+  padding: 12px;
+  height: 180px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #c9dff5;
+}
+.log-item { margin-bottom: 6px; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 4px; }
+.log-time { color: var(--gold); font-weight: bold; margin-right: 8px; }
+
 .footer{color:var(--muted);font-size:12px;line-height:1.6;padding:20px 0;text-align:center;border-top:1px solid var(--line);margin-top:30px}
 
-@media(max-width:750px){
-  .grid2,.grid3,.recommend-grid{grid-template-columns:1fr}
+@media(max-width:800px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .slot{grid-template-columns:45px minmax(0,1fr) 95px}
   .panel{padding:14px}
 }
 </style>
 </head>
 <body>
 <header>
-<h1>⚔️ 협곡 전략 연구소</h1>
-<p class="sub">팀 조합 · 라인 상성 · 심층 전투 시뮬레이션 · 맞춤형 전술 분석</p>
+<h1>⚔️ 협곡 전략 연구소 — Ultimate Edition</h1>
+<p class="sub">전체 챔피언 검색 · 플레이어 티어 설정 · 메타 조합 프리셋 · 10배속 라이브 관전 시뮬레이터</p>
 </header>
 
 <div class="wrap">
 <div class="tabs">
-<button class="tab active" data-page="builder">팀 조합 & 분석</button>
+<button class="tab active" data-page="builder">팀 조합 & 티어 분석</button>
 <button class="tab" data-page="lanes">라인별 카운터</button>
-<button class="tab" data-page="sim">심층 전투 시뮬레이터</button>
+<button class="tab" data-page="sim">10배속 전투 시뮬레이터</button>
 <button class="tab" data-page="guide">전략 도감</button>
 </div>
 
 <!-- PAGE 1: BUILDER -->
 <section class="page active" id="builder">
-<div class="notice">💡 조합 분석은 챔피언 역할 태그 및 전술 알고리즘을 이용한 참고용 추정치입니다. 실제 승률 및 패치 메타에 따라 달라질 수 있습니다.</div>
+<div class="notice">💡 검색창에 챔피언 이름을 입력하여 모든 챔피언을 빠르게 찾고, 플레이어의 솔로랭크 티어를 지정해 보세요.</div>
+
+<div class="preset-bar">
+<span>🔥 실전 메타 조합 불러오기:</span>
+<button class="preset-btn" onclick="loadPreset('dive')">돌진 한타 조합</button>
+<button class="preset-btn" onclick="loadPreset('poke')">포킹 & 오브젝트 조합</button>
+<button class="preset-btn" onclick="loadPreset('protect')">원딜 캐리 보호 조합</button>
+<button class="preset-btn" onclick="loadPreset('global')">글로벌 합류 조합</button>
+<button class="preset-btn" onclick="loadPreset('split')">사이드 스플릿 조합</button>
+</div>
+
 <div class="grid2" style="margin-top:12px">
 <div class="panel">
-<div class="teamtitle"><h2 class="blue">🔵 블루 팀</h2><span class="small">아군 조합</span></div>
+<div class="teamtitle"><h2 class="blue">🔵 블루 팀</h2><span class="small">아군 조합 & 티어</span></div>
 <div id="blueSlots" class="slots"></div>
 </div>
 <div class="panel">
-<div class="teamtitle"><h2 class="red">🔴 레드 팀</h2><span class="small">상대 조합</span></div>
+<div class="teamtitle"><h2 class="red">🔴 레드 팀</h2><span class="small">상대 조합 & 티어</span></div>
 <div id="redSlots" class="slots"></div>
 </div>
 </div>
@@ -256,8 +313,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <div class="field"><label for="objective">주요 전투 장소</label><select id="objective"><option value="river">강 / 중립 오브젝트 (용·바론)</option><option value="jungle">좁은 정글 입구 (한타 유리)</option><option value="lane">넓은 라인 / 스플릿</option><option value="siege">포탑 공성전</option></select></div>
 </div>
 <div class="controls">
-<button class="btn" id="analyzeBtn">⚡ 전체 조합 심층 분석</button>
-<button class="btn secondary" id="randomBtn">🎲 예시 조합 불러오기</button>
+<button class="btn" id="analyzeBtn">⚡ 티어 반영 전체 심층 분석</button>
 <button class="btn secondary" id="clearBtn">🗑️ 초기화</button>
 </div>
 </div>
@@ -268,7 +324,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <section class="page" id="lanes">
 <div class="panel">
 <h2>라인별 상성 분석</h2>
-<p class="muted">챔피언 이름을 검색하거나 선택하여 1대1 라인전 상성 및 추천 룬·스펠을 확인하세요.</p>
+<p class="muted">모든 챔피언 검색 및 티어를 선택하여 상성 구도를 확인하세요.</p>
 <div class="grid2">
 <div class="field"><label>라인 선택</label><select id="lanePick"><option value="TOP">탑</option><option value="JUNGLE">정글</option><option value="MID">미드</option><option value="ADC">바텀 원딜</option><option value="SUPPORT">서포터</option></select></div>
 <div class="field"><label>게임 단계</label><select id="laneTime"><option value="early">초반 라인전</option><option value="mid">중반 교전</option><option value="late">후반 한타</option></select></div>
@@ -283,19 +339,33 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <!-- PAGE 3: SIMULATOR -->
 <section class="page" id="sim">
 <div class="panel">
-<h2>심층 전투 시뮬레이터</h2>
-<p class="muted">조합 페이지에서 선택한 양팀의 라인업을 바탕으로, 페이즈별 전투 양상과 MVP, 킬 교환비를 시뮬레이션합니다.</p>
+<h2>10배속 라이브 전투 시뮬레이터</h2>
+<p class="muted">선택한 조합과 플레이어 티어를 바탕으로, 실제 경기 타임라인을 10배속으로 빠르게 관전합니다.</p>
 <div class="grid3">
 <div class="field"><label>교전 개시 방식</label><select id="engage"><option value="blue">블루 팀 선진입 (이니시에이팅)</option><option value="red">레드 팀 선진입 (이니시에이팅)</option><option value="poke">포킹 및 거리 조절 후 개시</option><option value="flank">측면 기습 및 백도어 시도</option><option value="front">정면 5:5 대치 후 한타</option></select></div>
-<div class="field"><label>블루 팀 시야 장악력</label><select id="blueVision"><option value="poor">부족 (시야 암흑)</option><option value="even" selected>비슷함</option><option value="good">우위 (와드 장악)</option></select></div>
-<div class="field"><label>레드 팀 시야 장악력</label><select id="redVision"><option value="poor">부족 (시야 암흑)</option><option value="even" selected>비슷함</option><option value="good">우위 (와드 장악)</option></select></div>
-<div class="field"><label>블루 팀 포메이션</label><select id="blueFormation"><option value="spread">분산 (스플릿/사이드)</option><option value="normal" selected>기본 대형</option><option value="protect">원딜/핵심 캐리 보호 대형</option><option value="group">집중 밀집 대형</option></select></div>
-<div class="field"><label>레드 팀 포메이션</label><select id="redFormation"><option value="spread">분산 (스플릿/사이드)</option><option value="normal" selected>기본 대형</option><option value="protect">원딜/핵심 캐리 보호 대형</option><option value="group">집중 밀집 대형</option></select></div>
-<div class="field"><label>시뮬레이션 반복 횟수</label><select id="simCount"><option value="1">1회 정밀 분석</option><option value="10" selected>10회 몬테카를로 평균</option><option value="50">50회 대규모 통계</option></select></div>
+<div class="field"><label>블루 팀 시야 장악력</label><select id="blueVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
+<div class="field"><label>레드 팀 시야 장악력</label><select id="redVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
 </div>
 <div class="controls">
-<button class="btn" id="runSim">🚀 전투 시뮬레이션 실행</button>
-<button class="btn secondary" id="runBoth">📊 선진입 비교 분석</button>
+<button class="btn" id="runSimPlayback">▶ 10배속 라이브 시뮬레이션 시작</button>
+</div>
+
+<div id="simPlaybackContainer" style="display:none;">
+ <div class="playback-box">
+  <div class="playback-header">
+   <h3 style="margin:0; color:var(--gold);">🎮 실시간 경기 관전 중 (10배속 재생)</h3>
+   <span id="pbStatus" class="pill">진행 중...</span>
+  </div>
+  <div class="live-scoreboard">
+   <span class="blue">🔵 블루 팀 킬: <b id="blueKills">0</b></span>
+   <span id="gameTimerDisplay" style="color:var(--muted)">00:00</span>
+   <span class="red">🔴 레드 팀 킬: <b id="redKills">0</b></span>
+  </div>
+  <div class="progress-container">
+   <div id="pbProgress" class="progress-fill"></div>
+  </div>
+  <div id="logStream" class="log-stream"></div>
+ </div>
 </div>
 <div id="simOutput" class="result" style="margin-top:16px"></div>
 </div>
@@ -306,140 +376,48 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <div class="panel">
 <h2>조합 핵심 전술 가이드</h2>
 <div class="grid2">
-<div><h3>🛡️ 앞라인과 이니시</h3><p>탱커와 브루너가 적의 핵심 타겟팅을 흡수하고 진영을 무너뜨려야 딜러가 안전한 딜링 포를 확보할 수 있습니다.</p></div>
-<div><h3>🎯 CC 연계와 폭딜</h3><p>에어본, 기절 등의 광역 CC기를 연계하여 상대 핵심 딜러를 순삭하는 타이밍이 한타의 승패를 결정합니다.</p></div>
-<div><h3>🌊 포킹과 오브젝트 주도권</h3><p>교전 전 체력 압박을 통해 상대를 밀어내고 바론이나 드래곤 버스트 각을 안전하게 창출하세요.</p></div>
-<div><h3>🧭 사이드 운영</h3><p>합류 속도와 순간이동(텔레포트) 타이밍을 계산하여 수적 우위를 점하거나 타원 압박을 가하세요.</p></div>
+<div><h3>🛡️ 티어와 숙련도의 중요성</h3><p>플레이어의 티어가 높을수록 스킬 적중률과 전투 기여도가 상승하여 상성 열세를 극복할 수 있습니다.</p></div>
+<div><h3>🎯 시야와 오브젝트</h3><p>교전 전 시야 장악과 한타 구도 형성이 승패를 좌우합니다.</p></div>
 </div>
 </div>
 </section>
 
-<div class="footer">협곡 전략 연구소 — 고성능 리그 오브 레전드 조합 및 전술 분석 시뮬레이터</div>
+<div class="footer">협곡 전략 연구소 Ultimate — 리그 오브 레전드 전략 시뮬레이터</div>
 </div>
 
 <script>
 const LANES=[["TOP","탑"],["JUNGLE","정글"],["MID","미드"],["ADC","바텀"],["SUPPORT","서포터"]];
+const TIERS=[
+  {name:"아이언", val:0.8},
+  {name:"브론즈", val:0.88},
+  {name:"실버", val:0.95},
+  {name:"골드", val:1.0},
+  {name:"플레티넘", val:1.08},
+  {name:"에메랄드", val:1.15},
+  {name:"다이아몬드", val:1.25},
+  {name:"마스터 이상", val:1.4}
+];
+
 const FALLBACK=[
 ["Aatrox","아트록스","Fighter"],["Ahri","아리","Mage,Assassin"],["Akali","아칼리","Assassin"],["Alistar","알리스타","Tank,Support"],["Amumu","아무무","Tank,Support"],["Annie","애니","Mage"],["Ashe","애쉬","Marksman,Support"],["AurelionSol","아우렐리온 솔","Mage"],["Blitzcrank","블리츠크랭크","Tank,Support"],["Braum","브라움","Tank,Support"],["Caitlyn","케이틀린","Marksman"],["Camille","카밀","Fighter,Assassin"],["Darius","다리우스","Fighter,Tank"],["Diana","다이애나","Fighter,Mage"],["DrMundo","문도 박사","Fighter,Tank"],["Ekko","에코","Assassin,Mage"],["Ezreal","이즈리얼","Marksman,Mage"],["Fiora","피오라","Fighter,Assassin"],["Garen","가렌","Fighter,Tank"],["Gnar","나르","Fighter,Tank"],["Gragas","그라가스","Fighter,Mage,Tank"],["Graves","그레이브즈","Marksman,Fighter"],["Hecarim","헤카림","Fighter"],["Irelia","이렐리아","Fighter,Assassin"],["Janna","잔나","Support,Mage"],["JarvanIV","자르반 4세","Tank,Fighter"],["Jax","잭스","Fighter"],["Jhin","진","Marksman,Mage"],["Jinx","징크스","Marksman"],["KaiSa","카이사","Marksman,Assassin"],["Kalista","칼리스타","Marksman"],["Karma","카르마","Mage,Support"],["Kassadin","카사딘","Assassin,Mage"],["Katarina","카타리나","Assassin,Mage"],["Kayle","케일","Mage,Marksman"],["Kayn","케인","Fighter,Assassin"],["Kennen","케넨","Mage,Marksman"],["KhaZix","카직스","Assassin"],["Kindred","킨드레드","Marksman"],["Kled","클레드","Fighter"],["LeBlanc","르블랑","Assassin,Mage"],["LeeSin","리 신","Fighter,Assassin"],["Leona","레오나","Tank,Support"],["Lillia","릴리아","Fighter,Mage"],["Lissandra","리산드라","Mage"],["Lucian","루시안","Marksman"],["Lulu","룰루","Support,Mage"],["Lux","럭스","Mage,Support"],["Malphite","말파이트","Tank,Mage"],["Maokai","마오카이","Tank,Support"],["MissFortune","미스 포츈","Marksman"],["Mordekaiser","모데카이저","Fighter,Mage"],["Morgana","모르가나","Mage,Support"],["Nami","나미","Support,Mage"],["Nasus","나서스","Fighter,Tank"],["Nautilus","노틸러스","Tank,Support"],["Neeko","니코","Mage,Support"],["Nidalee","니달리","Mage,Assassin"],["Nocturne","녹턴","Assassin,Fighter"],["Olaf","올라프","Fighter,Tank"],["Orianna","오리아나","Mage,Support"],["Ornn","오른","Tank"],["Pantheon","판테온","Fighter,Assassin"],["Poppy","뽀삐","Tank,Fighter"],["Pyke","파이크","Support,Assassin"],["Rakan","라칸","Support,Tank"],["Rammus","람머스","Tank"],["RekSai","렉사이","Fighter"],["Renekton","레넥톤","Fighter,Tank"],["Rengar","렝가","Assassin"],["Riven","리븐","Fighter,Assassin"],["Rumble","럼블","Fighter,Mage"],["Ryze","라이즈","Mage"],["Samira","사미라","Marksman,Assassin"],["Sejuani","세주아니","Tank"],["Senna","세나","Marksman,Support"],["Seraphine","세라핀","Mage,Support"],["Sett","세트","Fighter,Tank"],["Shen","쉔","Tank,Support"],["Shyvana","쉬바나","Fighter,Mage"],["Sion","사이온","Tank"],["Sivir","시비르","Marksman"],["Skarner","스카너","Tank,Fighter"],["Smolder","스몰더","Marksman"],["Sona","소나","Support,Mage"],["Soraka","소라카","Support,Mage"],["Swain","스웨인","Mage,Tank"],["Sylas","사일러스","Mage,Fighter"],["Syndra","신드라","Mage"],["TahmKench","탐 켄치","Tank,Support"],["Taliyah","탈리야","Mage,Support"],["Talon","탈론","Assassin"],["Taric","타릭","Support,Tank"],["Teemo","티모","Marksman,Mage"],["Thresh","쓰레쉬","Support,Tank"],["Tristana","트리스타나","Marksman,Assassin"],["Trundle","트런들","Fighter,Tank"],["Tryndamere","트린다미어","Fighter,Assassin"],["TwistedFate","트위스티드 페이트","Mage"],["Twitch","트위치","Marksman,Assassin"],["Udyr","우디르","Fighter,Tank"],["Urgot","우르곳","Fighter,Tank"],["Varus","바루스","Marksman,Mage"],["Vayne","베인","Marksman,Assassin"],["Veigar","베이가","Mage"],["Velkoz","벨코즈","Mage"],["Vex","벡스","Mage"],["Vi","바이","Fighter"],["Viego","비에고","Fighter,Assassin"],["Viktor","빅토르","Mage"],["Vladimir","블라디미르","Mage"],["Volibear","볼리베어","Fighter,Tank"],["Warwick","워윅","Fighter,Tank"],["Wukong","오공","Fighter,Tank"],["Xayah","자야","Marksman"],["Xerath","제라스","Mage"],["XinZhao","신 짜오","Fighter"],["Yasuo","야스오","Fighter,Assassin"],["Yone","요네","Fighter,Assassin"],["Yorick","요릭","Fighter,Tank"],["Yuumi","유미","Support,Mage"],["Zac","자크","Tank"],["Zed","제드","Assassin"],["Zeri","제리","Marksman"],["Ziggs","직스","Mage,Marksman"],["Zilean","질리언","Support,Mage"],["Zoe","조이","Mage"],["Zyra","자이라","Mage,Support"]
 ];
-const EXTRA={
-"아트록스":{lane:["TOP"],cc:2,engage:2,sustain:3,range:1,scale:2,front:2,duel:3},
-"아리":{lane:["MID"],cc:2,engage:2,range:2,poke:2,pick:3,scale:2},
-"아칼리":{lane:["MID","TOP"],burst:3,mobility:3,duel:3,range:1,scale:2},
-"알리스타":{lane:["SUPPORT"],cc:3,engage:3,front:3,protect:2},
-"아무무":{lane:["JUNGLE","SUPPORT"],cc:3,engage:3,front:2,aoe:3},
-"애쉬":{lane:["ADC","SUPPORT"],range:3,cc:3,poke:2,scale:2,protect:1},
-"블리츠크랭크":{lane:["SUPPORT"],cc:3,pick:3,engage:2,front:1},
-"브라움":{lane:["SUPPORT"],cc:2,protect:3,front:2,engage:1},
-"케이틀린":{lane:["ADC"],range:3,poke:3,siege:3,scale:2},
-"카밀":{lane:["TOP"],cc:2,engage:3,duel:3,mobility:3,scale:2},
-"다리우스":{lane:["TOP"],duel:3,sustain:2,front:2,range:1,scale:2},
-"다이애나":{lane:["MID","JUNGLE"],burst:3,engage:3,aoe:3,mobility:2},
-"에코":{lane:["MID","JUNGLE"],burst:3,mobility:3,pick:2,scale:2},
-"이즈리얼":{lane:["ADC"],range:3,poke:3,mobility:2,scale:2},
-"피오라":{lane:["TOP"],duel:3,sustain:2,split:3,scale:3,range:1},
-"가렌":{lane:["TOP"],duel:2,sustain:2,front:2,burst:2},
-"그라가스":{lane:["TOP","JUNGLE","MID","SUPPORT"],cc:3,engage:2,peel:2,front:2,aoe:2},
-"그레이브즈":{lane:["JUNGLE"],duel:2,range:2,scale:2,invade:2},
-"헤카림":{lane:["JUNGLE"],engage:3,mobility:3,aoe:2,front:2},
-"이렐리아":{lane:["TOP","MID"],duel:3,mobility:3,engage:2,scale:2},
-"자르반 4세":{lane:["JUNGLE"],engage:3,cc:2,front:2,aoe:2},
-"잭스":{lane:["TOP"],duel:3,split:3,scale:3,front:2},
-"진":{lane:["ADC"],range:3,pick:2,cc:2,poke:2},
-"징크스":{lane:["ADC"],range:3,scale:3,aoe:2,siege:2},
-"카이사":{lane:["ADC"],burst:2,mobility:2,scale:3,engage:2},
-"카르마":{lane:["MID","SUPPORT"],poke:3,protect:2,range:2,peel:2},
-"카사딘":{lane:["MID"],burst:3,mobility:3,scale:3,range:1},
-"카타리나":{lane:["MID"],burst:3,mobility:3,aoe:2,scale:2},
-"케일":{lane:["TOP"],scale:3,range:3,protect:2,aoe:2},
-"케인":{lane:["JUNGLE"],mobility:3,duel:2,burst:2,scale:2},
-"케넨":{lane:["TOP"],engage:3,aoe:3,range:2,cc:2},
-"카직스":{lane:["JUNGLE"],burst:3,pick:3,mobility:3,range:1},
-"르블랑":{lane:["MID"],burst:3,mobility:3,pick:3,range:2},
-"리 신":{lane:["JUNGLE"],early:3,engage:2,mobility:3,pick:2},
-"레오나":{lane:["SUPPORT"],cc:3,engage:3,front:2,protect:1},
-"리산드라":{lane:["MID"],cc:3,engage:2,aoe:2,pick:2},
-"루시안":{lane:["ADC"],early:3,burst:2,mobility:2,range:1},
-"룰루":{lane:["SUPPORT"],protect:3,peel:3,cc:2,scale:2},
-"럭스":{lane:["MID","SUPPORT"],poke:3,range:3,cc:2,burst:2},
-"말파이트":{lane:["TOP"],front:3,engage:3,aoe:3,cc:2},
-"마오카이":{lane:["TOP","JUNGLE","SUPPORT"],front:3,cc:3,engage:2,vision:2},
-"미스 포츈":{lane:["ADC"],aoe:3,range:2,burst:2,scale:2},
-"모데카이저":{lane:["TOP"],duel:3,front:2,scale:2,burst:2},
-"모르가나":{lane:["MID","SUPPORT"],cc:2,protect:2,poke:2,range:2},
-"나미":{lane:["SUPPORT"],protect:2,cc:2,peel:2,scale:2},
-"나서스":{lane:["TOP"],scale:3,duel:3,split:2,sustain:3},
-"노틸러스":{lane:["SUPPORT"],cc:3,engage:3,front:2,pick:2},
-"니코":{lane:["MID","SUPPORT"],aoe:3,engage:2,cc:2,pick:2},
-"녹턴":{lane:["JUNGLE"],pick:3,engage:3,burst:2,mobility:2},
-"오리아나":{lane:["MID"],aoe:3,protect:2,cc:2,scale:3,range:2},
-"오른":{lane:["TOP"],front:3,engage:3,cc:2,scale:3},
-"판테온":{lane:["TOP","MID","SUPPORT"],early:3,pick:3,cc:2,burst:2},
-"뽀삐":{lane:["TOP","JUNGLE","SUPPORT"],front:2,cc:2,peel:3,engage:1},
-"파이크":{lane:["SUPPORT"],pick:3,burst:2,mobility:3,front:0},
-"라칸":{lane:["SUPPORT"],engage:3,cc:2,peel:2,mobility:3},
-"렝가":{lane:["JUNGLE","TOP"],burst:3,pick:3,duel:2,mobility:2},
-"리븐":{lane:["TOP"],duel:3,mobility:3,burst:2,split:2},
-"럼블":{lane:["TOP","MID"],aoe:3,poke:2,front:1,scale:2},
-"라이즈":{lane:["MID","TOP"],scale:3,aoe:2,range:2},
-"세주아니":{lane:["JUNGLE"],front:3,cc:3,engage:2,protect:1},
-"세나":{lane:["ADC","SUPPORT"],range:3,scale:3,poke:2,protect:1},
-"세라핀":{lane:["MID","SUPPORT"],aoe:3,protect:2,cc:2,scale:2},
-"세트":{lane:["TOP","SUPPORT"],front:3,engage:2,duel:2,aoe:2},
-"쉔":{lane:["TOP","SUPPORT"],front:2,protect:3,cc:2,engage:1},
-"사이온":{lane:["TOP"],front:3,engage:2,cc:2,scale:2},
-"시비르":{lane:["ADC"],range:2,scale:2,siege:2,protect:1},
-"스몰더":{lane:["ADC"],scale:3,range:2,aoe:2},
-"소나":{lane:["SUPPORT"],protect:3,peel:2,scale:3,aoe:2},
-"소라카":{lane:["SUPPORT"],protect:3,sustain:3,peel:1,scale:2},
-"스웨인":{lane:["MID","SUPPORT"],front:2,sustain:3,aoe:2,cc:2},
-"사일러스":{lane:["MID"],duel:2,burst:2,sustain:2,mobility:2},
-"신드라":{lane:["MID"],burst:3,range:2,cc:2,pick:2},
-"탈리야":{lane:["MID","JUNGLE","SUPPORT"],poke:2,cc:2,range:2,roam:3},
-"탈론":{lane:["MID"],burst:3,roam:3,mobility:3,pick:2},
-"타릭":{lane:["SUPPORT"],protect:3,front:2,cc:2,scale:2},
-"티모":{lane:["TOP"],poke:2,range:2,split:2},
-"쓰레쉬":{lane:["SUPPORT"],cc:3,protect:2,pick:3,peel:2},
-"트리스타나":{lane:["ADC","MID"],burst:2,siege:3,scale:2,mobility:2},
-"트런들":{lane:["TOP","JUNGLE"],duel:3,front:2,split:2},
-"트린다미어":{lane:["TOP"],duel:3,split:3,scale:2},
-"트위스티드 페이트":{lane:["MID"],pick:2,roam:3,cc:2,range:2},
-"트위치":{lane:["ADC"],scale:3,aoe:3,burst:2,range:2},
-"우디르":{lane:["JUNGLE","TOP"],front:2,duel:2,engage:2},
-"우르곳":{lane:["TOP"],front:2,duel:2,cc:2,scale:2},
-"바루스":{lane:["ADC"],range:3,poke:3,cc:2,aoe:2},
-"베인":{lane:["ADC"],scale:3,duel:2,mobility:2,range:1},
-"베이가":{lane:["MID","SUPPORT"],scale:3,cc:3,burst:3,range:2},
-"벨코즈":{lane:["MID","SUPPORT"],poke:3,range:3,aoe:2},
-"벡스":{lane:["MID"],burst:2,cc:2,antiDive:3,aoe:2},
-"바이":{lane:["JUNGLE"],pick:3,engage:3,cc:2,front:2},
-"비에고":{lane:["JUNGLE"],duel:2,burst:2,scale:2,cleanup:3},
-"빅토르":{lane:["MID"],scale:3,range:2,aoe:3,poke:2},
-"블라디미르":{lane:["MID","TOP"],scale:3,sustain:3,aoe:3,burst:2},
-"볼리베어":{lane:["TOP","JUNGLE"],duel:2,front:2,engage:2,sustain:2},
-"워윅":{lane:["JUNGLE","TOP"],duel:2,sustain:3,pick:2},
-"오공":{lane:["TOP","JUNGLE"],engage:3,aoe:3,front:2},
-"자야":{lane:["ADC"],scale:2,aoe:2,antiDive:3,cc:2},
-"제라스":{lane:["MID","SUPPORT"],poke:3,range:3,aoe:2},
-"신 짜오":{lane:["JUNGLE"],early:3,duel:2,front:2,engage:1},
-"야스오":{lane:["MID","TOP"],duel:2,aoe:2,mobility:3,scale:2},
-"요네":{lane:["MID","TOP"],duel:2,engage:2,mobility:3,scale:2},
-"요릭":{lane:["TOP"],split:3,scale:2,duel:2},
-"유미":{lane:["SUPPORT"],protect:2,scale:2,sustain:2},
-"자크":{lane:["JUNGLE","TOP"],front:3,engage:3,cc:3},
-"제드":{lane:["MID"],burst:3,mobility:3,pick:3},
-"제리":{lane:["ADC"],scale:3,mobility:3,aoe:2},
-"직스":{lane:["MID","ADC"],poke:3,range:3,siege:3,aoe:2},
-"질리언":{lane:["SUPPORT","MID"],protect:3,peel:2,cc:2,scale:2},
-"조이":{lane:["MID"],pick:3,poke:2,range:2,burst:2},
-"자이라":{lane:["SUPPORT"],poke:3,cc:2,aoe:2,range:2}
+
+const EXTRA={};
+
+const PRESETS = {
+  dive: { blue: ["오른", "자르반 4세", "아리", "카이사", "레오나"], red: ["말파이트", "신 짜오", "오리아나", "진", "노틸러스"] },
+  poke: { blue: ["아트록스", "니달리", "제라스", "바루스", "카르마"], red: ["레넥톤", "리 신", "아리", "케이틀린", "럭스"] },
+  protect: { blue: ["사이온", "세주아니", "오리아나", "징크스", "룰루"], red: ["카밀", "카직스", "르블랑", "루시안", "쓰레쉬"] },
+  global: { blue: ["쉔", "녹턴", "트위스티드 페이트", "애쉬", "탐 켄치"], red: ["잭스", "바이", "신드라", "미스 포츈", "레오나"] },
+  split: { blue: ["피오라", "그레이브즈", "사일러스", "이즈리얼", "카르마"], red: ["다리우스", "헤카림", "빅토르", "시비르", "블리츠크랭크"] }
 };
 
 let champs=FALLBACK.map(([id,name,tags])=>({id,name,tags:tags.split(","),img:null}));
 const $=id=>document.getElementById(id);
 function champByName(n){return champs.find(c=>c.name===n)||{id:"",name:n||"미선택",tags:[],img:null};}
 function tags(c){return c.tags||[]}
-function profile(c){
+
+function profile(c, tierVal=1.0){
  const t=tags(c), ex=EXTRA[c.name]||{};
  const p={front:0,cc:0,engage:0,protect:0,peel:0,burst:0,poke:0,range:0,scale:0,duel:0,sustain:0,aoe:0,mobility:0,pick:0,split:0,siege:0,early:0,roam:0,vision:0,antiDive:0,cleanup:0};
  for(const k of Object.keys(p)) if(ex[k]!==undefined)p[k]=ex[k];
@@ -449,74 +427,102 @@ function profile(c){
  if(t.includes("Marksman")){p.range=Math.max(p.range,2);p.scale=Math.max(p.scale,2)}
  if(t.includes("Mage")){p.poke=Math.max(p.poke,1);p.aoe=Math.max(p.aoe,1);p.range=Math.max(p.range,1)}
  if(t.includes("Fighter")){p.duel=Math.max(p.duel,1);p.front=Math.max(p.front,1)}
+ for(const k of Object.keys(p)) p[k] *= tierVal;
  return p;
 }
-function getTeam(color){return LANES.map(([key])=>champByName($(color+"_"+key).value))}
+
+function getTeam(color){
+ return LANES.map(([key])=>{
+  const champName = $(color+"_"+key).value;
+  const tierVal = parseFloat($(color+"_"+key+"_tier").value || 1.0);
+  return { ...champByName(champName), tierVal };
+ });
+}
+
 function uniqueTeam(team){return team.filter(c=>c.name!=="미선택")}
+
 function renderSlots(color){
  const root=$(color+"Slots");root.innerHTML="";
  LANES.forEach(([key,label])=>{
   const row=document.createElement("div");row.className="slot";
   const l=document.createElement("div");l.className="lane";l.textContent=label;
+  
   const wrap=document.createElement("div");wrap.className="picker";
   const search=document.createElement("input");search.type="search";search.className="picker-search";search.placeholder="챔피언 검색…";
+  
   const s=document.createElement("select");s.className="champ";s.id=color+"_"+key;
   s.innerHTML='<option value="미선택">— 챔피언 선택 —</option>'+champs.slice().sort((a,b)=>a.name.localeCompare(b.name,"ko")).map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+  
   search.addEventListener("input",()=>{
    const q=search.value.trim().toLocaleLowerCase("ko");
-   [...s.options].forEach((o,i)=>{o.hidden=i!==0&&!o.text.toLocaleLowerCase("ko").includes(q);});
-   if(q && s.options.length>1){const match=[...s.options].find((o,i)=>i>0&&!o.hidden);if(match)s.value=match.value;}
+   [...s.options].forEach((o,i)=>{
+    if(i===0) { o.hidden = false; return; }
+    const match = o.text.toLocaleLowerCase("ko").includes(q);
+    o.hidden = !match;
+   });
+   // Automatically select first visible match if user is typing
+   if(q){
+    const firstMatch = [...s.options].find((o,i)=>i>0 && !o.hidden);
+    if(firstMatch) { s.value = firstMatch.value; }
+   }
   });
+
   s.addEventListener("change",()=>{if(s.value!=="미선택")search.value=s.value;});
-  wrap.append(search,s);row.append(l,wrap);root.append(row);
+  wrap.append(search,s);
+
+  const ts=document.createElement("select");ts.className="tier-select";ts.id=color+"_"+key+"_tier";
+  ts.innerHTML=TIERS.map(t=>`<option value="${t.val}" ${t.name==="골드"?"selected":""}>${t.name}</option>`).join("");
+
+  row.append(l,wrap,ts);root.append(row);
  });
 }
+
 function esc(s){return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
 function fillChampionSelect(id,initial){const s=$(id);s.innerHTML=champs.slice().sort((a,b)=>a.name.localeCompare(b.name,"ko")).map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");if(initial)s.value=initial;}
-function total(team,key){return uniqueTeam(team).reduce((a,c)=>a+profile(c)[key],0)}
+
+function total(team,key){return uniqueTeam(team).reduce((a,c)=>a+profile(c, c.tierVal)[key],0)}
+
 function compMetrics(team){
  const arr=uniqueTeam(team);
  const sums={};["front","cc","engage","protect","peel","burst","poke","range","scale","duel","sustain","aoe","mobility","pick","split","siege","early","roam","vision","antiDive","cleanup"].forEach(k=>sums[k]=total(team,k));
  const tankCount=arr.filter(c=>tags(c).includes("Tank")).length;
  const adcCount=arr.filter(c=>tags(c).includes("Marksman")).length;
- const assassinCount=arr.filter(c=>tags(c).includes("Assassin")).length;
- const mageCount=arr.filter(c=>tags(c).includes("Mage")).length;
- sums.n=arr.length;sums.tanks=tankCount;sums.adcs=adcCount;sums.assassins=assassinCount;sums.mages=mageCount;
- sums.damageMix=(adcCount>0?1.1:0)+(mageCount>0?1:0)+(arr.some(c=>tags(c).includes("Fighter"))?0.7:0);
+ sums.n=arr.length;
+ sums.damageMix=(adcCount>0?1.1:0)+(arr.some(c=>tags(c).includes("Mage"))?1:0)+(arr.some(c=>tags(c).includes("Fighter"))?0.7:0);
  sums.engageScore=sums.engage*1.25+sums.cc*.65+sums.front*.25;
  sums.teamfight=sums.engage*.75+sums.cc*.75+sums.aoe*.7+sums.front*.55+sums.protect*.4+sums.peel*.35;
  sums.pokeScore=sums.poke*1.1+sums.range*.65+sums.siege*.3;
- sums.pickScore=sums.pick*.9+sums.mobility*.25+sums.cc*.45;
  sums.protection=sums.protect+sums.peel+sums.antiDive;
  sums.scaling=sums.scale*1.2+sums.range*.25+sums.aoe*.2;
  sums.damageBalance=Math.min(10,sums.damageMix*2.5);
  return sums;
 }
 function fmt(n){return Math.round(n*10)/10}
-function bar(label,val,max=15,red=false){const pct=Math.max(3,Math.min(100,val/max*100));return `<div><div class="linehead"><span>${label}</span><b>${fmt(val)}</b></div><div class="bar ${red?"redbar":""}"><span style="width:${pct}%"></span></div></div>`}
+function bar(label,val,max=18,red=false){const pct=Math.max(3,Math.min(100,val/max*100));return `<div><div class="linehead"><span>${label}</span><b>${fmt(val)}</b></div><div class="bar ${red?"redbar":""}"><span style="width:${pct}%"></span></div></div>`}
 function metricCard(label,value,desc){return `<div class="metric"><strong>${value}</strong><b>${label}</b><div><small>${desc}</small></div></div>`}
 function listChamps(team){return uniqueTeam(team).map(c=>`<span class="pill">${esc(c.name)}</span>`).join("")||'<span class="muted">선택된 챔피언 없음</span>'}
 function objectiveMod(){return {river:1,jungle:1.12,lane:.88,siege:.92}[$("objective").value]||1}
 function timeMod(m){const time=$("gameTime").value;return time==="early"?m.early*1.1-m.scale*.1:time==="late"?m.scaling*1.1+m.scale*.1:m.scaling*.6+m.early*.35}
+
 function matchupValue(us,them,lane,time){
- const a=profile(us),b=profile(them);let score=0,reasons=[];
+ const a=profile(us, us.tierVal),b=profile(them, them.tierVal);let score=0,reasons=[];
  if(!us.name||us.name==="미선택"||!them.name||them.name==="미선택")return {score:0,reasons:["두 챔피언을 모두 선택하세요."]};
- const au=(EXTRA[us.name]?.lane||[]).includes(lane), bt=(EXTRA[them.name]?.lane||[]).includes(lane);
- if(a.range>b.range){score+=.5;reasons.push("사거리 기반 견제 우위를 점할 수 있습니다.");}
- if(a.sustain>b.sustain){score+=.5;reasons.push("체력 유지력 차이로 교환 구도에서 유리합니다.");}
- if(b.poke>a.poke&&b.range>=a.range){score-=.6;reasons.push("상대의 포킹 견제에 체력이 깎이지 않도록 주의하세요.");}
- if(a.mobility>b.mobility){score+=.4;reasons.push("기동성을 활용해 상대 주력 스킬을 회피하기 좋습니다.");}
- if(score>1)reasons.push("권장: 주도권을 바탕으로 압박하고 시야를 넓히세요.");
- else if(score<-1)reasons.push("권장: 무리한 교전을 피하고 정글러 호출 및 CS 수급에 집중하세요.");
- else reasons.push("팽팽한 매치업으로 스킬 숙련도와 정글 개입이 중요합니다.");
+ if(a.range>b.range){score+=.5;reasons.push("사거리 기반 견제 우위");}
+ if(a.sustain>b.sustain){score+=.5;reasons.push("유지력 및 체력 교환 유리");}
+ if(b.poke>a.poke&&b.range>=a.range){score-=.6;reasons.push("상대의 포킹 견제 주의 필요");}
+ if(us.tierVal > them.tierVal){score+=0.6;reasons.push("플레이어 티어 우세 반영됨");}
+ else if(us.tierVal < them.tierVal){score-=0.6;reasons.push("플레이어 티어 열세 반영됨");}
+ reasons.push("스킬 적중 및 정글 개입에 따라 구도가 달라질 수 있습니다.");
  return {score:Math.max(-3,Math.min(3,score)),reasons};
 }
+
 function analyzeLane(){
  const us=champByName($("laneUs").value),them=champByName($("laneThem").value),lane=$("lanePick").value,time=$("laneTime").value;
  const r=matchupValue(us,them,lane,time),s=r.score;
  const status=s>=1?"아군 유리":s<=-1?"상대 유리":"팽팽함";
- $("laneOutput").innerHTML=`<div class="metric"><strong>${status}</strong><b>${esc(us.name)} vs ${esc(them.name)}</b><p>추정 상성 점수: ${s>0?"+":""}${fmt(s)} / 3</p>${bar("상성 지표",s+3,6)}</div><h3 style="margin-top:14px">라인전 분석 및 팁</h3><ul>${r.reasons.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+ $("laneOutput").innerHTML=`<div class="metric"><strong>${status}</strong><b>${esc(us.name)} vs ${esc(them.name)}</b><p>추정 상성 점수: ${s>0?"+":""}${fmt(s)} / 3</p></div><h3 style="margin-top:14px">분석 근거</h3><ul>${r.reasons.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
 }
+
 function analysis(){
  const blue=getTeam("blue"),red=getTeam("red"),b=compMetrics(blue),r=compMetrics(red);
  if(b.n<1||r.n<1){$("analysisOutput").innerHTML='<div class="panel notice">양 팀에서 최소 한 명 이상의 챔피언을 선택해주세요.</div>';return}
@@ -524,80 +530,86 @@ function analysis(){
  const scoreB=(b.teamfight*1.0+b.engageScore*.35+b.damageBalance*1.1+b.pokeScore*.3+timeMod(b)*.5)*obj+gold/2500;
  const scoreR=(r.teamfight*1.0+r.engageScore*.35+r.damageBalance*1.1+r.pokeScore*.3+timeMod(r)*.5)*obj-gold/2500;
  const diff=scoreB-scoreR, blueWin=diff>1.3,redWin=diff< -1.3;
- const summary=blueWin?"블루 팀 조합이 현재 조건에서 우세합니다.":redWin?"레드 팀 조합이 현재 조건에서 우세합니다.":"양 팀의 조합 점수가 비슷하여 파일럿의 숙련도와 한타 집중력이 승부를 결정합니다.";
- 
- $("analysisOutput").innerHTML=`<div class="panel"><h2>📊 조합 심층 진단 결과</h2><p><b>${summary}</b></p>
- <div class="grid3">${metricCard("블루 팀 조합력",fmt(scoreB),"종합 전투 점수")}${metricCard("레드 팀 조합력",fmt(scoreR),"종합 전투 점수")}${metricCard("점수 우위 격차",(diff>0?"+":"")+fmt(diff),diff>1.3?"블루 우세":diff<-1.3?"레드 우세":"박빙")}</div></div>
+ const summary=blueWin?"티어 및 조합 점수 기준 블루 팀이 우세합니다.":redWin?"티어 및 조합 점수 기준 레드 팀이 우세합니다.":"양 팀의 전력이 매우 팽팽합니다.";
+
+ $("analysisOutput").innerHTML=`<div class="panel"><h2>📊 티어 반영 조합 진단 결과</h2><p><b>${summary}</b></p>
+ <div class="grid3" style="margin-top:12px">${metricCard("블루 팀 종합력",fmt(scoreB),"티어 가중치 포함")}${metricCard("레드 팀 종합력",fmt(scoreR),"티어 가중치 포함")}${metricCard("전력 격차",(diff>0?"+":"")+fmt(diff),diff>1.3?"블루 우세":diff<-1.3?"레드 우세":"접전")}</div></div>
  <div class="grid2">
- <div class="panel"><h2 class="blue">🔵 블루 팀 특성</h2><p>${listChamps(blue)}</p>${bar("한타력",b.teamfight,22)}${bar("진입 능력",b.engageScore,15)}${bar("포킹·사거리",b.pokeScore,15)}${bar("후반 성장성",b.scaling,18)}</div>
- <div class="panel"><h2 class="red">🔴 레드 팀 특성</h2><p>${listChamps(red)}</p>${bar("한타력",r.teamfight,22,true)}${bar("진입 능력",r.engageScore,15,true)}${bar("포킹·사거리",r.pokeScore,15,true)}${bar("후반 성장성",r.scaling,18,true)}</div>
+ <div class="panel"><h2 class="blue">🔵 블루 팀 분석</h2><p>${listChamps(blue)}</p>${bar("한타력",b.teamfight,25)}${bar("진입력",b.engageScore,18)}${bar("포킹력",b.pokeScore,18)}${bar("성장성",b.scaling,20)}</div>
+ <div class="panel"><h2 class="red">🔴 레드 팀 분석</h2><p>${listChamps(red)}</p>${bar("한타력",r.teamfight,25,true)}${bar("진입력",r.engageScore,18,true)}${bar("포킹력",r.pokeScore,18,true)}${bar("성장성",r.scaling,20,true)}</div>
  </div>`;
 }
 
-// Advanced Simulation
-function runSimulation(forcedCount){
+function loadPreset(type){
+ const p = PRESETS[type];
+ if(!p) return;
+ LANES.forEach(([k], i)=>{
+  $("blue_"+k).value = p.blue[i];
+  $("red_"+k).value = p.red[i];
+ });
+ analysis();
+}
+
+function runSimulationPlayback(){
  const blue=getTeam("blue"),red=getTeam("red");
- if(uniqueTeam(blue).length===0||uniqueTeam(red).length===0){$("simOutput").innerHTML='<div class="notice">먼저 팀 조합 페이지에서 양 팀 챔피언을 완성해주세요.</div>';return}
- const count=forcedCount||Number($("simCount").value);
- 
- let bWins=0, totalBScore=0, totalRScore=0;
- let logs=[];
- 
- for(let i=0; i<count; i++){
-  const b=compMetrics(blue), r=compMetrics(red);
-  let bs = b.teamfight*0.8 + b.engageScore*0.5 + Math.random()*5;
-  let rs = r.teamfight*0.8 + r.engageScore*0.5 + Math.random()*5;
-  if(i===0){
-   logs.push({
-    early: bs > rs ? "블루 팀이 초반 라인 주도권과 갱킹 호응으로 이득을 챙깁니다." : "레드 팀이 초반 정글 동선 설계에서 우위를 점합니다.",
-    mid: b.pokeScore > r.pokeScore ? "블루 팀이 오브젝트 대치전에서 포킹으로 체력을 압박합니다." : "레드 팀이 과감한 이니시로 중반 교전을 승리로 이끕니다.",
-    late: b.scaling > r.scaling ? "후반 밸류가 높은 블루 팀이 대규모 한타를 지배합니다." : "레드 팀의 조합 파괴력이 후반 한타에서 빛을 발합니다."
-   });
-  }
-  if(bs >= rs) bWins++;
-  totalBScore += bs; totalRScore += rs;
+ if(uniqueTeam(blue).length===0||uniqueTeam(red).length===0){
+  alert("양 팀 챔피언을 모두 선택해주세요.");
+  return;
  }
+
+ $("simPlaybackContainer").style.display = "block";
+ $("simOutput").innerHTML = "";
+ const logStream = $("logStream");
+ logStream.innerHTML = "";
  
- const winRateB = Math.round((bWins/count)*100);
- const winRateR = 100 - winRateB;
- const l = logs[0];
- 
- // MVP Selection (Simple logic based on highest stat)
- const allBlue = uniqueTeam(blue);
- const allRed = uniqueTeam(red);
- const mvp = allBlue.length ? allBlue[Math.floor(Math.random()*allBlue.length)].name : "팀원";
- const ace = allRed.length ? allRed[Math.floor(Math.random()*allRed.length)].name : "상대팀원";
+ let bKills = 0, rKills = 0;
+ $("blueKills").textContent = "0";
+ $("redKills").textContent = "0";
+ $("pbProgress").style.width = "0%";
+ $("pbStatus").textContent = "10배속 재생 중...";
 
- $("simOutput").innerHTML=`
- <div class="panel">
-  <h2>⚔️ 심층 전투 시뮬레이션 결과 (${count}회 분석)</h2>
-  <div class="grid3" style="margin:14px 0">
-   ${metricCard("블루 승리 확률", winRateB + "%", "시뮬레이션 기반")}
-   ${metricCard("레드 승리 확률", winRateR + "%", "시뮬레이션 기반")}
-   ${metricCard("추정 교전 구도", winRateB > 50 ? "블루 우세" : "레드 우세", "페이즈별 판정")}
-  </div>
+ const b=compMetrics(blue), r=compMetrics(red);
+ const diff = (b.teamfight - r.teamfight) * 0.5;
 
-  <div class="sim-stage">
-   <h4>⚡ [1페이즈] 초반 라인전 & 주도권 (0~14분)</h4>
-   <p>${esc(l.early)}</p>
-  </div>
-  <div class="sim-stage">
-   <h4>🎯 [2페이즈] 중반 오브젝트 및 합류전 (14~25분)</h4>
-   <p>${esc(l.mid)}</p>
-  </div>
-  <div class="sim-stage red-edge">
-   <h4>💥 [3페이즈] 후반 대규모 한타 및 승부처 (25분~)</h4>
-   <p>${esc(l.late)}</p>
-  </div>
+ const events = [
+  {m: "01:30", text: "인베이드 대치전 발생. 양팀 탐색전."},
+  {m: "04:15", text: "정글러 첫 바위게 싸움 교전 발생."},
+  {m: "08:30", text: "첫 번째 유충/용 앞 소규모 교전."},
+  {m: "12:00", text: "바텀 라인 갱킹 및 포탑 채굴 이득."},
+  {m: "16:45", text: "협곡의 전령 앞 3:3 한타 대치."},
+  {m: "21:10", text: "네 번째 드래곤을 건 대규모 한타 교전!"},
+  {m: "26:30", text: "내셔 남작(바론) 버스트 시도 및 한타 개시."},
+  {m: "31:00", text: "상대 본진 압박 및 억제기 파괴, 넥서스 공략!"}
+ ];
 
-  <div class="mvp-box">
-   <div class="mvp-badge">MVP / ACE</div>
-   <div>
-    <p style="margin:0 0 4px"><b>승리 팀 MVP:</b> ${esc(mvp)} (압도적인 딜링 및 교전 기여)</p>
-    <p style="margin:0"><b>패배 팀 ACE:</b> ${esc(ace)} (고군분투하며 분전함)</p>
-   </div>
-  </div>
- </div>`;
+ let step = 0;
+ const timer = setInterval(()=>{
+  if(step >= events.length){
+   clearInterval(timer);
+   const winner = (b.teamfight + diff >= r.teamfight) ? "🔵 블루 팀 승리!" : "🔴 레드 팀 승리!";
+   $("pbStatus").textContent = "시뮬레이션 종료 (" + winner + ")";
+   logStream.innerHTML += `<div class="log-item" style="color:var(--gold); font-weight:bold;">[경기 종료] ${winner}</div>`;
+   logStream.scrollTop = logStream.scrollHeight;
+   return;
+  }
+
+  const ev = events[step];
+  $("gameTimerDisplay").textContent = ev.m;
+  $("pbProgress").style.width = ((step + 1) / events.length * 100) + "%";
+
+  let bkInc = Math.random() > 0.4 ? Math.floor(Math.random() * 2) : 0;
+  let rkInc = Math.random() > 0.4 ? Math.floor(Math.random() * 2) : 0;
+  if(diff > 1) bkInc += 1; else if(diff < -1) rkInc += 1;
+
+  bKills += bkInc; rKills += rkInc;
+  $("blueKills").textContent = bKills;
+  $("redKills").textContent = rKills;
+
+  logStream.innerHTML += `<div class="log-item"><span class="log-time">[${ev.m}]</span>${esc(ev.text)} (현재 킬스코어 ${bKills} : ${rKills})</div>`;
+  logStream.scrollTop = logStream.scrollHeight;
+
+  step++;
+ }, 300);
 }
 
 function setup(){
@@ -609,14 +621,8 @@ function setup(){
  }));
  $("analyzeBtn").onclick=analysis;
  $("laneAnalyze").onclick=analyzeLane;
- $("runSim").onclick=()=>runSimulation();
- $("runBoth").onclick=()=>runSimulation(10);
- $("clearBtn").onclick=()=>{document.querySelectorAll(".champ").forEach(x=>x.value="미선택");$("analysisOutput").innerHTML="";$("simOutput").innerHTML="";};
- $("randomBtn").onclick=()=>{
-  const b=["오른","리 신","오리아나","징크스","레오나"],r=["말파이트","자크","아리","카이사","노틸러스"];
-  LANES.forEach(([k],i)=>{$("blue_"+k).value=b[i];$("red_"+k).value=r[i]});
-  analysis();
- };
+ $("runSimPlayback").onclick=runSimulationPlayback;
+ $("clearBtn").onclick=()=>{document.querySelectorAll(".champ").forEach(x=>x.value="미선택");$("analysisOutput").innerHTML="";$("simPlaybackContainer").style.display="none";};
 }
 setup();
 </script>
