@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080f18">
-<title>협곡 전략 연구소 - Ultimate Matchup Edition</title>
+<title>협곡 전략 연구소 - Ultimate Pro Map Edition</title>
 <style>
 :root{
   --bg: #080f18;
@@ -31,7 +31,7 @@ body{
 }
 header{
   padding:28px 16px 16px;
-  max-width:1400px;
+  max-width:1450px;
   margin:auto;
   text-align: center;
 }
@@ -45,7 +45,7 @@ header h1{
 }
 .sub{color:var(--muted);margin:0;font-size:15px;letter-spacing:-0.3px}
 
-.wrap{max-width:1400px;margin:auto;padding:0 16px 40px}
+.wrap{max-width:1450px;margin:auto;padding:0 16px 40px}
 
 /* Tabs */
 .tabs{
@@ -214,7 +214,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   background: #0b131d;
   border: 1px solid #324c63;
   border-radius: 14px;
-  padding: 16px;
+  padding: 18px;
   margin-top: 14px;
 }
 .playback-header {
@@ -254,7 +254,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   border: 1px solid #1e3142;
   border-radius: 10px;
   padding: 12px;
-  height: 140px;
+  height: 150px;
   overflow-y: auto;
   font-family: monospace;
   font-size: 13px;
@@ -297,21 +297,21 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </head>
 <body>
 <header>
-<h1>⚔️ 협곡 전략 연구소 — Ultimate Matchup Edition</h1>
-<p class="sub">상대별 맞춤 아이템 & 룬 추천 · 30배속 미니맵 관전 · 상세 전투 정산 리포트</p>
+<h1>⚔️ 협곡 전략 연구소 — Ultimate Pro Map Edition</h1>
+<p class="sub">정교한 미니맵 구조 · 오브젝트(바론·전령·용·유충) 표시 · 30배속 대형 관전</p>
 </header>
 
 <div class="wrap">
 <div class="tabs">
 <button class="tab active" data-page="builder">팀 조합 & 맞춤 템/룬 분석</button>
 <button class="tab" data-page="lanes">라인별 카운터 & 템트리</button>
-<button class="tab" data-page="sim">30배속 미니맵 관전 시뮬레이터</button>
+<button class="tab" data-page="sim">30배속 대형 미니맵 관전 시뮬레이터</button>
 <button class="tab" data-page="guide">전략 도감</button>
 </div>
 
 <!-- PAGE 1: BUILDER -->
 <section class="page active" id="builder">
-<div class="notice">💡 각 라인별 챔피언과 상대 조합을 설정하면, 상대에 따른 <b>맞춤형 추천 아이템과 룬 세팅</b>이 종합 분석 결과 하단에 표시됩니다.</div>
+<div class="notice">💡 챔피언 검색 및 티어 설정 후, 상단 프리셋이나 랜덤 조합을 통해 실전 매치업을 구성해 보세요.</div>
 
 <div class="preset-bar">
 <span>🔥 실전 메타 조합 & 랜덤:</span>
@@ -370,21 +370,21 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <!-- PAGE 3: SIMULATOR -->
 <section class="page" id="sim">
 <div class="panel">
-<h2>30배속 미니맵 전투 관전 시뮬레이터 (1분 완료)</h2>
-<p class="muted">미니맵상에서 캐릭터 일러스트 얼굴 원형과 팀별 테두리 색상으로 30배속(총 1분 소요) 전투를 관전합니다.</p>
+<h2>30배속 대형 미니맵 전투 관전 시뮬레이터 (1분 완료)</h2>
+<p class="muted">확장된 대형 미니맵에서 바론, 전령, 유충, 드래곤 위치와 캐릭터 일러스트 얼굴 원형(팀 테두리)의 움직임을 관전합니다.</p>
 <div class="grid3">
 <div class="field"><label>교전 개시 방식</label><select id="engage"><option value="blue">블루 팀 선진입 (이니시에이팅)</option><option value="red">레드 팀 선진입 (이니시에이팅)</option><option value="poke">포킹 및 거리 조절 후 개시</option><option value="flank">측면 기습 및 백도어 시도</option><option value="front">정면 5:5 대치 후 한타</option></select></div>
 <div class="field"><label>블루 팀 시야 장악력</label><select id="blueVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
 <div class="field"><label>레드 팀 시야 장악력</label><select id="redVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
 </div>
 <div class="controls">
-<button class="btn" id="runSimPlayback">▶ 30배속 미니맵 관전 시작 (1분)</button>
+<button class="btn" id="runSimPlayback">▶ 30배속 대형 미니맵 관전 시작 (1분)</button>
 </div>
 
 <div id="simPlaybackContainer" style="display:none;">
  <div class="playback-box">
   <div class="playback-header">
-   <h3 style="margin:0; color:var(--gold);">🎮 미니맵 실시간 관전 중 (30배속 / 1분 소요)</h3>
+   <h3 style="margin:0; color:var(--gold);">🎮 대형 미니맵 실시간 관전 중 (30배속 / 1분 소요)</h3>
    <span id="pbStatus" class="pill">진행 중...</span>
   </div>
   <div class="live-scoreboard">
@@ -392,8 +392,8 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
    <span id="gameTimerDisplay" style="color:var(--muted)">00:00</span>
    <span class="red">🔴 레드 팀 킬: <b id="redKills">0</b></span>
   </div>
-  <!-- Mini-map Canvas -->
-  <canvas id="simCanvas" width="520" height="300" style="width:100%; max-width:520px; background:#08101a; border-radius:12px; border:2px solid #2a3f55; display:block; margin:0 auto 14px;"></canvas>
+  <!-- Larger Mini-map Canvas -->
+  <canvas id="simCanvas" width="680" height="380" style="width:100%; max-width:680px; background:#08101a; border-radius:14px; border:2px solid #2a3f55; display:block; margin:0 auto 14px;"></canvas>
 
   <div class="progress-container">
    <div id="pbProgress" class="progress-fill"></div>
@@ -416,7 +416,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </div>
 </section>
 
-<div class="footer">협곡 전략 연구소 Ultimate Matchup Edition — 리그 오브 레전드 전략 시뮬레이터</div>
+<div class="footer">협곡 전략 연구소 Ultimate Pro Map Edition — 리그 오브 레전드 전략 시뮬레이터</div>
 </div>
 
 <script>
@@ -555,7 +555,6 @@ function listChamps(team){return uniqueTeam(team).map(c=>`<span class="pill">${e
 function objectiveMod(){return {river:1,jungle:1.12,lane:.88,siege:.92}[$("objective").value]||1}
 function timeMod(m){const time=$("gameTime").value;return time==="early"?m.early*1.1-m.scale*.1:time==="late"?m.scaling*1.1+m.scale*.1:m.scaling*.6+m.early*.35}
 
-// Matchup-specific Item & Rune Recommendation Generator
 function getMatchupRecommendations(us, them) {
   if (!us.name || us.name === "미선택" || !them.name || them.name === "미선택") {
     return { starting: "챔피언을 선택해주세요.", core: "-", counter: "-", rune: "-" };
@@ -667,6 +666,7 @@ function loadRandomPreset(){
  analysis();
 }
 
+// 30x Speed Large Map Simulation with Objectives (Baron, Herald, Voidgrubs, Dragon)
 function runSimulationPlayback(){
  const blue=getTeam("blue"),red=getTeam("red");
  if(uniqueTeam(blue).length===0||uniqueTeam(red).length===0){
@@ -683,24 +683,24 @@ function runSimulationPlayback(){
  $("blueKills").textContent = "0";
  $("redKills").textContent = "0";
  $("pbProgress").style.width = "0%";
- $("pbStatus").textContent = "30배속 관전 중 (1분 소요)...";
+ $("pbStatus").textContent = "30배속 대형 미니맵 관전 중 (1분 소요)...";
 
  const b=compMetrics(blue), r=compMetrics(red);
  const diff = (b.teamfight - r.teamfight) * 0.5;
 
  const events = [
-  {m: "01:00", text: "게임 시작! 양 팀 챔피언들이 협곡으로 진격합니다."},
-  {m: "03:15", text: "인베이드 대치전 및 블루 팀의 정글 카운터 정찰."},
-  {m: "05:30", text: "정글러 첫 바위게 및 첫 번째 공중 유충 쟁탈전 교전 발생!"},
-  {m: "08:45", text: "바텀 라인 갱킹 시도, 첫 킬 교환 발생."},
-  {m: "11:20", text: "첫 번째 대지/화염 드래곤 앞 5:5 첫 대치 구도."},
-  {m: "14:00", text: "탑 라인 솔로킬 및 포탑 채굴 압박."},
-  {m: "17:30", text: "협곡의 전령을 두고 양 팀 치열한 시야 싸움."},
-  {m: "20:10", text: "핵심 궁극기 쿨타임 완료! 두 번째 용 앞 한타 개시!"},
-  {m: "23:45", text: "사이드 라인 스플릿 압박과 미드 대규모 교전."},
-  {m: "27:10", text: "바론 버스트(내셔 남작) 시도! 상대 팀의 저지 작전."},
-  {m: "29:30", text: "장로 드래곤 및 마지막 억제기를 건 5:5 최후의 한타!"},
-  {m: "31:00", text: "넥서스 공략 및 최종 승부 결정!"}
+  {m: "01:00", text: "게임 시작! 양 팀 챔피언들이 소환사의 협곡 소환진을 떠납니다."},
+  {m: "03:15", text: "인베이드 대치전 및 양 팀 정글러 진영 동선 체크."},
+  {m: "05:30", text: "[공허 유충 🐛] 등장! 바론 지역 유충 싸움 및 첫 교전 발생."},
+  {m: "08:45", text: "바텀 라인 2:2 교전 및 첫 킬 스코어 획득."},
+  {m: "11:20", text: "[드래곤 🐉] 첫 번째 화염/대지 드래곤 둥지 앞 대치전."},
+  {m: "14:00", text: "[협곡의 전령 👁️] 활성화! 탑/미드 전령 압박 시도."},
+  {m: "17:30", text: "시야 싸움 중 정글 한타 및 주요 궁극기 쿨타임 교전."},
+  {m: "20:10", text: "[드래곤 🐉] 영혼이 걸린 세 번째 드래곤 한타 개시! [🔥 궁극기 작렬]"},
+  {m: "23:45", text: "사이드 라인 스플릿과 억제기 압박 구도."},
+  {m: "27:10", text: "[내셔 남작 🪱 (바론)] 버스트 시도! 바론을 두고 벌어지는 최후의 공방전."},
+  {m: "29:30", text: "[장로 드래곤] 및 넥서스 진격을 위한 마지막 5:5 대규모 한타!"},
+  {m: "31:00", text: "넥서스 파괴 및 최종 승부 결정!"}
  ];
 
  const canvas = $("simCanvas");
@@ -708,38 +708,62 @@ function runSimulationPlayback(){
 
  function drawMap(progressRatio, activeUltChamps = []) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#0c1520";
+
+  // Background map texture
+  ctx.fillStyle = "#09121d";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.strokeStyle = "#1b324a";
-  ctx.lineWidth = 28;
-  ctx.beginPath();
-  ctx.moveTo(60, 20), ctx.lineTo(460, 280);
-  ctx.stroke();
+  // --- Map Lanes & Base structures ---
+  // Top Lane
+  ctx.strokeStyle = "#16283c"; ctx.lineWidth = 14;
+  ctx.beginPath(); ctx.moveTo(50, 330); ctx.lineTo(50, 45); ctx.lineTo(630, 45); ctx.stroke();
+  // Mid Lane
+  ctx.beginPath(); ctx.moveTo(50, 330); ctx.lineTo(630, 45); ctx.stroke();
+  // Bot Lane
+  ctx.beginPath(); ctx.moveTo(50, 330); ctx.lineTo(630, 330); ctx.lineTo(630, 45); ctx.stroke();
 
-  ctx.strokeStyle = "#152535";
-  ctx.lineWidth = 12;
-  ctx.beginPath(); ctx.moveTo(40, 260); ctx.lineTo(40, 30); ctx.lineTo(490, 30); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(40, 260); ctx.lineTo(480, 50); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(40, 260); ctx.lineTo(480, 260); ctx.lineTo(480, 30); ctx.stroke();
+  // River
+  ctx.strokeStyle = "#1b3550"; ctx.lineWidth = 34;
+  ctx.beginPath(); ctx.moveTo(80, 20); ctx.lineTo(600, 360); ctx.stroke();
 
-  ctx.fillStyle = "rgba(30, 144, 255, 0.25)";
-  ctx.beginPath(); ctx.arc(40, 260, 32, 0, Math.PI*2); ctx.fill();
-  ctx.fillStyle = "rgba(255, 71, 87, 0.25)";
-  ctx.beginPath(); ctx.arc(480, 40, 32, 0, Math.PI*2); ctx.fill();
+  // Bases (Blue bottom-left, Red top-right)
+  ctx.fillStyle = "rgba(30, 144, 255, 0.22)";
+  ctx.beginPath(); ctx.arc(50, 330, 40, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "rgba(255, 71, 87, 0.22)";
+  ctx.beginPath(); ctx.arc(630, 45, 40, 0, Math.PI*2); ctx.fill();
 
+  // --- Objective Markers ---
+  // 1. Baron / Rift Herald Pit (Top-left river area: x=240, y=120)
+  ctx.fillStyle = "#9b59b6";
+  ctx.beginPath(); ctx.arc(240, 120, 12, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "#e0d0f0"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
+  ctx.fillText("🪱 바론/전령", 240, 98);
+
+  // 2. Voidgrubs Pit (Near Baron: x=190, y=100)
+  ctx.fillStyle = "#e67e22";
+  ctx.beginPath(); ctx.arc(190, 100, 8, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "#f8c471"; ctx.font = "10px sans-serif";
+  ctx.fillText("🐛 유충", 190, 84);
+
+  // 3. Dragon Pit (Bottom-right river area: x=460, y=260)
+  ctx.fillStyle = "#e74c3c";
+  ctx.beginPath(); ctx.arc(460, 260, 12, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "#f5b7b1"; ctx.font = "bold 11px sans-serif";
+  ctx.fillText("🐉 드래곤", 460, 286);
+
+  // Helper function to draw champion avatar node
   function drawChampNode(c, x, y, teamColor) {
    ctx.save();
    ctx.beginPath();
-   ctx.arc(x, y, 16, 0, Math.PI * 2);
+   ctx.arc(x, y, 18, 0, Math.PI * 2);
    ctx.closePath();
    ctx.clip();
 
    if (c.img && c.img.complete && c.img.naturalWidth !== 0) {
-    ctx.drawImage(c.img, x - 16, y - 16, 32, 32);
+    ctx.drawImage(c.img, x - 18, y - 18, 36, 36);
    } else {
     ctx.fillStyle = "#1b2a38";
-    ctx.fillRect(x - 16, y - 16, 32, 32);
+    ctx.fillRect(x - 18, y - 18, 36, 36);
     ctx.fillStyle = "#fff";
     ctx.font = "bold 11px sans-serif";
     ctx.textAlign = "center";
@@ -748,37 +772,41 @@ function runSimulationPlayback(){
    }
    ctx.restore();
 
+   // Team border (Blue / Red)
    ctx.strokeStyle = teamColor;
-   ctx.lineWidth = 3;
+   ctx.lineWidth = 3.5;
    ctx.beginPath();
-   ctx.arc(x, y, 16, 0, Math.PI * 2);
+   ctx.arc(x, y, 18, 0, Math.PI * 2);
    ctx.stroke();
 
+   // Ultimate Indicator (R)
    if (activeUltChamps.includes(c.name)) {
     ctx.strokeStyle = "#ffd36a";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2.5;
     ctx.beginPath();
-    ctx.arc(x, y, 20, 0, Math.PI * 2);
+    ctx.arc(x, y, 22, 0, Math.PI * 2);
     ctx.stroke();
 
     ctx.fillStyle = "#ffd36a";
-    ctx.font = "bold 9px sans-serif";
+    ctx.font = "bold 10px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("[ R ]", x, y - 22);
+    ctx.fillText("[ R ]", x, y - 24);
    }
   }
 
+  // Draw Blue Champions movement across map
   const blueChamps = uniqueTeam(blue);
   blueChamps.forEach((c, idx) => {
-   const targetX = 80 + idx * 75 + Math.sin(progressRatio * Math.PI * 2 + idx) * 35;
-   const targetY = 220 - idx * 40 + Math.cos(progressRatio * Math.PI * 2 + idx) * 20;
+   const targetX = 100 + idx * 95 + Math.sin(progressRatio * Math.PI * 2 + idx) * 45;
+   const targetY = 280 - idx * 50 + Math.cos(progressRatio * Math.PI * 2 + idx) * 30;
    drawChampNode(c, targetX, targetY, "#1e90ff");
   });
 
+  // Draw Red Champions movement across map
   const redChamps = uniqueTeam(red);
   redChamps.forEach((c, idx) => {
-   const targetX = 440 - idx * 75 + Math.cos(progressRatio * Math.PI * 2 + idx) * 35;
-   const targetY = 80 + idx * 40 + Math.sin(progressRatio * Math.PI * 2 + idx) * 20;
+   const targetX = 580 - idx * 95 + Math.cos(progressRatio * Math.PI * 2 + idx) * 45;
+   const targetY = 90 + idx * 50 + Math.sin(progressRatio * Math.PI * 2 + idx) * 30;
    drawChampNode(c, targetX, targetY, "#ff4757");
   });
  }
