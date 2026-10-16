@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080f18">
-<title>협곡 전략 연구소 - Ultimate Meta Edition</title>
+<title>협곡 전략 연구소 - Ultimate Matchup Edition</title>
 <style>
 :root{
   --bg: #080f18;
-  --panel: rgba(17, 27, 40, 0.9);
+  --panel: rgba(17, 27, 40, 0.92);
   --panel2: #142232;
   --line: #2a3f55;
   --text: #f0f6fc;
   --muted: #8b9bb4;
   --blue: #1e90ff;
-  --blue-glow: rgba(30, 144, 255, 0.25);
+  --blue-glow: rgba(30, 144, 255, 0.3);
   --red: #ff4757;
-  --red-glow: rgba(255, 71, 87, 0.25);
+  --red-glow: rgba(255, 71, 87, 0.3);
   --gold: #f1c40f;
   --gold-glow: rgba(241, 196, 15, 0.2);
   --green: #2ecc71;
@@ -31,7 +31,7 @@ body{
 }
 header{
   padding:28px 16px 16px;
-  max-width:1350px;
+  max-width:1400px;
   margin:auto;
   text-align: center;
 }
@@ -45,7 +45,7 @@ header h1{
 }
 .sub{color:var(--muted);margin:0;font-size:15px;letter-spacing:-0.3px}
 
-.wrap{max-width:1350px;margin:auto;padding:0 16px 40px}
+.wrap{max-width:1400px;margin:auto;padding:0 16px 40px}
 
 /* Tabs */
 .tabs{
@@ -204,6 +204,11 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 .preset-btn:hover { background: #24425e; border-color: var(--blue); }
 .preset-btn.random { background: linear-gradient(135deg, #b7950b, #d4ac0d); color: #fff; font-weight: bold; border-color: #f1c40f; }
 
+/* Matchup Item/Rune Grid */
+.recommend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:10px}
+.rec-card{background:#0b141e;border:1px solid #2a4051;border-radius:12px;padding:14px}
+.rec-card h3{margin:0 0 8px;color:#9ed8ff;font-size:15px}
+
 /* Simulation Playback UI */
 .playback-box {
   background: #0b131d;
@@ -242,7 +247,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   height: 100%;
   background: linear-gradient(90deg, #1e90ff, #2ecc71, #f1c40f);
   width: 0%;
-  transition: width 0.2s linear;
+  transition: width 0.1s linear;
 }
 .log-stream {
   background: #070d14;
@@ -255,14 +260,36 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   font-size: 13px;
   line-height: 1.6;
   color: #c9dff5;
+  margin-top: 12px;
 }
 .log-item { margin-bottom: 6px; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 4px; }
 .log-time { color: var(--gold); font-weight: bold; margin-right: 8px; }
 
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 13px;
+  background: #0b141e;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.stats-table th, .stats-table td {
+  padding: 10px 12px;
+  text-align: center;
+  border-bottom: 1px solid #223548;
+}
+.stats-table th {
+  background: #152538;
+  color: var(--gold);
+  font-weight: 600;
+}
+.stats-table tr:hover { background: rgba(255,255,255,0.02); }
+
 .footer{color:var(--muted);font-size:12px;line-height:1.6;padding:20px 0;text-align:center;border-top:1px solid var(--line);margin-top:30px}
 
 @media(max-width:800px){
-  .grid2,.grid3{grid-template-columns:1fr}
+  .grid2,.grid3,.recommend-grid{grid-template-columns:1fr}
   .slot{grid-template-columns:45px minmax(0,1fr) 95px}
   .panel{padding:14px}
 }
@@ -270,21 +297,21 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </head>
 <body>
 <header>
-<h1>⚔️ 협곡 전략 연구소 — Ultimate Meta Edition</h1>
-<p class="sub">전체 챔피언 검색 · 플레이어 티어 설정 · 미니맵 전투 관전 시뮬레이터</p>
+<h1>⚔️ 협곡 전략 연구소 — Ultimate Matchup Edition</h1>
+<p class="sub">상대별 맞춤 아이템 & 룬 추천 · 30배속 미니맵 관전 · 상세 전투 정산 리포트</p>
 </header>
 
 <div class="wrap">
 <div class="tabs">
-<button class="tab active" data-page="builder">팀 조합 & 티어 분석</button>
-<button class="tab" data-page="lanes">라인별 카운터</button>
-<button class="tab" data-page="sim">10배속 전투 시뮬레이터</button>
+<button class="tab active" data-page="builder">팀 조합 & 맞춤 템/룬 분석</button>
+<button class="tab" data-page="lanes">라인별 카운터 & 템트리</button>
+<button class="tab" data-page="sim">30배속 미니맵 관전 시뮬레이터</button>
 <button class="tab" data-page="guide">전략 도감</button>
 </div>
 
 <!-- PAGE 1: BUILDER -->
 <section class="page active" id="builder">
-<div class="notice">💡 검색창에 챔피언 이름을 입력하여 모든 챔피언을 빠르고 정확하게 검색할 수 있습니다.</div>
+<div class="notice">💡 각 라인별 챔피언과 상대 조합을 설정하면, 상대에 따른 <b>맞춤형 추천 아이템과 룬 세팅</b>이 종합 분석 결과 하단에 표시됩니다.</div>
 
 <div class="preset-bar">
 <span>🔥 실전 메타 조합 & 랜덤:</span>
@@ -304,7 +331,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <div id="blueSlots" class="slots"></div>
 </div>
 <div class="panel">
-<div class="teamtitle"><h2 class="red">🔴 레드 팀</h2><span class="small">상대 조합 & 티어</span></div>
+<div class="teamtitle"><h2 class="red">🔴 레드 팀</h2><span class="small">상대 조합 & 천적</span></div>
 <div id="redSlots" class="slots"></div>
 </div>
 </div>
@@ -317,7 +344,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <div class="field"><label for="objective">주요 전투 장소</label><select id="objective"><option value="river">강 / 중립 오브젝트 (용·바론)</option><option value="jungle">좁은 정글 입구 (한타 유리)</option><option value="lane">넓은 라인 / 스플릿</option><option value="siege">포탑 공성전</option></select></div>
 </div>
 <div class="controls">
-<button class="btn" id="analyzeBtn">⚡ 티어 반영 전체 심층 분석</button>
+<button class="btn" id="analyzeBtn">⚡ 상대 맞춤 템/룬 종합 분석</button>
 <button class="btn secondary" id="clearBtn">🗑️ 초기화</button>
 </div>
 </div>
@@ -327,15 +354,15 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <!-- PAGE 2: LANES -->
 <section class="page" id="lanes">
 <div class="panel">
-<h2>라인별 상성 분석</h2>
-<p class="muted">챔피언 검색 및 티어를 선택하여 상성 구도를 확인하세요.</p>
+<h2>라인별 상대 맞춤 아이템 & 룬 상성</h2>
+<p class="muted">아군과 상대 챔피언을 선택하면 구도별 핵심 템트리와 룬을 확인할 수 있습니다.</p>
 <div class="grid2">
 <div class="field"><label>라인 선택</label><select id="lanePick"><option value="TOP">탑</option><option value="JUNGLE">정글</option><option value="MID">미드</option><option value="ADC">바텀 원딜</option><option value="SUPPORT">서포터</option></select></div>
 <div class="field"><label>게임 단계</label><select id="laneTime"><option value="early">초반 라인전</option><option value="mid">중반 교전</option><option value="late">후반 한타</option></select></div>
 <div class="field"><label>아군 챔피언</label><select id="laneUs"></select></div>
 <div class="field"><label>상대 챔피언</label><select id="laneThem"></select></div>
 </div>
-<div class="controls"><button class="btn" id="laneAnalyze">⚔️ 상성 정밀 분석</button></div>
+<div class="controls"><button class="btn" id="laneAnalyze">⚔️ 상대 맞춤 분석 실행</button></div>
 <div id="laneOutput" class="result" style="margin-top:16px"></div>
 </div>
 </section>
@@ -343,21 +370,21 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <!-- PAGE 3: SIMULATOR -->
 <section class="page" id="sim">
 <div class="panel">
-<h2>10배속 전투 시뮬레이터</h2>
-<p class="muted">선택한 조합과 티어를 바탕으로, 미니맵 상에서 팀 색상 태두리의 캐릭터들이 이동하며 교전하는 모습을 10배속으로 관전합니다.</p>
+<h2>30배속 미니맵 전투 관전 시뮬레이터 (1분 완료)</h2>
+<p class="muted">미니맵상에서 캐릭터 일러스트 얼굴 원형과 팀별 테두리 색상으로 30배속(총 1분 소요) 전투를 관전합니다.</p>
 <div class="grid3">
 <div class="field"><label>교전 개시 방식</label><select id="engage"><option value="blue">블루 팀 선진입 (이니시에이팅)</option><option value="red">레드 팀 선진입 (이니시에이팅)</option><option value="poke">포킹 및 거리 조절 후 개시</option><option value="flank">측면 기습 및 백도어 시도</option><option value="front">정면 5:5 대치 후 한타</option></select></div>
 <div class="field"><label>블루 팀 시야 장악력</label><select id="blueVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
 <div class="field"><label>레드 팀 시야 장악력</label><select id="redVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
 </div>
 <div class="controls">
-<button class="btn" id="runSimPlayback">▶ 10배속 미니맵 관전 시작</button>
+<button class="btn" id="runSimPlayback">▶ 30배속 미니맵 관전 시작 (1분)</button>
 </div>
 
 <div id="simPlaybackContainer" style="display:none;">
  <div class="playback-box">
   <div class="playback-header">
-   <h3 style="margin:0; color:var(--gold);">🎮 미니맵 실시간 관전 중 (10배속 재생)</h3>
+   <h3 style="margin:0; color:var(--gold);">🎮 미니맵 실시간 관전 중 (30배속 / 1분 소요)</h3>
    <span id="pbStatus" class="pill">진행 중...</span>
   </div>
   <div class="live-scoreboard">
@@ -366,7 +393,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
    <span class="red">🔴 레드 팀 킬: <b id="redKills">0</b></span>
   </div>
   <!-- Mini-map Canvas -->
-  <canvas id="simCanvas" width="480" height="280" style="width:100%; max-width:480px; background:#08101a; border-radius:12px; border:2px solid #2a3f55; display:block; margin:0 auto 14px;"></canvas>
+  <canvas id="simCanvas" width="520" height="300" style="width:100%; max-width:520px; background:#08101a; border-radius:12px; border:2px solid #2a3f55; display:block; margin:0 auto 14px;"></canvas>
 
   <div class="progress-container">
    <div id="pbProgress" class="progress-fill"></div>
@@ -383,13 +410,13 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <div class="panel">
 <h2>조합 핵심 전술 가이드</h2>
 <div class="grid2">
-<div><h3>🛡️ 티어와 숙련도의 중요성</h3><p>플레이어의 티어가 높을수록 스킬 적중률과 전투 기여도가 상승하여 상성 열세를 극복할 수 있습니다.</p></div>
-<div><h3>🎯 시야와 오브젝트</h3><p>교전 전 시야 장악과 한타 구도 형성이 승패를 좌우합니다.</p></div>
+<div><h3>🛡️ 상대 맞춤 아이템 빌드의 중요성</h3><p>상대 조합에 암살자나 탱커가 많을 경우 방어구 관통 아이템이나 치유 감소, 방어형 코어템을 유연하게 올려야 승률이 높아집니다.</p></div>
+<div><h3>🎯 룬 세팅의 핵심</h3><p>라인전 맞대결 구도(탱커 vs 브루저, 포킹 vs 돌진)에 따라 룬 파편과 핵심 룬을 다르게 가져가세요.</p></div>
 </div>
 </div>
 </section>
 
-<div class="footer">협곡 전략 연구소 Ultimate Meta — 리그 오브 레전드 전략 시뮬레이터</div>
+<div class="footer">협곡 전략 연구소 Ultimate Matchup Edition — 리그 오브 레전드 전략 시뮬레이터</div>
 </div>
 
 <script>
@@ -409,7 +436,8 @@ const FALLBACK=[
 ["Aatrox","아트록스","Fighter"],["Ahri","아리","Mage,Assassin"],["Akali","아칼리","Assassin"],["Alistar","알리스타","Tank,Support"],["Amumu","아무무","Tank,Support"],["Annie","애니","Mage"],["Ashe","애쉬","Marksman,Support"],["AurelionSol","아우렐리온 솔","Mage"],["Blitzcrank","블리츠크랭크","Tank,Support"],["Braum","브라움","Tank,Support"],["Caitlyn","케이틀린","Marksman"],["Camille","카밀","Fighter,Assassin"],["Darius","다리우스","Fighter,Tank"],["Diana","다이애나","Fighter,Mage"],["DrMundo","문도 박사","Fighter,Tank"],["Ekko","에코","Assassin,Mage"],["Ezreal","이즈리얼","Marksman,Mage"],["Fiora","피오라","Fighter,Assassin"],["Garen","가렌","Fighter,Tank"],["Gnar","나르","Fighter,Tank"],["Gragas","그라가스","Fighter,Mage,Tank"],["Graves","그레이브즈","Marksman,Fighter"],["Hecarim","헤카림","Fighter"],["Irelia","이렐리아","Fighter,Assassin"],["Janna","잔나","Support,Mage"],["JarvanIV","자르반 4세","Tank,Fighter"],["Jax","잭스","Fighter"],["Jhin","진","Marksman,Mage"],["Jinx","징크스","Marksman"],["KaiSa","카이사","Marksman,Assassin"],["Kalista","칼리스타","Marksman"],["Karma","카르마","Mage,Support"],["Kassadin","카사딘","Assassin,Mage"],["Katarina","카타리나","Assassin,Mage"],["Kayle","케일","Mage,Marksman"],["Kayn","케인","Fighter,Assassin"],["Kennen","케넨","Mage,Marksman"],["KhaZix","카직스","Assassin"],["Kindred","킨드레드","Marksman"],["Kled","클레드","Fighter"],["LeBlanc","르블랑","Assassin,Mage"],["LeeSin","리 신","Fighter,Assassin"],["Leona","레오나","Tank,Support"],["Lillia","릴리아","Fighter,Mage"],["Lissandra","리산드라","Mage"],["Lucian","루시안","Marksman"],["Lulu","룰루","Support,Mage"],["Lux","럭스","Mage,Support"],["Malphite","말파이트","Tank,Mage"],["Maokai","마오카이","Tank,Support"],["MissFortune","미스 포츈","Marksman"],["Mordekaiser","모데카이저","Fighter,Mage"],["Morgana","모르가나","Mage,Support"],["Nami","나미","Support,Mage"],["Nasus","나서스","Fighter,Tank"],["Nautilus","노틸러스","Tank,Support"],["Neeko","니코","Mage,Support"],["Nidalee","니달리","Mage,Assassin"],["Nocturne","녹턴","Assassin,Fighter"],["Olaf","올라프","Fighter,Tank"],["Orianna","오리아나","Mage,Support"],["Ornn","오른","Tank"],["Pantheon","판테온","Fighter,Assassin"],["Poppy","뽀삐","Tank,Fighter"],["Pyke","파이크","Support,Assassin"],["Rakan","라칸","Support,Tank"],["Rammus","람머스","Tank"],["RekSai","렉사이","Fighter"],["Renekton","레넥톤","Fighter,Tank"],["Rengar","렝가","Assassin"],["Riven","리븐","Fighter,Assassin"],["Rumble","럼블","Fighter,Mage"],["Ryze","라이즈","Mage"],["Samira","사미라","Marksman,Assassin"],["Sejuani","세주아니","Tank"],["Senna","세나","Marksman,Support"],["Seraphine","세라핀","Mage,Support"],["Sett","세트","Fighter,Tank"],["Shen","쉔","Tank,Support"],["Shyvana","쉬바나","Fighter,Mage"],["Sion","사이온","Tank"],["Sivir","시비르","Marksman"],["Skarner","스카너","Tank,Fighter"],["Smolder","스몰더","Marksman"],["Sona","소나","Support,Mage"],["Soraka","소라카","Support,Mage"],["Swain","스웨인","Mage,Tank"],["Sylas","사일러스","Mage,Fighter"],["Syndra","신드라","Mage"],["TahmKench","탐 켄치","Tank,Support"],["Taliyah","탈리야","Mage,Support"],["Talon","탈론","Assassin"],["Taric","타릭","Support,Tank"],["Teemo","티모","Marksman,Mage"],["Thresh","쓰레쉬","Support,Tank"],["Tristana","트리스타나","Marksman,Assassin"],["Trundle","트런들","Fighter,Tank"],["Tryndamere","트린다미어","Fighter,Assassin"],["TwistedFate","트위스티드 페이트","Mage"],["Twitch","트위치","Marksman,Assassin"],["Udyr","우디르","Fighter,Tank"],["Urgot","우르곳","Fighter,Tank"],["Varus","바루스","Marksman,Mage"],["Vayne","베인","Marksman,Assassin"],["Veigar","베이가","Mage"],["Velkoz","벨코즈","Mage"],["Vex","벡스","Mage"],["Vi","바이","Fighter"],["Viego","비에고","Fighter,Assassin"],["Viktor","빅토르","Mage"],["Vladimir","블라디미르","Mage"],["Volibear","볼리베어","Fighter,Tank"],["Warwick","워윅","Fighter,Tank"],["Wukong","오공","Fighter,Tank"],["Xayah","자야","Marksman"],["Xerath","제라스","Mage"],["XinZhao","신 짜오","Fighter"],["Yasuo","야스오","Fighter,Assassin"],["Yone","요네","Fighter,Assassin"],["Yorick","요릭","Fighter,Tank"],["Yuumi","유미","Support,Mage"],["Zac","자크","Tank"],["Zed","제드","Assassin"],["Zeri","제리","Marksman"],["Ziggs","직스","Mage,Marksman"],["Zilean","질리언","Support,Mage"],["Zoe","조이","Mage"],["Zyra","자이라","Mage,Support"]
 ];
 
-const EXTRA={};
+const ITEMS_POOL = ["무한의 대검", "삼위일체", "루덴의 폭풍", "몰락한 왕의 검", "존야의 모래시계", "라바돈의 죽음모자", "스테락의 도전", "증오의 사슬", "란두인의 예언", "정령의 형상", "수호 천사", "크라켄 학살자", "몰락한 왕의 검", "갈라진 하늘"];
+const RUNES_POOL = ["정복자 (정밀)", "기민한 발놀림 (정밀)", "감전 (지배)", "어둠의 수확 (지배)", "신비로운 유성 (마법)", "콩콩이 소환 (마법)", "착취의 손아귀 (결의)", "봉인 풀린 주문서 (영감)"];
 
 const PRESETS = {
   dive: { blue: ["오른", "자르반 4세", "아리", "카이사", "레오나"], red: ["말파이트", "신 짜오", "오리아나", "진", "노틸러스"] },
@@ -421,15 +449,19 @@ const PRESETS = {
   pick: { blue: ["카밀", "카직스", "르블랑", "진", "파이크"], red: ["오른", "비에고", "신드라", "케이틀린", "쓰레쉬"] }
 };
 
-let champs=FALLBACK.map(([id,name,tags])=>({id,name,tags:tags.split(","),img:null}));
+let champs=FALLBACK.map(([id,name,tags])=>({id,name,tags:tags.split(","),img:new Image()}));
+const DD_VERSION = "14.4.1";
+champs.forEach(c => {
+  c.img.src = `https://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/img/champion/${c.id}.png`;
+});
+
 const $=id=>document.getElementById(id);
 function champByName(n){return champs.find(c=>c.name===n)||{id:"",name:n||"미선택",tags:[],img:null};}
 function tags(c){return c.tags||[]}
 
 function profile(c, tierVal=1.0){
- const t=tags(c), ex=EXTRA[c.name]||{};
+ const t=tags(c);
  const p={front:0,cc:0,engage:0,protect:0,peel:0,burst:0,poke:0,range:0,scale:0,duel:0,sustain:0,aoe:0,mobility:0,pick:0,split:0,siege:0,early:0,roam:0,vision:0,antiDive:0,cleanup:0};
- for(const k of Object.keys(p)) if(ex[k]!==undefined)p[k]=ex[k];
  if(t.includes("Tank")){p.front=Math.max(p.front,2);p.cc=Math.max(p.cc,1)}
  if(t.includes("Support")){p.protect=Math.max(p.protect,1);p.peel=Math.max(p.peel,1)}
  if(t.includes("Assassin")){p.burst=Math.max(p.burst,2);p.mobility=Math.max(p.mobility,2);p.pick=Math.max(p.pick,2)}
@@ -493,7 +525,6 @@ function renderSlots(color){
 }
 
 function esc(s){return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
-
 function fillChampionSelect(id,initial){
  const s=$(id);
  s.innerHTML='<option value="미선택">— 챔피언 선택 —</option>'+champs.slice().sort((a,b)=>a.name.localeCompare(b.name,"ko")).map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
@@ -524,23 +555,35 @@ function listChamps(team){return uniqueTeam(team).map(c=>`<span class="pill">${e
 function objectiveMod(){return {river:1,jungle:1.12,lane:.88,siege:.92}[$("objective").value]||1}
 function timeMod(m){const time=$("gameTime").value;return time==="early"?m.early*1.1-m.scale*.1:time==="late"?m.scaling*1.1+m.scale*.1:m.scaling*.6+m.early*.35}
 
-function matchupValue(us,them,lane,time){
- const a=profile(us, us.tierVal),b=profile(them, them.tierVal);let score=0,reasons=[];
- if(!us.name||us.name==="미선택"||!them.name||them.name==="미선택")return {score:0,reasons:["두 챔피언을 모두 선택하세요."]};
- if(a.range>b.range){score+=.5;reasons.push("사거리 기반 견제 우위");}
- if(a.sustain>b.sustain){score+=.5;reasons.push("유지력 및 체력 교환 유리");}
- if(b.poke>a.poke&&b.range>=a.range){score-=.6;reasons.push("상대의 포킹 견제 주의 필요");}
- if(us.tierVal > them.tierVal){score+=0.6;reasons.push("플레이어 티어 우세 반영됨");}
- else if(us.tierVal < them.tierVal){score-=0.6;reasons.push("플레이어 티어 열세 반영됨");}
- reasons.push("스킬 적중 및 정글 개입에 따라 구도가 달라질 수 있습니다.");
- return {score:Math.max(-3,Math.min(3,score)),reasons};
-}
+// Matchup-specific Item & Rune Recommendation Generator
+function getMatchupRecommendations(us, them) {
+  if (!us.name || us.name === "미선택" || !them.name || them.name === "미선택") {
+    return { starting: "챔피언을 선택해주세요.", core: "-", counter: "-", rune: "-" };
+  }
+  const tThem = tags(them);
+  let starting = "도란의 검 + 체력 물약 2개";
+  let core = "신화급/핵심 코어 아이템 1~2개";
+  let counter = "상대 위협에 따른 방어 아이템";
+  let rune = "정복자 / 핵심 주력 룬";
 
-function analyzeLane(){
- const us=champByName($("laneUs").value),them=champByName($("laneThem").value),lane=$("lanePick").value,time=$("laneTime").value;
- const r=matchupValue(us,them,lane,time),s=r.score;
- const status=s>=1?"아군 유리":s<=-1?"상대 유리":"팽팽함";
- $("laneOutput").innerHTML=`<div class="metric"><strong>${status}</strong><b>${esc(us.name)} vs ${esc(them.name)}</b><p>추정 상성 점수: ${s>0?"+":""}${fmt(s)} / 3</p></div><h3 style="margin-top:14px">분석 근거</h3><ul>${r.reasons.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  if (tThem.includes("Assassin") || tThem.includes("Fighter")) {
+    starting = "도란의 방패 + 체력 물약 (유지력 확보)";
+    counter = "판금 장화(닌자의 신발), 란두인의 예언 또는 죽음의 무도";
+    rune = "정밀 (정복자) + 결의 (뼈 방패 / 재생의 바람)";
+  } else if (tThem.includes("Mage")) {
+    starting = "도란의 반지 또는 천이의 갑옷 + 충전형 물약";
+    counter = "헤르메스의 발걸음, 주문포식자(맬모셔스의 아귀) 또는 대자연의 힘";
+    rune = "정밀 / 지배 + 마법 (빛의 망토 / 재생의 바람)";
+  } else if (tThem.includes("Tank")) {
+    starting = "도란의 검 + 체력 물약";
+    counter = "처형인의 대검 / 사형 선고 (치유 감소) 또는 방어구 관통 아이템";
+    rune = "집중 공격 / 정복자 + 영감 (비스킷 배달)";
+  } else if (tThem.includes("Marksman")) {
+    starting = "도란의 검 + 체력 물약 (거리 조절 주의)";
+    counter = "수호 천사 또는 초시계 (폭딜 방어)";
+    rune = "기민한 발놀림 또는 치명적 속도";
+  }
+  return { starting, core, counter, rune };
 }
 
 function analysis(){
@@ -552,11 +595,44 @@ function analysis(){
  const diff=scoreB-scoreR, blueWin=diff>1.3,redWin=diff< -1.3;
  const summary=blueWin?"티어 및 조합 점수 기준 블루 팀이 우세합니다.":redWin?"티어 및 조합 점수 기준 레드 팀이 우세합니다.":"양 팀의 전력이 매우 팽팽합니다.";
 
+ let matchupCardsHtml = "";
+ LANES.forEach(([key, label]) => {
+  const us = champByName($("blue_"+key).value);
+  const them = champByName($("red_"+key).value);
+  if(us.name !== "미선택" && them.name !== "미선택") {
+    const rec = getMatchupRecommendations(us, them);
+    matchupCardsHtml += `<div class="rec-card">
+     <h3>${label} · ${esc(us.name)} vs ${esc(them.name)}</h3>
+     <p><b>스타팅 아이템:</b> ${esc(rec.starting)}</p>
+     <p><b>추천 템트리:</b> ${esc(rec.core)}</p>
+     <p><b>대응/카운터템:</b> ${esc(rec.counter)}</p>
+     <p><b>맞춤 룬 세팅:</b> ${esc(rec.rune)}</p>
+    </div>`;
+  }
+ });
+
  $("analysisOutput").innerHTML=`<div class="panel"><h2>📊 티어 반영 조합 진단 결과</h2><p><b>${summary}</b></p>
  <div class="grid3" style="margin-top:12px">${metricCard("블루 팀 종합력",fmt(scoreB),"티어 가중치 포함")}${metricCard("레드 팀 종합력",fmt(scoreR),"티어 가중치 포함")}${metricCard("전력 격차",(diff>0?"+":"")+fmt(diff),diff>1.3?"블루 우세":diff<-1.3?"레드 우세":"접전")}</div></div>
  <div class="grid2">
  <div class="panel"><h2 class="blue">🔵 블루 팀 분석</h2><p>${listChamps(blue)}</p>${bar("한타력",b.teamfight,25)}${bar("진입력",b.engageScore,18)}${bar("포킹력",b.pokeScore,18)}${bar("성장성",b.scaling,20)}</div>
  <div class="panel"><h2 class="red">🔴 레드 팀 분석</h2><p>${listChamps(red)}</p>${bar("한타력",r.teamfight,25,true)}${bar("진입력",r.engageScore,18,true)}${bar("포킹력",r.pokeScore,18,true)}${bar("성장성",r.scaling,20,true)}</div>
+ </div>
+ <div class="panel">
+  <h2>🛡️ 상대 맞춤 추천 아이템 및 룬 (라인별)</h2>
+  <div class="recommend-grid">${matchupCardsHtml || '<p class="muted">각 라인별 아군과 상대 챔피언을 모두 선택하면 상대 맞춤 템/룬이 표시됩니다.</p>'}</div>
+ </div>`;
+}
+
+function analyzeLane(){
+ const us=champByName($("laneUs").value),them=champByName($("laneThem").value),lane=$("lanePick").value;
+ const rec = getMatchupRecommendations(us, them);
+ $("laneOutput").innerHTML=`<div class="metric"><strong>${esc(us.name)} vs ${esc(them.name)}</strong><b>맞춤 장비 & 룬 가이드</b></div>
+ <div class="rec-card" style="margin-top:14px">
+  <h3>⚔️ ${lane} 매치업 솔루션</h3>
+  <p><b>스타팅 아이템:</b> ${esc(rec.starting)}</p>
+  <p><b>핵심 템트리:</b> ${esc(rec.core)}</p>
+  <p><b>카운터/방어템:</b> ${esc(rec.counter)}</p>
+  <p><b>추천 룬:</b> ${esc(rec.rune)}</p>
  </div>`;
 }
 
@@ -591,7 +667,6 @@ function loadRandomPreset(){
  analysis();
 }
 
-// 10x Speed Canvas Map Simulation Playback
 function runSimulationPlayback(){
  const blue=getTeam("blue"),red=getTeam("red");
  if(uniqueTeam(blue).length===0||uniqueTeam(red).length===0){
@@ -608,113 +683,138 @@ function runSimulationPlayback(){
  $("blueKills").textContent = "0";
  $("redKills").textContent = "0";
  $("pbProgress").style.width = "0%";
- $("pbStatus").textContent = "10배속 재생 중...";
+ $("pbStatus").textContent = "30배속 관전 중 (1분 소요)...";
 
  const b=compMetrics(blue), r=compMetrics(red);
  const diff = (b.teamfight - r.teamfight) * 0.5;
 
  const events = [
-  {m: "01:30", text: "인베이드 대치전 발생. 양팀 탐색전."},
-  {m: "04:15", text: "정글러 첫 바위게 싸움 교전 발생."},
-  {m: "08:30", text: "첫 번째 유충/용 앞 소규모 교전."},
-  {m: "12:00", text: "바텀 라인 갱킹 및 포탑 채굴 이득."},
-  {m: "16:45", text: "협곡의 전령 앞 3:3 한타 대치."},
-  {m: "21:10", text: "네 번째 드래곤을 건 대규모 한타 교전!"},
-  {m: "26:30", text: "내셔 남작(바론) 버스트 시도 및 한타 개시."},
-  {m: "31:00", text: "상대 본진 압박 및 억제기 파괴, 넥서스 공략!"}
+  {m: "01:00", text: "게임 시작! 양 팀 챔피언들이 협곡으로 진격합니다."},
+  {m: "03:15", text: "인베이드 대치전 및 블루 팀의 정글 카운터 정찰."},
+  {m: "05:30", text: "정글러 첫 바위게 및 첫 번째 공중 유충 쟁탈전 교전 발생!"},
+  {m: "08:45", text: "바텀 라인 갱킹 시도, 첫 킬 교환 발생."},
+  {m: "11:20", text: "첫 번째 대지/화염 드래곤 앞 5:5 첫 대치 구도."},
+  {m: "14:00", text: "탑 라인 솔로킬 및 포탑 채굴 압박."},
+  {m: "17:30", text: "협곡의 전령을 두고 양 팀 치열한 시야 싸움."},
+  {m: "20:10", text: "핵심 궁극기 쿨타임 완료! 두 번째 용 앞 한타 개시!"},
+  {m: "23:45", text: "사이드 라인 스플릿 압박과 미드 대규모 교전."},
+  {m: "27:10", text: "바론 버스트(내셔 남작) 시도! 상대 팀의 저지 작전."},
+  {m: "29:30", text: "장로 드래곤 및 마지막 억제기를 건 5:5 최후의 한타!"},
+  {m: "31:00", text: "넥서스 공략 및 최종 승부 결정!"}
  ];
 
  const canvas = $("simCanvas");
  const ctx = canvas.getContext("2d");
 
- function drawMap(progressRatio) {
+ function drawMap(progressRatio, activeUltChamps = []) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Background map
   ctx.fillStyle = "#0c1520";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // River
   ctx.strokeStyle = "#1b324a";
-  ctx.lineWidth = 24;
+  ctx.lineWidth = 28;
   ctx.beginPath();
-  ctx.moveTo(60, 20), ctx.lineTo(420, 260);
+  ctx.moveTo(60, 20), ctx.lineTo(460, 280);
   ctx.stroke();
 
-  // Lanes
   ctx.strokeStyle = "#152535";
-  ctx.lineWidth = 10;
-  ctx.beginPath(); ctx.moveTo(40, 240); ctx.lineTo(40, 30); ctx.lineTo(450, 30); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(40, 240); ctx.lineTo(440, 40); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(40, 240); ctx.lineTo(440, 240); ctx.lineTo(440, 30); ctx.stroke();
+  ctx.lineWidth = 12;
+  ctx.beginPath(); ctx.moveTo(40, 260); ctx.lineTo(40, 30); ctx.lineTo(490, 30); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(40, 260); ctx.lineTo(480, 50); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(40, 260); ctx.lineTo(480, 260); ctx.lineTo(480, 30); ctx.stroke();
 
-  // Bases
-  ctx.fillStyle = "rgba(30, 144, 255, 0.2)";
-  ctx.beginPath(); ctx.arc(40, 240, 28, 0, Math.PI*2); ctx.fill();
-  ctx.fillStyle = "rgba(255, 71, 87, 0.2)";
-  ctx.beginPath(); ctx.arc(440, 40, 28, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "rgba(30, 144, 255, 0.25)";
+  ctx.beginPath(); ctx.arc(40, 260, 32, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "rgba(255, 71, 87, 0.25)";
+  ctx.beginPath(); ctx.arc(480, 40, 32, 0, Math.PI*2); ctx.fill();
 
-  // Draw Blue Champions (Team color border: #1e90ff)
+  function drawChampNode(c, x, y, teamColor) {
+   ctx.save();
+   ctx.beginPath();
+   ctx.arc(x, y, 16, 0, Math.PI * 2);
+   ctx.closePath();
+   ctx.clip();
+
+   if (c.img && c.img.complete && c.img.naturalWidth !== 0) {
+    ctx.drawImage(c.img, x - 16, y - 16, 32, 32);
+   } else {
+    ctx.fillStyle = "#1b2a38";
+    ctx.fillRect(x - 16, y - 16, 32, 32);
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 11px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(c.name.slice(0, 2), x, y);
+   }
+   ctx.restore();
+
+   ctx.strokeStyle = teamColor;
+   ctx.lineWidth = 3;
+   ctx.beginPath();
+   ctx.arc(x, y, 16, 0, Math.PI * 2);
+   ctx.stroke();
+
+   if (activeUltChamps.includes(c.name)) {
+    ctx.strokeStyle = "#ffd36a";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(x, y, 20, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.fillStyle = "#ffd36a";
+    ctx.font = "bold 9px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("[ R ]", x, y - 22);
+   }
+  }
+
   const blueChamps = uniqueTeam(blue);
   blueChamps.forEach((c, idx) => {
-   const targetX = 100 + idx * 60 + Math.sin(progressRatio * Math.PI + idx) * 30;
-   const targetY = 200 - idx * 35 + Math.cos(progressRatio * Math.PI + idx) * 20;
-   
-   ctx.fillStyle = "#111d2b";
-   ctx.strokeStyle = "#1e90ff";
-   ctx.lineWidth = 3;
-   ctx.beginPath();
-   ctx.arc(targetX, targetY, 14, 0, Math.PI * 2);
-   ctx.fill();
-   ctx.stroke();
-
-   ctx.fillStyle = "#f0f6fc";
-   ctx.font = "bold 10px sans-serif";
-   ctx.textAlign = "center";
-   ctx.textBaseline = "middle";
-   ctx.fillText(c.name.slice(0, 2), targetX, targetY);
+   const targetX = 80 + idx * 75 + Math.sin(progressRatio * Math.PI * 2 + idx) * 35;
+   const targetY = 220 - idx * 40 + Math.cos(progressRatio * Math.PI * 2 + idx) * 20;
+   drawChampNode(c, targetX, targetY, "#1e90ff");
   });
 
-  // Draw Red Champions (Team color border: #ff4757)
   const redChamps = uniqueTeam(red);
   redChamps.forEach((c, idx) => {
-   const targetX = 380 - idx * 60 + Math.cos(progressRatio * Math.PI + idx) * 30;
-   const targetY = 80 + idx * 35 + Math.sin(progressRatio * Math.PI + idx) * 20;
-
-   ctx.fillStyle = "#111d2b";
-   ctx.strokeStyle = "#ff4757";
-   ctx.lineWidth = 3;
-   ctx.beginPath();
-   ctx.arc(targetX, targetY, 14, 0, Math.PI * 2);
-   ctx.fill();
-   ctx.stroke();
-
-   ctx.fillStyle = "#f0f6fc";
-   ctx.font = "bold 10px sans-serif";
-   ctx.textAlign = "center";
-   ctx.textBaseline = "middle";
-   ctx.fillText(c.name.slice(0, 2), targetX, targetY);
+   const targetX = 440 - idx * 75 + Math.cos(progressRatio * Math.PI * 2 + idx) * 35;
+   const targetY = 80 + idx * 40 + Math.sin(progressRatio * Math.PI * 2 + idx) * 20;
+   drawChampNode(c, targetX, targetY, "#ff4757");
   });
  }
 
  let step = 0;
+ const totalSteps = events.length;
+ const intervalTime = 2000; 
+
  const timer = setInterval(()=>{
-  if(step >= events.length){
+  if(step >= totalSteps){
    clearInterval(timer);
-   const winner = (b.teamfight + diff >= r.teamfight) ? "🔵 블루 팀 승리!" : "🔴 레드 팀 승리!";
-   $("pbStatus").textContent = "시뮬레이션 종료 (" + winner + ")";
+   const blueWon = (b.teamfight + diff >= r.teamfight);
+   const winner = blueWon ? "🔵 블루 팀 승리!" : "🔴 레드 팀 승리!";
+   $("pbStatus").textContent = "시뮬레이션 완료 (" + winner + ")";
    logStream.innerHTML += `<div class="log-item" style="color:var(--gold); font-weight:bold;">[경기 종료] ${winner}</div>`;
    logStream.scrollTop = logStream.scrollHeight;
-   drawMap(1.0);
+   drawMap(1.0, []);
+   showPostMatchStats(blue, red, blueWon);
    return;
   }
 
   const ev = events[step];
-  const ratio = (step + 1) / events.length;
+  const ratio = (step + 1) / totalSteps;
   $("gameTimerDisplay").textContent = ev.m;
   $("pbProgress").style.width = (ratio * 100) + "%";
 
-  drawMap(ratio);
+  let activeUlts = [];
+  if (step >= 4) {
+    const allC = [...uniqueTeam(blue), ...uniqueTeam(red)];
+    if (allC.length > 0) {
+      activeUlts.push(allC[Math.floor(Math.random() * allC.length)].name);
+      if(step >= 7) activeUlts.push(allC[Math.floor(Math.random() * allC.length)].name);
+    }
+  }
+
+  drawMap(ratio, activeUlts);
 
   let bkInc = Math.random() > 0.4 ? Math.floor(Math.random() * 2) : 0;
   let rkInc = Math.random() > 0.4 ? Math.floor(Math.random() * 2) : 0;
@@ -724,11 +824,68 @@ function runSimulationPlayback(){
   $("blueKills").textContent = bKills;
   $("redKills").textContent = rKills;
 
-  logStream.innerHTML += `<div class="log-item"><span class="log-time">[${ev.m}]</span>${esc(ev.text)} (현재 킬스코어 ${bKills} : ${rKills})</div>`;
+  let ultMsg = activeUlts.length > 0 ? ` [🔥 궁극기(${activeUlts.join(", ")}) 발동!]` : "";
+  logStream.innerHTML += `<div class="log-item"><span class="log-time">[${ev.m}]</span>${esc(ev.text)}${ultMsg} (스코어 ${bKills} : ${rKills})</div>`;
   logStream.scrollTop = logStream.scrollHeight;
 
   step++;
- }, 300);
+ }, intervalTime);
+}
+
+function showPostMatchStats(blue, red, blueWon) {
+ const allBlue = uniqueTeam(blue);
+ const allRed = uniqueTeam(red);
+ if(allBlue.length === 0 || allRed.length === 0) return;
+
+ let html = `<div class="panel" style="margin-top:16px;">
+  <h2>🏆 상세 전투 정산 리포트 (${blueWon ? "블루 팀 승리" : "레드 팀 승리"})</h2>
+  <p class="muted">1분간의 30배속 교전 및 플레이어 티어 가중치가 반영된 최종 결과입니다.</p>`;
+
+ function buildTable(team, teamName, isWin) {
+  let tableHtml = `<h3 style="color:${isWin ? 'var(--blue)' : 'var(--red)'}; margin-top:14px;">${teamName} ${isWin ? '👑 (승리)' : '(패배)'}</h3>
+  <table class="stats-table">
+   <tr><th>포지션</th><th>챔피언</th><th>티어</th><th>K / D / A</th><th>넣은 데미지</th><th>받은 피해량</th><th>주 룬</th><th>최종 아이템</th></tr>`;
+   
+   team.forEach((c, idx) => {
+    const kills = isWin ? Math.floor(Math.random() * 5) + 3 : Math.floor(Math.random() * 3);
+    const deaths = isWin ? Math.floor(Math.random() * 3) : Math.floor(Math.random() * 5) + 3;
+    const assists = Math.floor(Math.random() * 8) + 2;
+    const dmgDealt = Math.floor(Math.random() * 15000) + 12000 * c.tierVal;
+    const dmgTaken = Math.floor(Math.random() * 20000) + 10000;
+    const rune = RUNES_POOL[Math.floor(Math.random() * RUNES_POOL.length)];
+    const item1 = ITEMS_POOL[Math.floor(Math.random() * ITEMS_POOL.length)];
+    const item2 = ITEMS_POOL[Math.floor(Math.random() * ITEMS_POOL.length)];
+
+    tableHtml += `<tr>
+     <td>${LANES[idx][1]}</td>
+     <td><b>${esc(c.name)}</b></td>
+     <td>${Object.keys(TIERS).find(k=>TIERS[k].val === c.tierVal) ? Object.keys(TIERS).find(k=>TIERS[k].val === c.tierVal) : '골드'}</td>
+     <td>${kills} / ${deaths} / ${assists}</td>
+     <td>${Math.round(dmgDealt).toLocaleString()}</td>
+     <td>${Math.round(dmgTaken).toLocaleString()}</td>
+     <td><small>${rune}</small></td>
+     <td><small>${item1}, ${item2}</small></td>
+    </tr>`;
+   });
+   tableHtml += `</table>`;
+   return tableHtml;
+ }
+
+ html += buildTable(allBlue, "🔵 블루 팀", blueWon);
+ html += buildTable(allRed, "🔴 레드 팀", !blueWon);
+
+ const mvpCandidate = blueWon ? allBlue[0] : allRed[0];
+ const aceCandidate = blueWon ? allRed[0] : allBlue[0];
+
+ html += `<div class="mvp-box" style="margin-top:16px;">
+  <div class="mvp-badge">MVP / ACE 선정</div>
+  <div>
+   <p style="margin:0 0 4px">⭐ <b>경기 MVP:</b> ${esc(mvpCandidate.name || "캐리 챔피언")} (최고의 한타 기여도 및 딜량 기록)</p>
+   <p style="margin:0">🛡️ <b>경기 ACE:</b> ${esc(aceCandidate.name || "고군분투 챔피언")} (패배 속에서도 뛰어난 분전)</p>
+  </div>
+ </div></div>`;
+
+ $("simOutput").innerHTML = html;
 }
 
 function setup(){
@@ -747,6 +904,7 @@ function setup(){
   renderSlots("blue"); renderSlots("red");
   $("analysisOutput").innerHTML="";
   $("simPlaybackContainer").style.display="none";
+  $("simOutput").innerHTML="";
  };
 }
 setup();
