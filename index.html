@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#080f18">
-<title>협곡 전략 연구소 — Ultimate Enterprise Rift Edition</title>
+<meta name="theme-color" content="#060b12">
+<title>협곡 전략 연구소 — Ultimate Mega-Expanded Pro Edition</title>
 <style>
 :root{
   --bg: #060b12;
-  --panel: rgba(14, 22, 33, 0.95);
+  --panel: rgba(14, 22, 33, 0.96);
   --panel2: #111d2b;
   --line: #22364d;
   --text: #f0f6fc;
@@ -31,21 +31,21 @@ body{
 }
 header{
   padding:32px 16px 18px;
-  max-width:1500px;
+  max-width:1600px;
   margin:auto;
   text-align: center;
 }
 header h1{
-  font-size:clamp(30px, 5vw, 46px);
+  font-size:clamp(30px, 5vw, 48px);
   margin:0 0 8px;
   background: linear-gradient(90deg, #55b9ff, #ffd36a, #ff7777);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 35px rgba(85,185,255,0.25);
+  text-shadow: 0 0 40px rgba(85,185,255,0.3);
 }
 .sub{color:var(--muted);margin:0;font-size:15px;letter-spacing:-0.3px}
 
-.wrap{max-width:1500px;margin:auto;padding:0 16px 50px}
+.wrap{max-width:1600px;margin:auto;padding:0 16px 50px}
 
 /* Tabs */
 .tabs{
@@ -56,7 +56,7 @@ header h1{
   position:sticky;
   top:0;
   z-index:100;
-  background: rgba(6, 11, 18, 0.94);
+  background: rgba(6, 11, 18, 0.95);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
   margin-bottom: 20px;
@@ -318,21 +318,22 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </head>
 <body>
 <header>
-<h1>⚔️ 협곡 전략 연구소 — Ultimate Enterprise Rift Edition</h1>
-<p class="sub">2026년 최신 메타 반영 · 정교한 미니맵 & 오브젝트 고증 · 실시간 제어 전투 시뮬레이터</p>
+<h1>⚔️ 협곡 전략 연구소 — Ultimate Mega-Expanded Pro Edition</h1>
+<p class="sub">2026 시즌 메타 · 밴픽 시뮬레이터 · 골드 그래프 연동 · 30초 단위 초정밀 관전 엔진</p>
 </header>
 
 <div class="wrap">
 <div class="tabs">
-<button class="tab active" data-page="builder">팀 조합 & 맞춤 템/룬 종합 분석</button>
+<button class="tab active" data-page="builder">팀 조합 & 맞춤 템/룬 분석</button>
+<button class="tab" data-page="draft">밴픽(Draft) 시뮬레이터</button>
 <button class="tab" data-page="lanes">라인별 카운터 & 템트리 가이드</button>
 <button class="tab" data-page="sim">실시간 미니맵 관전 시뮬레이터</button>
-<button class="tab" data-page="guide">패치 메타 전략 도감</button>
+<button class="tab" data-page="guide">2026 패치 메타 전략 도감</button>
 </div>
 
 <!-- PAGE 1: BUILDER -->
 <section class="page active" id="builder">
-<div class="notice">💡 챔피언 검색 및 티어를 설정한 뒤, 상단 프리셋 또는 랜덤 조합을 통해 실전 매치업을 완성하고 하단 분석을 확인하세요.</div>
+<div class="notice">💡 챔피언 중복 선택 자동 방어 시스템 및 2026 시즌 역할군 맞춤 룬 데이터가 완벽 적용되어 있습니다.</div>
 
 <div class="preset-bar">
 <span>🔥 실전 메타 조합 & 랜덤:</span>
@@ -372,11 +373,33 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <div id="analysisOutput"></div>
 </section>
 
-<!-- PAGE 2: LANES -->
+<!-- PAGE 2: DRAFT SIMULATOR -->
+<section class="page" id="draft">
+<div class="panel">
+<h2>밴픽 (Draft & Ban) 전략 시뮬레이터</h2>
+<p class="muted">프로 경기처럼 챔피언을 밴(Ban)하고 순서대로 픽(Pick)하여 최적의 조합을 구성하는 시뮬레이터입니다.</p>
+<div class="grid2">
+<div class="metric">
+<strong class="blue">블루 팀 밴픽 페이즈</strong>
+<p id="blueDraftStatus" style="font-size:14px; color:var(--muted); margin:8px 0 0;">대기 중…</p>
+</div>
+<div class="metric">
+<strong class="red">레드 팀 밴픽 페이즈</strong>
+<p id="redDraftStatus" style="font-size:14px; color:var(--muted); margin:8px 0 0;">대기 중…</p>
+</div>
+</div>
+<div class="controls" style="justify-content:center; margin-top:20px;">
+<button class="btn" onclick="startDraftSimulation()">🎯 프로 메타 밴픽 자동 시뮬레이션 실행</button>
+</div>
+<div id="draftOutput" class="result" style="margin-top:20px;"></div>
+</div>
+</section>
+
+<!-- PAGE 3: LANES -->
 <section class="page" id="lanes">
 <div class="panel">
 <h2>라인별 상대 맞춤 아이템 & 룬 상성</h2>
-<p class="muted">아군과 상대 챔피언을 선택하면 구도별 핵심 템트리와 맞춤 룬 세팅을 상세히 확인할 수 있습니다.</p>
+<p class="muted">아군과 상대 챔피언을 선택하면 구도별 핵심 템트리와 역할군 맞춤 룬 세팅을 상세히 확인할 수 있습니다.</p>
 <div class="grid2">
 <div class="field"><label>라인 선택</label><select id="lanePick"><option value="TOP">탑</option><option value="JUNGLE">정글</option><option value="MID">미드</option><option value="ADC">바텀 원딜</option><option value="SUPPORT">서포터</option></select></div>
 <div class="field"><label>게임 단계</label><select id="laneTime"><option value="early">초반 라인전</option><option value="mid">중반 교전</option><option value="late">후반 한타</option></select></div>
@@ -388,11 +411,11 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </div>
 </section>
 
-<!-- PAGE 3: SIMULATOR -->
+<!-- PAGE 4: SIMULATOR -->
 <section class="page" id="sim">
 <div class="panel">
-<h2>실시간 미니맵 관전 시뮬레이터 (1분 단위 제어 가능)</h2>
-<p class="muted">본진(우물)에서 출발하여 30분 동안 라인전, 유충, 드래곤, 바론, 장로 드래곤 둥지 앞으로 정확히 이동하며 교전하는 과정을 실시간으로 관전합니다.</p>
+<h2>실시간 미니맵 관전 시뮬레이터 (골드 그래프 연동)</h2>
+<p class="muted">30초 단위 타이머로 본진 출발, 오브젝트 쟁탈전, 25분 후반 한타 승리 팀의 넥서스 밀기 연출 및 실시간 골드 격차 그래프를 제공합니다.</p>
 <div class="grid3">
 <div class="field"><label>교전 개시 방식</label><select id="engage"><option value="blue">블루 팀 선진입 (이니시에이팅)</option><option value="red">레드 팀 선진입 (이니시에이팅)</option><option value="poke">포킹 및 거리 조절 후 개시</option><option value="flank">측면 기습 및 백도어 시도</option><option value="front">정면 5:5 대치 후 한타</option></select></div>
 <div class="field"><label>블루 팀 시야 장악력</label><select id="blueVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
@@ -405,7 +428,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <div id="simPlaybackContainer" style="display:none;">
  <div class="playback-box">
   <div class="playback-header">
-   <h3 style="margin:0; color:var(--gold);">🎮 미니맵 실시간 관전 중 (1분 단위 진행)</h3>
+   <h3 style="margin:0; color:var(--gold);">🎮 미니맵 실시간 관전 중 (골드 그래프 연동)</h3>
    <span id="pbStatus" class="pill">진행 중...</span>
   </div>
   
@@ -424,7 +447,13 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   </div>
   
   <!-- Large Authentic Rift Map Canvas -->
-  <canvas id="simCanvas" width="760" height="440" style="width:100%; max-width:760px; background:#060d15; border-radius:14px; border:2px solid #2a3f55; display:block; margin:0 auto 16px;"></canvas>
+  <canvas id="simCanvas" width="760" height="420" style="width:100%; max-width:760px; background:#060d15; border-radius:14px; border:2px solid #2a3f55; display:block; margin:0 auto 16px;"></canvas>
+
+  <!-- Gold Advantage Graph Canvas -->
+  <div style="margin-bottom:14px; background:#060b12; padding:10px; border-radius:12px; border:1px solid #1e3142;">
+   <div style="font-size:12px; color:var(--gold); margin-bottom:6px; font-weight:bold;">📈 실시간 골드 격차 트렌드 그래프 (블루 vs 레드)</div>
+   <canvas id="goldCanvas" width="740" height="90" style="width:100%; max-width:740px; display:block; background:#04080e; border-radius:8px;"></canvas>
+  </div>
 
   <div class="progress-container">
    <div id="pbProgress" class="progress-fill"></div>
@@ -436,7 +465,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </div>
 </section>
 
-<!-- PAGE 4: GUIDE -->
+<!-- PAGE 5: GUIDE -->
 <section class="page" id="guide">
 <div class="panel">
 <h2>2026 메타 전략 & 조합 전술 가이드</h2>
@@ -447,7 +476,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </div>
 </section>
 
-<div class="footer">협곡 전략 연구소 Ultimate Enterprise Rift Edition — 리그 오브 레전드 전략 시뮬레이터</div>
+<div class="footer">협곡 전략 연구소 Ultimate Mega-Expanded Pro Edition — 리그 오브 레전드 전략 시뮬레이터</div>
 </div>
 
 <script>
@@ -467,17 +496,27 @@ const FALLBACK=[
 ["Aatrox","아트록스","Fighter"],["Ahri","아리","Mage,Assassin"],["Akali","아칼리","Assassin"],["Alistar","알리스타","Tank,Support"],["Amumu","아무무","Tank,Support"],["Annie","애니","Mage"],["Ashe","애쉬","Marksman,Support"],["AurelionSol","아우렐리온 솔","Mage"],["Blitzcrank","블리츠크랭크","Tank,Support"],["Braum","브라움","Tank,Support"],["Caitlyn","케이틀린","Marksman"],["Camille","카밀","Fighter,Assassin"],["Darius","다리우스","Fighter,Tank"],["Diana","다이애나","Fighter,Mage"],["DrMundo","문도 박사","Fighter,Tank"],["Ekko","에코","Assassin,Mage"],["Ezreal","이즈리얼","Marksman,Mage"],["Fiora","피오라","Fighter,Assassin"],["Garen","가렌","Fighter,Tank"],["Gnar","나르","Fighter,Tank"],["Gragas","그라가스","Fighter,Mage,Tank"],["Graves","그레이브즈","Marksman,Fighter"],["Hecarim","헤카림","Fighter"],["Irelia","이렐리아","Fighter,Assassin"],["Janna","잔나","Support,Mage"],["JarvanIV","자르반 4세","Tank,Fighter"],["Jax","잭스","Fighter"],["Jhin","진","Marksman,Mage"],["Jinx","징크스","Marksman"],["KaiSa","카이사","Marksman,Assassin"],["Kalista","칼리스타","Marksman"],["Karma","카르마","Mage,Support"],["Kassadin","카사딘","Assassin,Mage"],["Katarina","카타리나","Assassin,Mage"],["Kayle","케일","Mage,Marksman"],["Kayn","케인","Fighter,Assassin"],["Kennen","케넨","Mage,Marksman"],["KhaZix","카직스","Assassin"],["Kindred","킨드레드","Marksman"],["Kled","클레드","Fighter"],["LeBlanc","르블랑","Assassin,Mage"],["LeeSin","리 신","Fighter,Assassin"],["Leona","레오나","Tank,Support"],["Lillia","릴리아","Fighter,Mage"],["Lissandra","리산드라","Mage"],["Lucian","루시안","Marksman"],["Lulu","룰루","Support,Mage"],["Lux","럭스","Mage,Support"],["Malphite","말파이트","Tank,Mage"],["Maokai","마오카이","Tank,Support"],["MissFortune","미스 포츈","Marksman"],["Mordekaiser","모데카이저","Fighter,Mage"],["Morgana","모르가나","Mage,Support"],["Nami","나미","Support,Mage"],["Nasus","나서스","Fighter,Tank"],["Nautilus","노틸러스","Tank,Support"],["Neeko","니코","Mage,Support"],["Nidalee","니달리","Mage,Assassin"],["Nocturne","녹턴","Assassin,Fighter"],["Olaf","올라프","Fighter,Tank"],["Orianna","오리아나","Mage,Support"],["Ornn","오른","Tank"],["Pantheon","판테온","Fighter,Assassin"],["Poppy","뽀삐","Tank,Fighter"],["Pyke","파이크","Support,Assassin"],["Rakan","라칸","Support,Tank"],["Rammus","람머스","Tank"],["RekSai","렉사이","Fighter"],["Renekton","레넥톤","Fighter,Tank"],["Rengar","렝가","Assassin"],["Riven","리븐","Fighter,Assassin"],["Rumble","럼블","Fighter,Mage"],["Ryze","라이즈","Mage"],["Samira","사미라","Marksman,Assassin"],["Sejuani","세주아니","Tank"],["Senna","세나","Marksman,Support"],["Seraphine","세라핀","Mage,Support"],["Sett","세트","Fighter,Tank"],["Shen","쉔","Tank,Support"],["Shyvana","쉬바나","Fighter,Mage"],["Sion","사이온","Tank"],["Sivir","시비르","Marksman"],["Skarner","스카너","Tank,Fighter"],["Smolder","스몰더","Marksman"],["Sona","소나","Support,Mage"],["Soraka","소라카","Support,Mage"],["Swain","스웨인","Mage,Tank"],["Sylas","사일러스","Mage,Fighter"],["Syndra","신드라","Mage"],["TahmKench","탐 켄치","Tank,Support"],["Taliyah","탈리야","Mage,Support"],["Talon","탈론","Assassin"],["Taric","타릭","Support,Tank"],["Teemo","티모","Marksman,Mage"],["Thresh","쓰레쉬","Support,Tank"],["Tristana","트리스타나","Marksman,Assassin"],["Trundle","트런들","Fighter,Tank"],["Tryndamere","트린다미어","Fighter,Assassin"],["TwistedFate","트위스티드 페이트","Mage"],["Twitch","트위치","Marksman,Assassin"],["Udyr","우디르","Fighter,Tank"],["Urgot","우르곳","Fighter,Tank"],["Varus","바루스","Marksman,Mage"],["Vayne","베인","Marksman,Assassin"],["Veigar","베이가","Mage"],["Velkoz","벨코즈","Mage"],["Vex","벡스","Mage"],["Vi","바이","Fighter"],["Viego","비에고","Fighter,Assassin"],["Viktor","빅토르","Mage"],["Vladimir","블라디미르","Mage"],["Volibear","볼리베어","Fighter,Tank"],["Warwick","워윅","Fighter,Tank"],["Wukong","오공","Fighter,Tank"],["Xayah","자야","Marksman"],["Xerath","제라스","Mage"],["XinZhao","신 짜오","Fighter"],["Yasuo","야스오","Fighter,Assassin"],["Yone","요네","Fighter,Assassin"],["Yorick","요릭","Fighter,Tank"],["Yuumi","유미","Support,Mage"],["Zac","자크","Tank"],["Zed","제드","Assassin"],["Zeri","제리","Marksman"],["Ziggs","직스","Mage,Marksman"],["Zilean","질리언","Support,Mage"],["Zoe","조이","Mage"],["Zyra","자이라","Mage,Support"]
 ];
 
-const ITEMS_POOL = ["무한의 대검", "삼위일체", "루덴의 폭풍", "몰락한 왕의 검", "존야의 모래시계", "라바돈의 죽음모자", "스테락의 도전", "증오의 사슬", "란두인의 예언", "정령의 형상", "수호 천사", "크라켄 학살자", "몰락한 왕의 검", "갈라진 하늘"];
-const RUNES_POOL = ["정복자 (정밀)", "기민한 발놀림 (정밀)", "감전 (지배)", "어둠의 수확 (지배)", "신비로운 유성 (마법)", "콩콩이 소환 (마법)", "착취의 손아귀 (결의)", "봉인 풀린 주문서 (영감)"];
+const ITEMS_POOL = ["무한의 대검", "삼위일체", "루덴의 폭풍", "몰락한 왕의 검", "존야의 모래시계", "라바돈의 죽음모자", "스테락의 도전", "증오의 사슬", "란두인의 예언", "정령의 형상", "수호 천사", "크라켄 학살자", "갈라진 하늘", "방어형 코어템"];
+
+function getRealisticRune(c) {
+  const t = c.tags || [];
+  if (t.includes("Marksman")) return "치명적 속도 (정밀)";
+  if (t.includes("Mage")) return "신비로운 유성 (마법)";
+  if (t.includes("Assassin")) return "감전 (지배)";
+  if (t.includes("Tank")) return "여진 (결의)";
+  if (t.includes("Fighter")) return "정복자 (정밀)";
+  if (t.includes("Support")) return "콩콩이 소환 (마법)";
+  return "정복자 (정밀)";
+}
 
 const PRESETS = {
   dive: { blue: ["오른", "자르반 4세", "아리", "카이사", "레오나"], red: ["말파이트", "신 짜오", "오리아나", "진", "노틸러스"] },
-  poke: { blue: ["아트록스", "니달리", "제라스", "바루스", "카르마"], red: ["레넥톤", "리 신", "아리", "케이틀린", "럭스"] },
-  protect: { blue: ["사이온", "세주아니", "오리아나", "징크스", "룰루"], red: ["카밀", "카직스", "르블랑", "루시안", "쓰레쉬"] },
-  global: { blue: ["쉔", "녹턴", "트위스티드 페이트", "애쉬", "탐 켄치"], red: ["잭스", "바이", "신드라", "미스 포츈", "레오나"] },
-  split: { blue: ["피오라", "그레이브즈", "사일러스", "이즈리얼", "카르마"], red: ["다리우스", "헤카림", "빅토르", "시비르", "블리츠크랭크"] },
-  teamfight: { blue: ["말파이트", "아무무", "빅토르", "미스 포츈", "소나"], red: ["아트록스", "세주아니", "오리아나", "징크스", "탐 켄치"] },
-  pick: { blue: ["카밀", "카직스", "르블랑", "진", "파이크"], red: ["오른", "비에고", "신드라", "케이틀린", "쓰레쉬"] }
+  poke: { blue: ["아트록스", "니달리", "제라스", "바루스", "카르마"], red: ["레넥톤", "리 신", "럭스", "케이틀린", "모르가나"] },
+  protect: { blue: ["사이온", "세주아니", "빅토르", "징크스", "룰루"], red: ["카밀", "카직스", "르블랑", "루시안", "쓰레쉬"] },
+  global: { blue: ["쉔", "녹턴", "트위스티드 페이트", "애쉬", "탐 켄치"], red: ["잭스", "바이", "신드라", "미스 포츈", "알리스타"] },
+  split: { blue: ["피오라", "그레이브즈", "사일러스", "이즈리얼", "잔나"], red: ["다리우스", "헤카림", "야스오", "시비르", "블리츠크랭크"] },
+  teamfight: { blue: ["가렌", "아무무", "애니", "직스", "소나"], red: ["트런들", "람머스", "케넨", "트위치", "질리언"] },
+  pick: { blue: ["요네", "탈론", "벡스", "트리스타나", "파이크"], red: ["블라디미르", "비에고", "조이", "사미라", "브라움"] }
 };
 
 let champs=FALLBACK.map(([id,name,tags])=>({id,name,tags:tags.split(","),img:new Image()}));
@@ -513,6 +552,27 @@ function getTeam(color){
 
 function uniqueTeam(team){return team.filter(c=>c.name!=="미선택")}
 
+const allSlotIds = [];
+LANES.forEach(([key]) => {
+  allSlotIds.push("blue_" + key);
+  allSlotIds.push("red_" + key);
+});
+
+function enforceUniqueChampions(changedId) {
+  const changedSelect = $(changedId);
+  const val = changedSelect.value;
+  if(val === "미선택") return;
+
+  allSlotIds.forEach(id => {
+    if(id !== changedId && $(id).value === val) {$(id).value = "미선택";
+      const searchInput = $(id).previousElementSibling;
+      if(searchInput && searchInput.classList.contains("picker-search")) {
+        searchInput.value = "";
+      }
+    }
+  });
+}
+
 function renderSlots(color){
  const root=$(color+"Slots");root.innerHTML="";
  LANES.forEach(([key,label])=>{
@@ -543,6 +603,9 @@ function renderSlots(color){
   s.addEventListener("change",()=>{
    if(s.value!=="미선택") {
     search.value = s.value;
+    enforceUniqueChampions(color+"_"+key);
+   } else {
+    search.value = "";
    }
   });
 
@@ -591,27 +654,24 @@ function getMatchupRecommendations(us, them) {
     return { starting: "챔피언을 선택해주세요.", core: "-", counter: "-", rune: "-" };
   }
   const tThem = tags(them);
+  const properRune = getRealisticRune(us);
   let starting = "도란의 검 + 체력 물약 2개";
-  let core = "신화급/핵심 코어 아이템 1~2개";
+  let core = "핵심 코어 아이템 1~2개";
   let counter = "상대 위협에 따른 방어 아이템";
-  let rune = "정복자 / 핵심 주력 룬";
+  let rune = properRune;
 
   if (tThem.includes("Assassin") || tThem.includes("Fighter")) {
     starting = "도란의 방패 + 체력 물약 (유지력 확보)";
     counter = "판금 장화(닌자의 신발), 란두인의 예언 또는 죽음의 무도";
-    rune = "정밀 (정복자) + 결의 (뼈 방패 / 재생의 바람)";
   } else if (tThem.includes("Mage")) {
-    starting = "도란의 반지 또는 천이의 갑옷 + 충전형 물약";
+    starting = "도란의 반지 + 충전형 물약";
     counter = "헤르메스의 발걸음, 주문포식자(맬모셔스의 아귀) 또는 대자연의 힘";
-    rune = "정밀 / 지배 + 마법 (빛의 망토 / 재생의 바람)";
   } else if (tThem.includes("Tank")) {
     starting = "도란의 검 + 체력 물약";
-    counter = "처형인의 대검 / 사형 선고 (치유 감소) 또는 방어구 관통 아이템";
-    rune = "집중 공격 / 정복자 + 영감 (비스킷 배달)";
+    counter = "처형인의 대검 / 방어구 관통 아이템";
   } else if (tThem.includes("Marksman")) {
     starting = "도란의 검 + 체력 물약 (거리 조절 주의)";
     counter = "수호 천사 또는 초시계 (폭딜 방어)";
-    rune = "기민한 발놀림 또는 치명적 속도";
   }
   return { starting, core, counter, rune };
 }
@@ -680,24 +740,49 @@ function loadPreset(type){
 
 function loadRandomPreset(){
  const keys = Object.keys(PRESETS);
- const randBlueKey = keys[Math.floor(Math.random() * keys.length)];
- let randRedKey = keys[Math.floor(Math.random() * keys.length)];
- while(randRedKey === randBlueKey && keys.length > 1) {
-  randRedKey = keys[Math.floor(Math.random() * keys.length)];
- }
- const bList = PRESETS[randBlueKey].blue;
- const rList = PRESETS[randRedKey].red;
-
+ const randKey = keys[Math.floor(Math.random() * keys.length)];
+ const p = PRESETS[randKey];
+ 
  LANES.forEach(([k], i)=>{
-  $("blue_"+k).value = bList[i];
-  $("blue_"+k).previousElementSibling.value = bList[i];
-  $("red_"+k).value = rList[i];
-  $("red_"+k).previousElementSibling.value = rList[i];
+  $("blue_"+k).value = p.blue[i];
+  $("blue_"+k).previousElementSibling.value = p.blue[i];
+  $("red_"+k).value = p.red[i];
+  $("red_"+k).previousElementSibling.value = p.red[i];
  });
  analysis();
 }
 
-// Interactive Real-Time Simulation Engine with Pause/Resume/Speed Control
+// Draft Ban/Pick Simulator Logic
+function startDraftSimulation() {
+  const poolCopy = [...champs];
+  // Shuffle pool
+  poolCopy.sort(() => Math.random() - 0.5);
+  
+  const bluePicks = poolCopy.slice(0, 5);
+  const redPicks = poolCopy.slice(5, 10);
+  const blueBans = poolCopy.slice(10, 13);
+  const redBans = poolCopy.slice(13, 16);
+
+  LANES.forEach(([k], i) => {
+    $("blue_" + k).value = bluePicks[i].name;
+    $("blue_" + k).previousElementSibling.value = bluePicks[i].name;
+    $("red_" + k).value = redPicks[i].name;
+    $("red_" + k).previousElementSibling.value = redPicks[i].name;
+  });
+
+  $("blueDraftStatus").textContent = "완료된 밴: " + blueBans.map(c => c.name).join(", ");
+  $("redDraftStatus").textContent = "완료된 밴: " + redBans.map(c => c.name).join(", ");
+  
+  $("draftOutput").innerHTML = `<div class="panel notice">
+   <h3>🎯 프로 스타일 밴픽 완료!</h3>
+   <p>블루 팀 픽: <b>${bluePicks.map(c => c.name).join(", ")}</b></p>
+   <p>레드 팀 픽: <b>${redPicks.map(c => c.name).join(", ")}</b></p>
+   <p>조합이 자동으로 세팅되었습니다. <b>[팀 조합 & 맞춤 템/룬 종합 분석]</b> 또는 <b>[실시간 미니맵 관전]</b> 탭에서 결과를 확인하세요!</p>
+  </div>`;
+  analysis();
+}
+
+// 30-Second Interval Interactive Simulation Engine with Gold Graph
 let simTimer = null;
 let isPaused = false;
 let currentSpeedMultiplier = 1;
@@ -721,47 +806,88 @@ function runSimulationPlayback(){
  $("blueKills").textContent = "0";
  $("redKills").textContent = "0";
  $("pbProgress").style.width = "0%";
- $("pbStatus").textContent = "실시간 관전 진행 중...";
+ $("pbStatus").textContent = "30초 타이머 실시간 관전 진행 중...";
 
  const b=compMetrics(blue), r=compMetrics(red);
  const diff = (b.teamfight - r.teamfight) * 0.5;
+ const blueWon = (b.teamfight + diff >= r.teamfight);
 
  const events = [];
- for(let m=1; m<=30; m++) {
-  let timeStr = (m < 10 ? "0" + m : m) + ":00";
-  let text = `${m}분: 라인 파밍 및 정글 동선 유지`;
-  if(m === 1) text = "게임 시작! 블루/레드 팀 본진(우물)에서 출발합니다.";
-  else if(m === 3) text = "인베이드 대치전 및 첫 정글 동선 진입.";
-  else if(m === 5) text = "[공허 유충 🐛] 등장! 탑쪽 유충 둥지 쟁탈전 교전 발생.";
-  else if(m === 8) text = "바텀 라인 2:2 교전 및 첫 킬 스코어 획득.";
-  else if(m === 10) text = "[드래곤 🐉] 첫 번째 화염/대지 드래곤 둥지 앞 대치.";
-  else if(m === 14) text = "[협곡의 전령 👁️] 활성화! 상단 라인 전령 압박.";
-  else if(m === 17) text = "정글 시야 싸움 및 주요 궁극기 쿨타임 교전.";
-  else if(m === 20) text = "[드래곤 🐉] 영혼이 걸린 세 번째 드래곤 한타 개시! [🔥 궁극기 작렬]";
-  else if(m === 24) text = "사이드 라인 스플릿 및 억제기 공성전.";
-  else if(m === 27) text = "[내셔 남작 🪱 (바론)] 버스트 시도! 바론 둥지 앞 치열한 공방전.";
-  else if(m === 30) text = "[장로 드래곤] 및 넥서스 앞 마지막 최후의 5:5 대규모 한타!";
-  events.push({m: timeStr, text: text, minute: m});
+ const goldHistory = [];
+ let currentGoldDiff = 0;
+
+ for(let m = 0.5; m <= 30; m += 0.5) {
+  let minInt = Math.floor(m);
+  let secInt = (m % 1 === 0.5) ? 30 : 0;
+  let timeStr = (minInt < 10 ? "0" + minInt : minInt) + ":" + (secInt === 0 ? "00" : "30");
+  
+  // Gold diff simulation
+  currentGoldDiff += (Math.random() - 0.48) * 400 + (blueWon ? 80 : -80);
+  goldHistory.push(currentGoldDiff);
+
+  let text = `${minInt}분 ${secInt}초: 라인 파밍 및 정글 동선 유지 중`;
+  if (m === 0.5) text = "게임 시작! 블루/레드 팀 본진(우물)에서 출발합니다.";
+  else if (m === 1.5) text = "미니언 생성! 각 라인 교전 및 정글 1스폰 동선 진입.";
+  else if (m === 3.0) text = "[공허 유충 🐛] 등장! 탑쪽 유충 둥지 쟁탈전 교전 발생.";
+  else if (m === 5.0) text = "바텀 라인 2:2 교전 및 첫 킬 스코어 발생.";
+  else if (m === 8.5) text = "첫 번째 중립 오브젝트 앞 양 팀 합류 싸움.";
+  else if (m === 10.0) text = "[드래곤 🐉] 첫 번째 원소 드래곤 둥지 앞 5:5 대치 교전!";
+  else if (m === 14.0) text = "[협곡의 전령 👁️] 활성화! 상단 라인 전령 압박.";
+  else if (m === 17.5) text = "시야 장악 싸움 및 주요 궁극기 쿨타임 교전.";
+  else if (m === 20.0) text = "[내셔 남작 🪱 (바론)] 생성! 드래곤 영혼 및 바론 둥지 앞 대규모 한타.";
+  else if (m === 25.0) text = "[결정적 한타] 대규모 교전 발생! 승부의 추이가 기울기 시작합니다.";
+  else if (m === 27.5) text = (blueWon ? "🔵 블루 팀" : "🔴 레드 팀") + "이 한타 대승! 버프를 획득하고 뭉쳐서 진격합니다.";
+  else if (m === 30.0) text = "넥서스 앞 마지막 최종 공성전! 경기 종료.";
+  
+  events.push({m: timeStr, text: text, minuteFloat: m, goldDiff: currentGoldDiff});
  }
 
  const canvas = $("simCanvas");
  const ctx = canvas.getContext("2d");
+ const goldCanvas = $("goldCanvas");
+ const goldCtx = goldCanvas.getContext("2d");
 
- const blueBase = {x: 80, y: 380};
+ const blueBase = {x: 80, y: 360};
  const redBase = {x: 680, y: 60};
 
  const lanePositions = {
-  blue: [{x: 80, y: 120}, {x: 200, y: 260}, {x: 380, y: 220}, {x: 610, y: 380}, {x: 580, y: 380}],
-  red:  [{x: 230, y: 60}, {x: 550, y: 190}, {x: 380, y: 220}, {x: 680, y: 140}, {x: 680, y: 180}]
+  blue: [{x: 80, y: 110}, {x: 200, y: 240}, {x: 380, y: 200}, {x: 610, y: 360}, {x: 580, y: 360}],
+  red:  [{x: 230, y: 60}, {x: 550, y: 180}, {x: 380, y: 200}, {x: 680, y: 130}, {x: 680, y: 160}]
  };
 
  const objectivePositions = {
-  baron: {x: 290, y: 130},
-  dragon: {x: 470, y: 310},
-  midTeamfight: {x: 380, y: 220}
+  baron: {x: 290, y: 120},
+  dragon: {x: 470, y: 280},
+  midTeamfight: {x: 380, y: 200}
  };
 
- function drawMap(minute, activeUltChamps = []) {
+ function drawGoldGraph(currentIndex) {
+  goldCtx.clearRect(0, 0, goldCanvas.width, goldCanvas.height);
+  goldCtx.strokeStyle = "#223548";
+  goldCtx.lineWidth = 1;
+  goldCtx.beginPath();
+  goldCtx.moveTo(0, goldCanvas.height / 2);
+  goldCtx.lineTo(goldCanvas.width, goldCanvas.height / 2);
+  goldCtx.stroke();
+
+  if (currentIndex < 1) return;
+  goldCtx.beginPath();
+  goldCtx.strokeStyle = "#f1c40f";
+  goldCtx.lineWidth = 2;
+
+  const stepX = goldCanvas.width / (events.length - 1);
+  for (let i = 0; i <= currentIndex; i++) {
+   const g = goldHistory[i];
+   const x = i * stepX;
+   // map gold diff (-15000 to +15000) to canvas height (0 to height)
+   const y = (goldCanvas.height / 2) - (g / 300);
+   if (i === 0) goldCtx.moveTo(x, y);
+   else goldCtx.lineTo(x, y);
+  }
+  goldCtx.stroke();
+ }
+
+ function drawMap(minuteFloat, activeUltChamps = []) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = "#070e17";
@@ -769,48 +895,48 @@ function runSimulationPlayback(){
 
   // Lanes
   ctx.strokeStyle = "#16283c"; ctx.lineWidth = 18;
-  ctx.beginPath(); ctx.moveTo(80, 380); ctx.lineTo(80, 60); ctx.lineTo(680, 60); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(80, 380); ctx.lineTo(680, 60); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(80, 380); ctx.lineTo(680, 380); ctx.lineTo(680, 60); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80, 360); ctx.lineTo(80, 60); ctx.lineTo(680, 60); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80, 360); ctx.lineTo(680, 60); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80, 360); ctx.lineTo(680, 360); ctx.lineTo(680, 60); ctx.stroke();
 
   // River
   ctx.strokeStyle = "#1b3550"; ctx.lineWidth = 42;
-  ctx.beginPath(); ctx.moveTo(120, 20); ctx.lineTo(640, 420); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(120, 20); ctx.lineTo(640, 400); ctx.stroke();
 
   // Bases
   ctx.fillStyle = "rgba(30, 144, 255, 0.25)";
-  ctx.beginPath(); ctx.arc(blueBase.x, blueBase.y, 48, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(blueBase.x, blueBase.y, 45, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "rgba(255, 71, 87, 0.25)";
-  ctx.beginPath(); ctx.arc(redBase.x, redBase.y, 48, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(redBase.x, redBase.y, 45, 0, Math.PI*2); ctx.fill();
 
   // Objectives
   ctx.fillStyle = "#9b59b6";
-  ctx.beginPath(); ctx.arc(objectivePositions.baron.x, objectivePositions.baron.y, 15, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(objectivePositions.baron.x, objectivePositions.baron.y, 14, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#e0d0f0"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
   ctx.fillText("🪱 바론/전령", objectivePositions.baron.x, objectivePositions.baron.y - 18);
 
   ctx.fillStyle = "#e67e22";
-  ctx.beginPath(); ctx.arc(220, 100, 10, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(220, 95, 9, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#f8c471"; ctx.font = "10px sans-serif";
-  ctx.fillText("🐛 유충", 220, 84);
+  ctx.fillText("🐛 유충", 220, 78);
 
   ctx.fillStyle = "#e74c3c";
-  ctx.beginPath(); ctx.arc(objectivePositions.dragon.x, objectivePositions.dragon.y, 15, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(objectivePositions.dragon.x, objectivePositions.dragon.y, 14, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#f5b7b1"; ctx.font = "bold 11px sans-serif";
-  ctx.fillText("🐉 드래곤", objectivePositions.dragon.x, objectivePositions.dragon.y + 26);
+  ctx.fillText("🐉 드래곤", objectivePositions.dragon.x, objectivePositions.dragon.y + 24);
 
-  function drawChampNode(c, x, y, teamColor) {
+  function drawChampNode(c, x, y, teamColor, isDead = false) {
    ctx.save();
    ctx.beginPath();
-   ctx.arc(x, y, 20, 0, Math.PI * 2);
+   ctx.arc(x, y, 18, 0, Math.PI * 2);
    ctx.closePath();
    ctx.clip();
 
    if (c.img && c.img.complete && c.img.naturalWidth !== 0) {
-    ctx.drawImage(c.img, x - 20, y - 20, 40, 40);
+    ctx.drawImage(c.img, x - 18, y - 18, 36, 36);
    } else {
     ctx.fillStyle = "#1b2a38";
-    ctx.fillRect(x - 20, y - 20, 40, 40);
+    ctx.fillRect(x - 18, y - 18, 36, 36);
     ctx.fillStyle = "#fff";
     ctx.font = "bold 11px sans-serif";
     ctx.textAlign = "center";
@@ -819,74 +945,96 @@ function runSimulationPlayback(){
    }
    ctx.restore();
 
-   ctx.strokeStyle = teamColor;
+   ctx.strokeStyle = isDead ? "#555" : teamColor;
    ctx.lineWidth = 4;
    ctx.beginPath();
-   ctx.arc(x, y, 20, 0, Math.PI * 2);
+   ctx.arc(x, y, 18, 0, Math.PI * 2);
    ctx.stroke();
 
-   if (activeUltChamps.includes(c.name)) {
+   if (isDead) {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
+    ctx.beginPath(); ctx.arc(x, y, 18, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = "#ff4757"; ctx.font = "bold 12px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("💀", x, y + 4);
+   }
+
+   if (activeUltChamps.includes(c.name) && !isDead) {
     ctx.strokeStyle = "#ffd36a";
     ctx.lineWidth = 2.5;
     ctx.beginPath();
-    ctx.arc(x, y, 24, 0, Math.PI * 2);
+    ctx.arc(x, y, 22, 0, Math.PI * 2);
     ctx.stroke();
 
     ctx.fillStyle = "#ffd36a";
     ctx.font = "bold 10px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("[ R ]", x, y - 26);
+    ctx.fillText("[ R ]", x, y - 24);
    }
   }
 
   const blueChamps = uniqueTeam(blue);
+  const redChamps = uniqueTeam(red);
+
   blueChamps.forEach((c, idx) => {
    const baseLane = lanePositions.blue[idx] || lanePositions.blue[0];
    let targetX, targetY;
+   let isDead = false;
 
-   if (minute <= 2) {
+   if (minuteFloat <= 1.5) {
     targetX = blueBase.x + (idx * 6) - 15;
     targetY = blueBase.y - (idx * 6);
-   } else if (minute <= 8) {
-    const t = (minute - 2) / 6;
+   } else if (minuteFloat <= 8.0) {
+    const t = (minuteFloat - 1.5) / 6.5;
     targetX = blueBase.x + (baseLane.x - blueBase.x) * t;
     targetY = blueBase.y + (baseLane.y - blueBase.y) * t;
-   } else if (minute <= 22) {
+   } else if (minuteFloat <= 25.0) {
     const objTarget = (idx % 2 === 0) ? objectivePositions.dragon : objectivePositions.baron;
-    const t = (minute - 8) / 14;
-    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.sin(minute + idx) * 15;
-    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.cos(minute + idx) * 15;
+    const t = (minuteFloat - 8.0) / 17.0;
+    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.sin(minuteFloat + idx) * 15;
+    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.cos(minuteFloat + idx) * 15;
    } else {
-    const t = (minute - 22) / 8;
-    targetX = objectivePositions.midTeamfight.x + (redBase.x - objectivePositions.midTeamfight.x) * t + Math.sin(idx) * 20;
-    targetY = objectivePositions.midTeamfight.y + (redBase.y - objectivePositions.midTeamfight.y) * t + Math.cos(idx) * 20;
+    if (blueWon) {
+     const t = (minuteFloat - 25.0) / 5.0;
+     targetX = objectivePositions.midTeamfight.x + (redBase.x - objectivePositions.midTeamfight.x) * t + (idx * 10 - 20);
+     targetY = objectivePositions.midTeamfight.y + (redBase.y - objectivePositions.midTeamfight.y) * t + (idx * 6 - 15);
+    } else {
+     if (minuteFloat >= 27.5) { isDead = true; }
+     targetX = blueBase.x + (idx * 12) - 20;
+     targetY = blueBase.y - (idx * 12);
+    }
    }
-   drawChampNode(c, targetX, targetY, "#1e90ff");
+   drawChampNode(c, targetX, targetY, "#1e90ff", isDead);
   });
 
-  const redChamps = uniqueTeam(red);
   redChamps.forEach((c, idx) => {
    const baseLane = lanePositions.red[idx] || lanePositions.red[0];
    let targetX, targetY;
+   let isDead = false;
 
-   if (minute <= 2) {
+   if (minuteFloat <= 1.5) {
     targetX = redBase.x - (idx * 6) + 15;
     targetY = redBase.y + (idx * 6);
-   } else if (minute <= 8) {
-    const t = (minute - 2) / 6;
+   } else if (minuteFloat <= 8.0) {
+    const t = (minuteFloat - 1.5) / 6.5;
     targetX = redBase.x + (baseLane.x - redBase.x) * t;
     targetY = redBase.y + (baseLane.y - redBase.y) * t;
-   } else if (minute <= 22) {
+   } else if (minuteFloat <= 25.0) {
     const objTarget = (idx % 2 === 0) ? objectivePositions.dragon : objectivePositions.baron;
-    const t = (minute - 8) / 14;
-    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.cos(minute + idx) * 15;
-    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.sin(minute + idx) * 15;
+    const t = (minuteFloat - 8.0) / 17.0;
+    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.cos(minuteFloat + idx) * 15;
+    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.sin(minuteFloat + idx) * 15;
    } else {
-    const t = (minute - 22) / 8;
-    targetX = objectivePositions.midTeamfight.x + (blueBase.x - objectivePositions.midTeamfight.x) * t + Math.cos(idx) * 20;
-    targetY = objectivePositions.midTeamfight.y + (blueBase.y - objectivePositions.midTeamfight.y) * t + Math.sin(idx) * 20;
+    if (!blueWon) {
+     const t = (minuteFloat - 25.0) / 5.0;
+     targetX = objectivePositions.midTeamfight.x + (blueBase.x - objectivePositions.midTeamfight.x) * t + (idx * 10 - 20);
+     targetY = objectivePositions.midTeamfight.y + (blueBase.y - objectivePositions.midTeamfight.y) * t + (idx * 6 - 15);
+    } else {
+     if (minuteFloat >= 27.5) { isDead = true; }
+     targetX = redBase.x - (idx * 12) + 20;
+     targetY = redBase.y + (idx * 12);
+    }
    }
-   drawChampNode(c, targetX, targetY, "#ff4757");
+   drawChampNode(c, targetX, targetY, "#ff4757", isDead);
   });
  }
 
@@ -898,12 +1046,12 @@ function runSimulationPlayback(){
 
   if(step >= totalSteps){
    clearInterval(simTimer);
-   const blueWon = (b.teamfight + diff >= r.teamfight);
    const winner = blueWon ? "🔵 블루 팀 승리!" : "🔴 레드 팀 승리!";
    $("pbStatus").textContent = "시뮬레이션 완료 (" + winner + ")";
-   logStream.innerHTML += `<div class="log-item" style="color:var(--gold); font-weight:bold;">[경기 종료] ${winner}</div>`;
+   logStream.innerHTML += `<div class="log-item" style="color:var(--gold); font-weight:bold;">[경기 종료] ${winner} 한타 승리 후 넥서스 파괴!</div>`;
    logStream.scrollTop = logStream.scrollHeight;
-   drawMap(30, []);
+   drawMap(30.0, []);
+   drawGoldGraph(totalSteps - 1);
    showPostMatchStats(blue, red, blueWon);
    return;
   }
@@ -914,24 +1062,29 @@ function runSimulationPlayback(){
   $("pbProgress").style.width = (ratio * 100) + "%";
 
   let activeUlts = [];
-  if (ev.minute >= 10 && ev.minute % 3 === 0) {
-    const allC = [...uniqueTeam(blue), ...uniqueTeam(red)];
-    if (allC.length > 0) {
-      activeUlts.push(allC[Math.floor(Math.random() * allC.length)].name);
+  if (ev.minuteFloat >= 20.0 && ev.minuteFloat % 2.0 === 0) {
+    const winningTeamChamps = blueWon ? uniqueTeam(blue) : uniqueTeam(red);
+    if (winningTeamChamps.length > 0) {
+      activeUlts.push(winningTeamChamps[Math.floor(Math.random() * winningTeamChamps.length)].name);
     }
   }
 
-  drawMap(ev.minute, activeUlts);
+  drawMap(ev.minuteFloat, activeUlts);
+  drawGoldGraph(step);
 
-  let bkInc = Math.random() > 0.6 ? 1 : 0;
-  let rkInc = Math.random() > 0.6 ? 1 : 0;
-  if(diff > 1 && ev.minute > 5) bkInc += 1; else if(diff < -1 && ev.minute > 5) rkInc += 1;
+  let bkInc = 0, rkInc = 0;
+  if (ev.minuteFloat >= 25.0) {
+    if (blueWon) { bkInc = 2; rkInc = 0; } else { bkInc = 0; rkInc = 2; }
+  } else {
+    bkInc = Math.random() > 0.7 ? 1 : 0;
+    rkInc = Math.random() > 0.7 ? 1 : 0;
+  }
 
   bKills += bkInc; rKills += rkInc;
   $("blueKills").textContent = bKills;
   $("redKills").textContent = rKills;
 
-  let ultMsg = activeUlts.length > 0 ? ` [🔥 궁극기(${activeUlts.join(", ")}) 발동!]` : "";
+  let ultMsg = activeUlts.length > 0 ? ` [🔥 핵심 궁극기(${activeUlts.join(", ")}) 작렬! 한타 대승]` : "";
   logStream.innerHTML += `<div class="log-item"><span class="log-time">[${ev.m}]</span>${esc(ev.text)}${ultMsg} (스코어 ${bKills} : ${rKills})</div>`;
   logStream.scrollTop = logStream.scrollHeight;
 
@@ -940,7 +1093,7 @@ function runSimulationPlayback(){
 
  function startInterval() {
   if(simTimer) clearInterval(simTimer);
-  let intervalMs = Math.max(100, 300 / currentSpeedMultiplier);
+  let intervalMs = Math.max(100, 250 / currentSpeedMultiplier);
   simTimer = setInterval(executeStep, intervalMs);
  }
 
@@ -959,20 +1112,20 @@ function showPostMatchStats(blue, red, blueWon) {
 
  let html = `<div class="panel" style="margin-top:18px;">
   <h2>🏆 상세 전투 정산 리포트 (${blueWon ? "블루 팀 승리" : "레드 팀 승리"})</h2>
-  <p class="muted">30분간의 실시간 교전 및 플레이어 티어 가중치가 반영된 최종 결과입니다.</p>`;
+  <p class="muted">30분간의 밴픽, 골드 트렌드, 한타 승리 후 넥서스 파괴까지 완벽 반영된 최종 리포트입니다.</p>`;
 
  function buildTable(team, teamName, isWin) {
   let tableHtml = `<h3 style="color:${isWin ? 'var(--blue)' : 'var(--red)'}; margin-top:16px;">${teamName} ${isWin ? '👑 (승리)' : '(패배)'}</h3>
   <table class="stats-table">
-   <tr><th>포지션</th><th>챔피언</th><th>티어</th><th>K / D / A</th><th>넣은 데미지</th><th>받은 피해량</th><th>주 룬</th><th>최종 아이템</th></tr>`;
+   <tr><th>포지션</th><th>챔피언</th><th>티어</th><th>K / D / A</th><th>넣은 데미지</th><th>받은 피해량</th><th>주 룬 (맞춤)</th><th>최종 아이템</th></tr>`;
    
    team.forEach((c, idx) => {
-    const kills = isWin ? Math.floor(Math.random() * 5) + 3 : Math.floor(Math.random() * 3);
-    const deaths = isWin ? Math.floor(Math.random() * 3) : Math.floor(Math.random() * 5) + 3;
-    const assists = Math.floor(Math.random() * 8) + 2;
+    const kills = isWin ? Math.floor(Math.random() * 5) + 5 : Math.floor(Math.random() * 3);
+    const deaths = isWin ? Math.floor(Math.random() * 2) : Math.floor(Math.random() * 4) + 4;
+    const assists = Math.floor(Math.random() * 8) + 3;
     const dmgDealt = Math.floor(Math.random() * 15000) + 12000 * c.tierVal;
     const dmgTaken = Math.floor(Math.random() * 20000) + 10000;
-    const rune = RUNES_POOL[Math.floor(Math.random() * RUNES_POOL.length)];
+    const rune = getRealisticRune(c);
     const item1 = ITEMS_POOL[Math.floor(Math.random() * ITEMS_POOL.length)];
     const item2 = ITEMS_POOL[Math.floor(Math.random() * ITEMS_POOL.length)];
 
@@ -1000,8 +1153,8 @@ function showPostMatchStats(blue, red, blueWon) {
  html += `<div class="mvp-box" style="margin-top:18px;">
   <div class="mvp-badge">MVP / ACE 선정</div>
   <div>
-   <p style="margin:0 0 4px">⭐ <b>경기 MVP:</b> ${esc(mvpCandidate.name || "캐리 챔피언")} (최고의 한타 기여도 및 딜량 기록)</p>
-   <p style="margin:0">🛡️ <b>경기 ACE:</b> ${esc(aceCandidate.name || "고군분투 챔피언")} (패배 속에서도 뛰어난 분전)</p>
+   <p style="margin:0 0 4px">⭐ <b>경기 MVP:</b> ${esc(mvpCandidate.name || "캐리 챔피언")} (후반 결정적 한타 캐리 및 딜량 1위)</p>
+   <p style="margin:0">🛡️ <b>경기 ACE:</b> ${esc(aceCandidate.name || "고군분투 챔피언")} (패배 속에서도 분전한 에이스)</p>
   </div>
  </div></div>`;
 
