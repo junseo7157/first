@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080f18">
-<title>협곡 전략 연구소 - Ultimate Edition</title>
+<title>협곡 전략 연구소 - Ultimate Meta Edition</title>
 <style>
 :root{
   --bg: #080f18;
@@ -202,6 +202,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   transition: all 0.2s;
 }
 .preset-btn:hover { background: #24425e; border-color: var(--blue); }
+.preset-btn.random { background: linear-gradient(135deg, #b7950b, #d4ac0d); color: #fff; font-weight: bold; border-color: #f1c40f; }
 
 /* Simulation Playback UI */
 .playback-box {
@@ -269,8 +270,8 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </head>
 <body>
 <header>
-<h1>⚔️ 협곡 전략 연구소 — Ultimate Edition</h1>
-<p class="sub">전체 챔피언 검색 · 플레이어 티어 설정 · 메타 조합 프리셋 · 10배속 라이브 관전 시뮬레이터</p>
+<h1>⚔️ 협곡 전략 연구소 — Ultimate Meta Edition</h1>
+<p class="sub">전체 챔피언 검색 · 플레이어 티어 설정 · 실전 메타 조합 프리셋 및 랜덤 추천 · 10배속 라이브 관전 시뮬레이터</p>
 </header>
 
 <div class="wrap">
@@ -283,15 +284,18 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 
 <!-- PAGE 1: BUILDER -->
 <section class="page active" id="builder">
-<div class="notice">💡 검색창에 챔피언 이름을 입력하여 모든 챔피언을 빠르게 찾고, 플레이어의 솔로랭크 티어를 지정해 보세요.</div>
+<div class="notice">💡 검색창에 챔피언 이름을 입력해 모든 챔피언을 선택하고, 프로 경기/솔로랭크 메타 조합 프리셋이나 랜덤 조합을 불러와 보세요.</div>
 
 <div class="preset-bar">
-<span>🔥 실전 메타 조합 불러오기:</span>
-<button class="preset-btn" onclick="loadPreset('dive')">돌진 한타 조합</button>
-<button class="preset-btn" onclick="loadPreset('poke')">포킹 & 오브젝트 조합</button>
-<button class="preset-btn" onclick="loadPreset('protect')">원딜 캐리 보호 조합</button>
-<button class="preset-btn" onclick="loadPreset('global')">글로벌 합류 조합</button>
-<button class="preset-btn" onclick="loadPreset('split')">사이드 스플릿 조합</button>
+<span>🔥 실전 메타 조합 & 랜덤:</span>
+<button class="preset-btn random" onclick="loadRandomPreset()">🎲 랜덤 실전 조합 뽑기</button>
+<button class="preset-btn" onclick="loadPreset('dive')">돌진 한타</button>
+<button class="preset-btn" onclick="loadPreset('poke')">포킹 오브젝트</button>
+<button class="preset-btn" onclick="loadPreset('protect')">원딜 캐리 보호</button>
+<button class="preset-btn" onclick="loadPreset('global')">글로벌 합류</button>
+<button class="preset-btn" onclick="loadPreset('split')">사이드 스플릿</button>
+<button class="preset-btn" onclick="loadPreset('teamfight')">광역 궁극기 한타</button>
+<button class="preset-btn" onclick="loadPreset('pick')">암살 & 잘라먹기</button>
 </div>
 
 <div class="grid2" style="margin-top:12px">
@@ -382,7 +386,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </div>
 </section>
 
-<div class="footer">협곡 전략 연구소 Ultimate — 리그 오브 레전드 전략 시뮬레이터</div>
+<div class="footer">협곡 전략 연구소 Ultimate Meta — 리그 오브 레전드 전략 시뮬레이터</div>
 </div>
 
 <script>
@@ -399,17 +403,20 @@ const TIERS=[
 ];
 
 const FALLBACK=[
-["Aatrox","아트록스","Fighter"],["Ahri","아리","Mage,Assassin"],["Akali","아칼리","Assassin"],["Alistar","알리스타","Tank,Support"],["Amumu","아무무","Tank,Support"],["Annie","애니","Mage"],["Ashe","애쉬","Marksman,Support"],["AurelionSol","아우렐리온 솔","Mage"],["Blitzcrank","블리츠크랭크","Tank,Support"],["Braum","브라움","Tank,Support"],["Caitlyn","케이틀린","Marksman"],["Camille","카밀","Fighter,Assassin"],["Darius","다리우스","Fighter,Tank"],["Diana","다이애나","Fighter,Mage"],["DrMundo","문도 박사","Fighter,Tank"],["Ekko","에코","Assassin,Mage"],["Ezreal","이즈리얼","Marksman,Mage"],["Fiora","피오라","Fighter,Assassin"],["Garen","가렌","Fighter,Tank"],["Gnar","나르","Fighter,Tank"],["Gragas","그라가스","Fighter,Mage,Tank"],["Graves","그레이브즈","Marksman,Fighter"],["Hecarim","헤카림","Fighter"],["Irelia","이렐리아","Fighter,Assassin"],["Janna","잔나","Support,Mage"],["JarvanIV","자르반 4세","Tank,Fighter"],["Jax","잭스","Fighter"],["Jhin","진","Marksman,Mage"],["Jinx","징크스","Marksman"],["KaiSa","카이사","Marksman,Assassin"],["Kalista","칼리스타","Marksman"],["Karma","카르마","Mage,Support"],["Kassadin","카사딘","Assassin,Mage"],["Katarina","카타리나","Assassin,Mage"],["Kayle","케일","Mage,Marksman"],["Kayn","케인","Fighter,Assassin"],["Kennen","케넨","Mage,Marksman"],["KhaZix","카직스","Assassin"],["Kindred","킨드레드","Marksman"],["Kled","클레드","Fighter"],["LeBlanc","르블랑","Assassin,Mage"],["LeeSin","리 신","Fighter,Assassin"],["Leona","레오나","Tank,Support"],["Lillia","릴리아","Fighter,Mage"],["Lissandra","리산드라","Mage"],["Lucian","루시안","Marksman"],["Lulu","룰루","Support,Mage"],["Lux","럭스","Mage,Support"],["Malphite","말파이트","Tank,Mage"],["Maokai","마오카이","Tank,Support"],["MissFortune","미스 포츈","Marksman"],["Mordekaiser","모데카이저","Fighter,Mage"],["Morgana","모르가나","Mage,Support"],["Nami","나미","Support,Mage"],["Nasus","나서스","Fighter,Tank"],["Nautilus","노틸러스","Tank,Support"],["Neeko","니코","Mage,Support"],["Nidalee","니달리","Mage,Assassin"],["Nocturne","녹턴","Assassin,Fighter"],["Olaf","올라프","Fighter,Tank"],["Orianna","오리아나","Mage,Support"],["Ornn","오른","Tank"],["Pantheon","판테온","Fighter,Assassin"],["Poppy","뽀삐","Tank,Fighter"],["Pyke","파이크","Support,Assassin"],["Rakan","라칸","Support,Tank"],["Rammus","람머스","Tank"],["RekSai","렉사이","Fighter"],["Renekton","레넥톤","Fighter,Tank"],["Rengar","렝가","Assassin"],["Riven","리븐","Fighter,Assassin"],["Rumble","럼블","Fighter,Mage"],["Ryze","라이즈","Mage"],["Samira","사미라","Marksman,Assassin"],["Sejuani","세주아니","Tank"],["Senna","세나","Marksman,Support"],["Seraphine","세라핀","Mage,Support"],["Sett","세트","Fighter,Tank"],["Shen","쉔","Tank,Support"],["Shyvana","쉬바나","Fighter,Mage"],["Sion","사이온","Tank"],["Sivir","시비르","Marksman"],["Skarner","스카너","Tank,Fighter"],["Smolder","스몰더","Marksman"],["Sona","소나","Support,Mage"],["Soraka","소라카","Support,Mage"],["Swain","스웨인","Mage,Tank"],["Sylas","사일러스","Mage,Fighter"],["Syndra","신드라","Mage"],["TahmKench","탐 켄치","Tank,Support"],["Taliyah","탈리야","Mage,Support"],["Talon","탈론","Assassin"],["Taric","타릭","Support,Tank"],["Teemo","티모","Marksman,Mage"],["Thresh","쓰레쉬","Support,Tank"],["Tristana","트리스타나","Marksman,Assassin"],["Trundle","트런들","Fighter,Tank"],["Tryndamere","트린다미어","Fighter,Assassin"],["TwistedFate","트위스티드 페이트","Mage"],["Twitch","트위치","Marksman,Assassin"],["Udyr","우디르","Fighter,Tank"],["Urgot","우르곳","Fighter,Tank"],["Varus","바루스","Marksman,Mage"],["Vayne","베인","Marksman,Assassin"],["Veigar","베이가","Mage"],["Velkoz","벨코즈","Mage"],["Vex","벡스","Mage"],["Vi","바이","Fighter"],["Viego","비에고","Fighter,Assassin"],["Viktor","빅토르","Mage"],["Vladimir","블라디미르","Mage"],["Volibear","볼리베어","Fighter,Tank"],["Warwick","워윅","Fighter,Tank"],["Wukong","오공","Fighter,Tank"],["Xayah","자야","Marksman"],["Xerath","제라스","Mage"],["XinZhao","신 짜오","Fighter"],["Yasuo","야스오","Fighter,Assassin"],["Yone","요네","Fighter,Assassin"],["Yorick","요릭","Fighter,Tank"],["Yuumi","유미","Support,Mage"],["Zac","자크","Tank"],["Zed","제드","Assassin"],["Zeri","제리","Marksman"],["Ziggs","직스","Mage,Marksman"],["Zilean","질리언","Support,Mage"],["Zoe","조이","Mage"],["Zyra","자이라","Mage,Support"]
+["Aatrox","아트록스","Fighter"],["Ahri","아리","Mage,Assassin"],["Akali","아칼리","Assassin"],["Alistar","알리스타","Tank,Support"],["Amumu","아무무","Tank,Support"],["Annie","애니","Mage"],["Ashe","애쉬","Marksman,Support"],["AurelionSol","아우렐리온 솔","Mage"],["Blitzcrank","블리츠크랭크","Tank,Support"],["Braum","브라움","Tank,Support"],["Caitlyn","케이틀린","Marksman"],["Camille","카밀","Fighter,Assassin"],["Darius","다리우스","Fighter,Tank"],["Diana","다이애나","Fighter,Mage"],["DrMundo","문도 박사","Fighter,Tank"],["Ekko","에코","Assassin,Mage"],["Ezreal","이즈리얼","Marksman,Mage"],["Fiora","피오라","Fighter,Assassin"],["Garen","가렌","Fighter,Tank"],["Gnar","나르","Fighter,Tank"],["Gragas","그라가스","Fighter,Mage,Tank"],["Graves","그레이브즈","Marksman,Fighter"],["Hecarim","헤카림","Fighter"],["Irelia","이렐리아","Fighter,Assassin"],["Janna","잔나","Support,Mage"],["JarvanIV","자르반 4세","Tank,Fighter"],["Jax","잭스","Fighter"],["Jhin","진","Marksman,Mage"],["Jinx","징크스","Marksman"],["KaiSa","카이사","Marksman,Assassin"],["Kalista","칼리스타","Marksman"],["Karma","카르마","Mage,Support"],["Kassadin","카사딘","Assassin,Mage"],["Katarina","카타리나","Assassin,Mage"],["Kayle","케일","Mage,Marksman"],["Kayn","케인","Fighter,Assassin"],["Kennen","케넨","Mage,Marksman"],["KhaZix","카직스","Assassin"],["Kindred","킨드레드","Marksman"],["Kled","클레드","Fighter"],["LeBlanc","르블랑","Assassin,Mage"],["LeeSin","리 신","Fighter,Assassin"],["Leona","레오나","Tank,Support"],["Lillia","릴리아","Fighter,Mage"],["Lissandra","리산드라","Mage"],["Lucian","루시안","Marksman"],["Lulu","룰루","Support,Mage"],["Lux","럭스","Mage,Support"],["Malphite","말파이트","Tank,Mage"],["Maokai","마오카이","Tank,Support"],["MissFortune","미스 포츈","Marksman"],["Mordekaiser","모데카이저","Fighter,Mage"],["Morgana","모르가나","Mage,Support"],["Nami","나미","Support,Mage"],["Nasus","나서스","Fighter,Tank"],["Nautilus","노틸러스","Tank,Support"],["Neeko","니코","Mage,Support"],["Nidalee","니달리","Mage,Assassin"],["Nocturne","녹턴","Assassin,Fighter"],["Olaf","올라프","Fighter,Tank"],["Orianna","오리아나","Mage,Support"],["Ornn","오른","Tank"],["Pantheon","판테온","Fighter,Assassin"],["Poppy","뽀삐","Tank,Fighter"],["Pyke","파이크","Support,Assassin"],["Rakan","라칸","Support,Tank"],["Rammus","람머스","Tank"],["RekSai","렉사이","Fighter"],["Renekton","레넥톤","Fighter,Tank"],["Rengar","렝가","Assassin"],["Riven","리븐","Fighter,Assassin"],["Rumble","럼블","Fighter,Mage"],["Ryze","라이즈","Mage"],["Samira","사미라","Marksman,Assassin"],["Sejuani","세주아니","Tank"],["Senna","세나","Marksman,Support"],["Seraphine","세라핀","Mage,Support"],["Sett","세트","Fighter,Tank"],["Shen","쉔","Tank,Support"],["Shyvana","쉬바나","Fighter,Mage"],["Sion","사이온","Tank"],["Sivir","시비르","Marksman"],["Skarner","스카너","Tank,Fighter"],["Smolder","스몰더","Marksman"],["Sona","소나","Support,Mage"],["Soraka","소라카","Support,Mage"],["Swain","스웨인","Mage,Tank"],["Sylas","사일러스","Mage,Fighter"],["Syndra","신드라","Mage"],["TahmKench","탐 켄치","Tank,Support"],["Taliyah","탈리야","Mage,Support"],["Talon","탈론","Assassin"],["Taric","타릭","Support,Tank"],["Teemo","티모","Marksman,Mage"],["Thresh","쓰레쉬","Support,Tank"],["Tristana","트리스타나","Marksman,Assassin"],["Trundle","트런들","Fighter,Tank"],["Tryndamere","트린다미어","Fighter,Assassin"],["TwistedFate","트위스티드 페이트","Mage"],["Twitch","트위치","Marksman,Assassin"],["Udyr","우디르","Fighter,Tank"],["Urgot","우르곳","Fighter,Tank"],["Varus","바루스","Marksman,Mage"],["Vayne","베인","Marksman,Assassin"],["Veigar","베이가","Mage"],["Velkoz","벨코즈","Mage"],["Vex","벡스","Mage"],["Vi","바이","Fighter"],["Viego","비에고","Fighter,Assassin"],["Viktor","빅토르","Mage"],["Vladimir","블라디미르","Mage"],["Volibear","볼리베어","Fighter,Tank"],["Warwick","워윅","Fighter,Tank"],["Wukong","오공","Fighter,Tank"],["Xayah","자야","Marksman"],["Xerath","제라스","Mage"],["XinZhao","신 짜오","Fighter"],["Yasuo","야스오","Fighter,Assassin"],["Yone","요네","Fighter,Assassin"],["Yorick","요릭","Fighter,Tank"],["Yuumi","유미","Support,Mage"],["Zac","자크","Tank"],["Zed","제드","Assassin"],["Zeri","제리","Marksman"],["Ziggs","직с","Mage,Marksman"],["Zilean","질리언","Support,Mage"],["Zoe","조이","Mage"],["Zyra","자이라","Mage,Support"]
 ];
 
 const EXTRA={};
 
+// Expanded real LoL meta team compositions presets library
 const PRESETS = {
   dive: { blue: ["오른", "자르반 4세", "아리", "카이사", "레오나"], red: ["말파이트", "신 짜오", "오리아나", "진", "노틸러스"] },
   poke: { blue: ["아트록스", "니달리", "제라스", "바루스", "카르마"], red: ["레넥톤", "리 신", "아리", "케이틀린", "럭스"] },
   protect: { blue: ["사이온", "세주아니", "오리아나", "징크스", "룰루"], red: ["카밀", "카직스", "르블랑", "루시안", "쓰레쉬"] },
   global: { blue: ["쉔", "녹턴", "트위스티드 페이트", "애쉬", "탐 켄치"], red: ["잭스", "바이", "신드라", "미스 포츈", "레오나"] },
-  split: { blue: ["피오라", "그레이브즈", "사일러스", "이즈리얼", "카르마"], red: ["다리우스", "헤카림", "빅토르", "시비르", "블리츠크랭크"] }
+  split: { blue: ["피오라", "그레이브즈", "사일러스", "이즈리얼", "카르마"], red: ["다리우스", "헤카림", "빅토르", "시비르", "블리츠크랭크"] },
+  teamfight: { blue: ["말파이트", "아무무", "빅토르", "미스 포츈", "소나"], red: ["아트록스", "세주아니", "오리아나", "징크스", "탐 켄치"] },
+  pick: { blue: ["카밀", "카직스", "르블랑", "진", "파이크"], red: ["오른", "비에고", "신드라", "케이틀린", "쓰레쉬"] }
 };
 
 let champs=FALLBACK.map(([id,name,tags])=>({id,name,tags:tags.split(","),img:null}));
@@ -460,7 +467,6 @@ function renderSlots(color){
     const match = o.text.toLocaleLowerCase("ko").includes(q);
     o.hidden = !match;
    });
-   // Automatically select first visible match if user is typing
    if(q){
     const firstMatch = [...s.options].find((o,i)=>i>0 && !o.hidden);
     if(firstMatch) { s.value = firstMatch.value; }
@@ -545,7 +551,28 @@ function loadPreset(type){
  if(!p) return;
  LANES.forEach(([k], i)=>{
   $("blue_"+k).value = p.blue[i];
+  $("blue_"+k).previousElementSibling.value = p.blue[i];
   $("red_"+k).value = p.red[i];
+  $("red_"+k).previousElementSibling.value = p.red[i];
+ });
+ analysis();
+}
+
+function loadRandomPreset(){
+ const keys = Object.keys(PRESETS);
+ const randBlueKey = keys[Math.floor(Math.random() * keys.length)];
+ let randRedKey = keys[Math.floor(Math.random() * keys.length)];
+ while(randRedKey === randBlueKey && keys.length > 1) {
+  randRedKey = keys[Math.floor(Math.random() * keys.length)];
+ }
+ const bList = PRESETS[randBlueKey].blue;
+ const rList = PRESETS[randRedKey].red;
+
+ LANES.forEach(([k], i)=>{
+  $("blue_"+k).value = bList[i];
+  $("blue_"+k).previousElementSibling.value = bList[i];
+  $("red_"+k).value = rList[i];
+  $("red_"+k).previousElementSibling.value = rList[i];
  });
  analysis();
 }
@@ -622,7 +649,7 @@ function setup(){
  $("analyzeBtn").onclick=analysis;
  $("laneAnalyze").onclick=analyzeLane;
  $("runSimPlayback").onclick=runSimulationPlayback;
- $("clearBtn").onclick=()=>{document.querySelectorAll(".champ").forEach(x=>x.value="미선택");$("analysisOutput").innerHTML="";$("simPlaybackContainer").style.display="none";};
+ $("clearBtn").onclick=()=>{document.querySelectorAll(".champ").forEach(x=>x.value="미선택");document.querySelectorAll(".picker-search").forEach(x=>x.value="");$("analysisOutput").innerHTML="";$("simPlaybackContainer").style.display="none";};
 }
 setup();
 </script>
