@@ -4,48 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080f18">
-<title>협곡 전략 연구소 - Ultimate Authentic Rift Edition</title>
+<title>협곡 전략 연구소 — Ultimate Enterprise Rift Edition</title>
 <style>
 :root{
-  --bg: #080f18;
-  --panel: rgba(17, 27, 40, 0.92);
-  --panel2: #142232;
-  --line: #2a3f55;
+  --bg: #060b12;
+  --panel: rgba(14, 22, 33, 0.95);
+  --panel2: #111d2b;
+  --line: #22364d;
   --text: #f0f6fc;
   --muted: #8b9bb4;
   --blue: #1e90ff;
-  --blue-glow: rgba(30, 144, 255, 0.3);
+  --blue-glow: rgba(30, 144, 255, 0.35);
   --red: #ff4757;
-  --red-glow: rgba(255, 71, 87, 0.3);
+  --red-glow: rgba(255, 71, 87, 0.35);
   --gold: #f1c40f;
-  --gold-glow: rgba(241, 196, 15, 0.2);
+  --gold-glow: rgba(241, 196, 15, 0.25);
   --green: #2ecc71;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
-  background: radial-gradient(circle at top center, #112236 0%, var(--bg) 60%);
+  background: radial-gradient(circle at top center, #0f1c2e 0%, var(--bg) 65%);
   color:var(--text);
   font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
   min-height: 100vh;
 }
 header{
-  padding:28px 16px 16px;
-  max-width:1450px;
+  padding:32px 16px 18px;
+  max-width:1500px;
   margin:auto;
   text-align: center;
 }
 header h1{
-  font-size:clamp(28px, 5vw, 42px);
+  font-size:clamp(30px, 5vw, 46px);
   margin:0 0 8px;
   background: linear-gradient(90deg, #55b9ff, #ffd36a, #ff7777);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(85,185,255,0.2);
+  text-shadow: 0 0 35px rgba(85,185,255,0.25);
 }
 .sub{color:var(--muted);margin:0;font-size:15px;letter-spacing:-0.3px}
 
-.wrap{max-width:1450px;margin:auto;padding:0 16px 40px}
+.wrap{max-width:1500px;margin:auto;padding:0 16px 50px}
 
 /* Tabs */
 .tabs{
@@ -56,18 +56,18 @@ header h1{
   position:sticky;
   top:0;
   z-index:100;
-  background: rgba(8, 15, 24, 0.92);
-  backdrop-filter: blur(12px);
+  background: rgba(6, 11, 18, 0.94);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 .tab{
   white-space:nowrap;
   border:1px solid var(--line);
-  background: #111d2b;
+  background: #0d1622;
   color:var(--muted);
   border-radius:10px;
-  padding:11px 18px;
+  padding:11px 20px;
   cursor:pointer;
   font-weight:600;
   font-size:14px;
@@ -78,40 +78,40 @@ header h1{
   background: linear-gradient(135deg, #1d3c59, #132a40);
   color:var(--text);
   border-color:var(--blue);
-  box-shadow: 0 0 15px var(--blue-glow);
+  box-shadow: 0 0 18px var(--blue-glow);
 }
 
 .page{display:none}
 .page.active{display:block; animation: fadeIn 0.3s ease}
-@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Panels & Cards */
 .panel{
   background: var(--panel);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   border:1px solid var(--line);
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  border-radius:18px;
+  padding:24px;
+  margin-bottom:20px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4);
 }
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 
-.teamtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.teamtitle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:10px}
 .blue{color:#55b9ff}
 .red{color:#ff7777}
 
-.slots{display:grid;gap:10px}
-.slot{display:grid;grid-template-columns:55px minmax(0,1fr) 110px;gap:8px;align-items:center}
+.slots{display:grid;gap:12px}
+.slot{display:grid;grid-template-columns:55px minmax(0,1fr) 115px;gap:8px;align-items:center}
 .lane{color:var(--muted);font-size:13px;font-weight:600}
 
 .picker{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;position:relative}
 .picker-search, .champ, .tier-select, .field input, .field select, .field textarea{
   width:100%;
-  background:#0b141e;
+  background:#09131d;
   color:var(--text);
-  border:1px solid #30495b;
+  border:1px solid #2d465c;
   border-radius:10px;
   padding:10px 12px;
   font:inherit;
@@ -125,17 +125,17 @@ header h1{
 }
 .picker-search{padding:7px 10px;font-size:12px;margin-bottom:2px}
 
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .btn{
   background: linear-gradient(135deg, #245579, #173752);
   border:1px solid #4a9ad0;
   color:white;
-  padding:12px 20px;
+  padding:12px 22px;
   border-radius:10px;
   font-weight:700;
   cursor:pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 12px rgba(36,85,121,0.3);
+  box-shadow: 0 4px 15px rgba(36,85,121,0.35);
 }
 .btn:hover{background: linear-gradient(135deg, #2c6794, #1d4363); border-color:#69c5ff; transform: translateY(-1px)}
 .btn.secondary{
@@ -148,33 +148,32 @@ header h1{
 
 label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-weight:500}
 .metric{
-  background: linear-gradient(145deg, #0d1722, #081018);
+  background: linear-gradient(145deg, #0d1722, #070e15);
   border:1px solid #283e50;
-  padding:14px;
+  padding:16px;
   border-radius:12px;
   text-align: center;
 }
-.metric strong{font-size:26px;display:block;margin-bottom:4px;color:var(--text)}
+.metric strong{font-size:28px;display:block;margin-bottom:4px;color:var(--text)}
 .metric small{color:var(--muted);font-size:12px}
 
 .bar{height:8px;background:#1a2836;border-radius:99px;overflow:hidden;margin:6px 0 10px}
 .bar span{display:block;height:100%;background:linear-gradient(90deg,#46a9f5,#67e1b2);border-radius:99px;transition: width 0.5s ease}
 .redbar span{background:linear-gradient(90deg,#f6b14c,#ff7777)}
 
-.pill{display:inline-block;border:1px solid #3d5668;color:#cde5f5;background:#122433;border-radius:999px;padding:4px 10px;font-size:12px;margin:2px;font-weight:500}
+.pill{display:inline-block;border:1px solid #3d5668;color:#cde5f5;background:#122433;border-radius:999px;padding:4px 12px;font-size:12px;margin:2px;font-weight:500}
 .result{white-space:normal;line-height:1.7;color:#dce7ee}
 
 .notice{
   border-left:3px solid var(--gold);
-  padding:12px 14px;
+  padding:14px 16px;
   background: linear-gradient(90deg, rgba(241,196,15,0.08), transparent);
   border-radius:0 8px 8px 0;
   color:#f5e7bd;
   font-size:13px;
-  line-height:1.5;
-  margin-bottom: 12px;
+  line-height:1.6;
+  margin-bottom: 16px;
 }
-.linecard{border:1px solid var(--line);border-radius:12px;padding:14px;background:#0d1620;margin-bottom:8px}
 .linehead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:4px}
 .small{font-size:12px;color:var(--muted)}
 
@@ -183,19 +182,19 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
-  background: #0d1622;
-  padding: 10px;
+  margin-bottom: 14px;
+  background: #0a121c;
+  padding: 12px;
   border-radius: 12px;
   border: 1px solid var(--line);
   align-items: center;
 }
 .preset-bar span { font-size: 13px; color: var(--gold); font-weight: 600; margin-right: 4px; }
 .preset-btn {
-  background: #182b3d;
+  background: #152638;
   border: 1px solid #3b5975;
   color: var(--text);
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 8px;
   font-size: 12px;
   cursor: pointer;
@@ -205,42 +204,64 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 .preset-btn.random { background: linear-gradient(135deg, #b7950b, #d4ac0d); color: #fff; font-weight: bold; border-color: #f1c40f; }
 
 /* Matchup Item/Rune Grid */
-.recommend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:10px}
-.rec-card{background:#0b141e;border:1px solid #2a4051;border-radius:12px;padding:14px}
-.rec-card h3{margin:0 0 8px;color:#9ed8ff;font-size:15px}
+.recommend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:12px}
+.rec-card{background:#09131d;border:1px solid #283e52;border-radius:14px;padding:16px}
+.rec-card h3{margin:0 0 10px;color:#9ed8ff;font-size:15px}
 
 /* Simulation Playback UI */
 .playback-box {
-  background: #0b131d;
+  background: #09121c;
   border: 1px solid #324c63;
-  border-radius: 14px;
-  padding: 18px;
-  margin-top: 14px;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 16px;
 }
 .playback-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
+.sim-toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+  background: #0d1724;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.sim-ctrl-btn {
+  background: #182b3d;
+  border: 1px solid #3b5975;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 12px;
+}
+.sim-ctrl-btn:hover { background: #25425e; border-color: var(--blue); }
+
 .live-scoreboard {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #111d2a;
-  padding: 12px 20px;
-  border-radius: 10px;
+  padding: 14px 22px;
+  border-radius: 12px;
   font-size: 18px;
   font-weight: bold;
   border: 1px solid var(--line);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 .progress-container {
   height: 10px;
   background: #162536;
   border-radius: 99px;
   overflow: hidden;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   border: 1px solid #2b445c;
 }
 .progress-fill {
@@ -250,32 +271,32 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   transition: width 0.1s linear;
 }
 .log-stream {
-  background: #070d14;
+  background: #060b12;
   border: 1px solid #1e3142;
-  border-radius: 10px;
-  padding: 12px;
-  height: 160px;
+  border-radius: 12px;
+  padding: 14px;
+  height: 180px;
   overflow-y: auto;
   font-family: monospace;
   font-size: 13px;
   line-height: 1.6;
   color: #c9dff5;
-  margin-top: 12px;
+  margin-top: 14px;
 }
-.log-item { margin-bottom: 6px; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 4px; }
+.log-item { margin-bottom: 6px; border-bottom: 1px dashed rgba(255,255,255,0.06); padding-bottom: 4px; }
 .log-time { color: var(--gold); font-weight: bold; margin-right: 8px; }
 
 .stats-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 14px;
+  margin-top: 16px;
   font-size: 13px;
-  background: #0b141e;
-  border-radius: 10px;
+  background: #09131d;
+  border-radius: 12px;
   overflow: hidden;
 }
 .stats-table th, .stats-table td {
-  padding: 10px 12px;
+  padding: 12px 14px;
   text-align: center;
   border-bottom: 1px solid #223548;
 }
@@ -286,32 +307,32 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 }
 .stats-table tr:hover { background: rgba(255,255,255,0.02); }
 
-.footer{color:var(--muted);font-size:12px;line-height:1.6;padding:20px 0;text-align:center;border-top:1px solid var(--line);margin-top:30px}
+.footer{color:var(--muted);font-size:12px;line-height:1.6;padding:22px 0;text-align:center;border-top:1px solid var(--line);margin-top:40px}
 
 @media(max-width:800px){
   .grid2,.grid3,.recommend-grid{grid-template-columns:1fr}
   .slot{grid-template-columns:45px minmax(0,1fr) 95px}
-  .panel{padding:14px}
+  .panel{padding:16px}
 }
 </style>
 </head>
 <body>
 <header>
-<h1>⚔️ 협곡 전략 연구소 — Ultimate Authentic Rift Edition</h1>
-<p class="sub">소환사의 협곡 정밀 고증 맵 · 본진 정상 출발 및 라인/오브젝트 이동 · 30배속 대형 관전</p>
+<h1>⚔️ 협곡 전략 연구소 — Ultimate Enterprise Rift Edition</h1>
+<p class="sub">2026년 최신 메타 반영 · 정교한 미니맵 & 오브젝트 고증 · 실시간 제어 전투 시뮬레이터</p>
 </header>
 
 <div class="wrap">
 <div class="tabs">
-<button class="tab active" data-page="builder">팀 조합 & 맞춤 템/룬 분석</button>
-<button class="tab" data-page="lanes">라인별 카운터 & 템트리</button>
-<button class="tab" data-page="sim">30배속 대형 미니맵 관전 시뮬레이터</button>
-<button class="tab" data-page="guide">전략 도감</button>
+<button class="tab active" data-page="builder">팀 조합 & 맞춤 템/룬 종합 분석</button>
+<button class="tab" data-page="lanes">라인별 카운터 & 템트리 가이드</button>
+<button class="tab" data-page="sim">실시간 미니맵 관전 시뮬레이터</button>
+<button class="tab" data-page="guide">패치 메타 전략 도감</button>
 </div>
 
 <!-- PAGE 1: BUILDER -->
 <section class="page active" id="builder">
-<div class="notice">💡 챔피언 검색 및 티어 설정 후, 상단 프리셋이나 랜덤 조합을 통해 실전 매치업을 구성해 보세요.</div>
+<div class="notice">💡 챔피언 검색 및 티어를 설정한 뒤, 상단 프리셋 또는 랜덤 조합을 통해 실전 매치업을 완성하고 하단 분석을 확인하세요.</div>
 
 <div class="preset-bar">
 <span>🔥 실전 메타 조합 & 랜덤:</span>
@@ -325,7 +346,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <button class="preset-btn" onclick="loadPreset('pick')">암살 & 잘라먹기</button>
 </div>
 
-<div class="grid2" style="margin-top:12px">
+<div class="grid2" style="margin-top:14px">
 <div class="panel">
 <div class="teamtitle"><h2 class="blue">🔵 블루 팀</h2><span class="small">아군 조합 & 티어</span></div>
 <div id="blueSlots" class="slots"></div>
@@ -337,14 +358,14 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </div>
 
 <div class="panel">
-<h2>게임 상황 설정</h2>
+<h2>게임 상황 및 환경 설정</h2>
 <div class="grid3">
 <div class="field"><label for="gameTime">게임 시간</label><select id="gameTime"><option value="early">초반 (0~14분)</option><option value="mid" selected>중반 (14~25분)</option><option value="late">후반 (25분+)</option></select></div>
 <div class="field"><label for="blueGold">블루 팀 골드 우위</label><select id="blueGold"><option value="-5000">-5000 (크게 불리)</option><option value="-2500">-2500 (약간 불리)</option><option value="0" selected>동등</option><option value="2500">+2500 (약간 유리)</option><option value="5000">+5000 (크게 유리)</option></select></div>
 <div class="field"><label for="objective">주요 전투 장소</label><select id="objective"><option value="river">강 / 중립 오브젝트 (용·바론)</option><option value="jungle">좁은 정글 입구 (한타 유리)</option><option value="lane">넓은 라인 / 스플릿</option><option value="siege">포탑 공성전</option></select></div>
 </div>
 <div class="controls">
-<button class="btn" id="analyzeBtn">⚡ 상대 맞춤 템/룬 종합 분석</button>
+<button class="btn" id="analyzeBtn">⚡ 상대 맞춤 템/룬 종합 분석 실행</button>
 <button class="btn secondary" id="clearBtn">🗑️ 초기화</button>
 </div>
 </div>
@@ -355,7 +376,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <section class="page" id="lanes">
 <div class="panel">
 <h2>라인별 상대 맞춤 아이템 & 룬 상성</h2>
-<p class="muted">아군과 상대 챔피언을 선택하면 구도별 핵심 템트리와 룬을 확인할 수 있습니다.</p>
+<p class="muted">아군과 상대 챔피언을 선택하면 구도별 핵심 템트리와 맞춤 룬 세팅을 상세히 확인할 수 있습니다.</p>
 <div class="grid2">
 <div class="field"><label>라인 선택</label><select id="lanePick"><option value="TOP">탑</option><option value="JUNGLE">정글</option><option value="MID">미드</option><option value="ADC">바텀 원딜</option><option value="SUPPORT">서포터</option></select></div>
 <div class="field"><label>게임 단계</label><select id="laneTime"><option value="early">초반 라인전</option><option value="mid">중반 교전</option><option value="late">후반 한타</option></select></div>
@@ -363,37 +384,47 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 <div class="field"><label>상대 챔피언</label><select id="laneThem"></select></div>
 </div>
 <div class="controls"><button class="btn" id="laneAnalyze">⚔️ 상대 맞춤 분석 실행</button></div>
-<div id="laneOutput" class="result" style="margin-top:16px"></div>
+<div id="laneOutput" class="result" style="margin-top:18px"></div>
 </div>
 </section>
 
 <!-- PAGE 3: SIMULATOR -->
 <section class="page" id="sim">
 <div class="panel">
-<h2>30배속 대형 미니맵 전투 관전 시뮬레이터 (1분 완료)</h2>
-<p class="muted">소환사의 협곡 정식 맵 구조에서 본진 출발 후 라인 전투 및 바론·전령·유충·드래곤 오브젝트 교전을 관전합니다.</p>
+<h2>실시간 미니맵 관전 시뮬레이터 (1분 단위 제어 가능)</h2>
+<p class="muted">본진(우물)에서 출발하여 30분 동안 라인전, 유충, 드래곤, 바론, 장로 드래곤 둥지 앞으로 정확히 이동하며 교전하는 과정을 실시간으로 관전합니다.</p>
 <div class="grid3">
 <div class="field"><label>교전 개시 방식</label><select id="engage"><option value="blue">블루 팀 선진입 (이니시에이팅)</option><option value="red">레드 팀 선진입 (이니시에이팅)</option><option value="poke">포킹 및 거리 조절 후 개시</option><option value="flank">측면 기습 및 백도어 시도</option><option value="front">정면 5:5 대치 후 한타</option></select></div>
 <div class="field"><label>블루 팀 시야 장악력</label><select id="blueVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
 <div class="field"><label>레드 팀 시야 장악력</label><select id="redVision"><option value="poor">부족</option><option value="even" selected>비슷함</option><option value="good">우위</option></select></div>
 </div>
 <div class="controls">
-<button class="btn" id="runSimPlayback">▶ 30배속 대형 미니맵 관전 시작 (1분)</button>
+<button class="btn" id="runSimPlayback">▶ 미니맵 관전 시작</button>
 </div>
 
 <div id="simPlaybackContainer" style="display:none;">
  <div class="playback-box">
   <div class="playback-header">
-   <h3 style="margin:0; color:var(--gold);">🎮 대형 미니맵 실시간 관전 중 (30배속 / 1분 소요)</h3>
+   <h3 style="margin:0; color:var(--gold);">🎮 미니맵 실시간 관전 중 (1분 단위 진행)</h3>
    <span id="pbStatus" class="pill">진행 중...</span>
   </div>
+  
+  <div class="sim-toolbar">
+   <button class="sim-ctrl-btn" id="btnPause">⏸ 일시정지</button>
+   <button class="sim-ctrl-btn" id="btnResume">▶ 다시재생</button>
+   <button class="sim-ctrl-btn" id="btnSpeed1x">속도 1x</button>
+   <button class="sim-ctrl-btn" id="btnSpeed2x">속도 2x</button>
+   <span id="speedIndicator" style="font-size:12px; color:var(--gold); margin-left:auto;">현재 속도: 1x</span>
+  </div>
+
   <div class="live-scoreboard">
    <span class="blue">🔵 블루 팀 킬: <b id="blueKills">0</b></span>
    <span id="gameTimerDisplay" style="color:var(--muted)">00:00</span>
    <span class="red">🔴 레드 팀 킬: <b id="redKills">0</b></span>
   </div>
-  <!-- Expanded Authentic Rift Map Canvas -->
-  <canvas id="simCanvas" width="720" height="420" style="width:100%; max-width:720px; background:#08101a; border-radius:14px; border:2px solid #2a3f55; display:block; margin:0 auto 14px;"></canvas>
+  
+  <!-- Large Authentic Rift Map Canvas -->
+  <canvas id="simCanvas" width="760" height="440" style="width:100%; max-width:760px; background:#060d15; border-radius:14px; border:2px solid #2a3f55; display:block; margin:0 auto 16px;"></canvas>
 
   <div class="progress-container">
    <div id="pbProgress" class="progress-fill"></div>
@@ -401,22 +432,22 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
   <div id="logStream" class="log-stream"></div>
  </div>
 </div>
-<div id="simOutput" class="result" style="margin-top:16px"></div>
+<div id="simOutput" class="result" style="margin-top:18px"></div>
 </div>
 </section>
 
 <!-- PAGE 4: GUIDE -->
 <section class="page" id="guide">
 <div class="panel">
-<h2>조합 핵심 전술 가이드</h2>
+<h2>2026 메타 전략 & 조합 전술 가이드</h2>
 <div class="grid2">
-<div><h3>🛡️ 상대 맞춤 아이템 빌드의 중요성</h3><p>상대 조합에 암살자나 탱커가 많을 경우 방어구 관통 아이템이나 치유 감소, 방어형 코어템을 유연하게 올려야 승률이 높아집니다.</p></div>
-<div><h3>🎯 룬 세팅의 핵심</h3><p>라인전 맞대결 구도(탱커 vs 브루저, 포킹 vs 돌진)에 따라 룬 파편과 핵심 룬을 다르게 가져가세요.</p></div>
+<div><h3>🛡️ 오브젝트 컨트롤과 시야</h3><p>공허 유충과 첫 드래곤 타이밍의 정글/미드 주도권 싸움이 게임 중반 승패를 결정합니다.</p></div>
+<div><h3>🎯 숙련도와 조합 시너지</h3><p>플레이어 티어 가중치가 높을수록 교전 집중력과 스킬 적중률이 상승하여 조합의 잠재력을 극한으로 끌어냅니다.</p></div>
 </div>
 </div>
 </section>
 
-<div class="footer">협곡 전략 연구소 Ultimate Authentic Rift Edition — 리그 오브 레전드 전략 시뮬레이터</div>
+<div class="footer">협곡 전략 연구소 Ultimate Enterprise Rift Edition — 리그 오브 레전드 전략 시뮬레이터</div>
 </div>
 
 <script>
@@ -611,7 +642,7 @@ function analysis(){
  });
 
  $("analysisOutput").innerHTML=`<div class="panel"><h2>📊 티어 반영 조합 진단 결과</h2><p><b>${summary}</b></p>
- <div class="grid3" style="margin-top:12px">${metricCard("블루 팀 종합력",fmt(scoreB),"티어 가중치 포함")}${metricCard("레드 팀 종합력",fmt(scoreR),"티어 가중치 포함")}${metricCard("전력 격차",(diff>0?"+":"")+fmt(diff),diff>1.3?"블루 우세":diff<-1.3?"레드 우세":"접전")}</div></div>
+ <div class="grid3" style="margin-top:14px">${metricCard("블루 팀 종합력",fmt(scoreB),"티어 가중치 포함")}${metricCard("레드 팀 종합력",fmt(scoreR),"티어 가중치 포함")}${metricCard("전력 격차",(diff>0?"+":"")+fmt(diff),diff>1.3?"블루 우세":diff<-1.3?"레드 우세":"접전")}</div></div>
  <div class="grid2">
  <div class="panel"><h2 class="blue">🔵 블루 팀 분석</h2><p>${listChamps(blue)}</p>${bar("한타력",b.teamfight,25)}${bar("진입력",b.engageScore,18)}${bar("포킹력",b.pokeScore,18)}${bar("성장성",b.scaling,20)}</div>
  <div class="panel"><h2 class="red">🔴 레드 팀 분석</h2><p>${listChamps(red)}</p>${bar("한타력",r.teamfight,25,true)}${bar("진입력",r.engageScore,18,true)}${bar("포킹력",r.pokeScore,18,true)}${bar("성장성",r.scaling,20,true)}</div>
@@ -626,7 +657,7 @@ function analyzeLane(){
  const us=champByName($("laneUs").value),them=champByName($("laneThem").value),lane=$("lanePick").value;
  const rec = getMatchupRecommendations(us, them);
  $("laneOutput").innerHTML=`<div class="metric"><strong>${esc(us.name)} vs ${esc(them.name)}</strong><b>맞춤 장비 & 룬 가이드</b></div>
- <div class="rec-card" style="margin-top:14px">
+ <div class="rec-card" style="margin-top:16px">
   <h3>⚔️ ${lane} 매치업 솔루션</h3>
   <p><b>스타팅 아이템:</b> ${esc(rec.starting)}</p>
   <p><b>핵심 템트리:</b> ${esc(rec.core)}</p>
@@ -666,13 +697,20 @@ function loadRandomPreset(){
  analysis();
 }
 
-// 30x Speed Large Authentic Rift Map Simulation
+// Interactive Real-Time Simulation Engine with Pause/Resume/Speed Control
+let simTimer = null;
+let isPaused = false;
+let currentSpeedMultiplier = 1;
+
 function runSimulationPlayback(){
  const blue=getTeam("blue"),red=getTeam("red");
  if(uniqueTeam(blue).length===0||uniqueTeam(red).length===0){
   alert("양 팀 챔피언을 모두 선택해주세요.");
   return;
  }
+
+ if(simTimer) clearInterval(simTimer);
+ isPaused = false;
 
  $("simPlaybackContainer").style.display = "block";
  $("simOutput").innerHTML = "";
@@ -683,102 +721,96 @@ function runSimulationPlayback(){
  $("blueKills").textContent = "0";
  $("redKills").textContent = "0";
  $("pbProgress").style.width = "0%";
- $("pbStatus").textContent = "30배속 협곡 관전 중 (1분 소요)...";
+ $("pbStatus").textContent = "실시간 관전 진행 중...";
 
  const b=compMetrics(blue), r=compMetrics(red);
  const diff = (b.teamfight - r.teamfight) * 0.5;
 
- const events = [
-  {m: "01:00", text: "게임 시작! 블루/레드 팀 본진(우물)에서 부활하여 협곡으로 진격합니다."},
-  {m: "03:15", text: "인베이드 대치전 및 정글러 동선 진입."},
-  {m: "05:30", text: "[공허 유충 🐛] 등장! 탑쪽 유충 둥지 쟁탈전 교전 발생."},
-  {m: "08:45", text: "바텀 라인 2:2 교전 및 첫 킬 스코어 획득."},
-  {m: "11:20", text: "[드래곤 🐉] 첫 번째 화염/대지 드래곤 둥지 앞 5:5 대치."},
-  {m: "14:00", text: "[협곡의 전령 👁️] 활성화! 상단 라인 전령 압박."},
-  {m: "17:30", text: "정글 시야 싸움 및 주요 궁극기 쿨타임 교전."},
-  {m: "20:10", text: "[드래곤 🐉] 영혼이 걸린 세 번째 드래곤 앞 한타! [🔥 궁극기 작렬]"},
-  {m: "23:45", text: "사이드 라인 스플릿 및 억제기 공성전."},
-  {m: "27:10", text: "[내셔 남작 🪱 (바론)] 버스트 시도! 바론 둥지 앞 치열한 공방전."},
-  {m: "29:30", text: "[장로 드래곤] 및 넥서스 앞 마지막 최후의 5:5 대규모 한타!"},
-  {m: "31:00", text: "넥서스 파괴 및 최종 승부 결정!"}
- ];
+ const events = [];
+ for(let m=1; m<=30; m++) {
+  let timeStr = (m < 10 ? "0" + m : m) + ":00";
+  let text = `${m}분: 라인 파밍 및 정글 동선 유지`;
+  if(m === 1) text = "게임 시작! 블루/레드 팀 본진(우물)에서 출발합니다.";
+  else if(m === 3) text = "인베이드 대치전 및 첫 정글 동선 진입.";
+  else if(m === 5) text = "[공허 유충 🐛] 등장! 탑쪽 유충 둥지 쟁탈전 교전 발생.";
+  else if(m === 8) text = "바텀 라인 2:2 교전 및 첫 킬 스코어 획득.";
+  else if(m === 10) text = "[드래곤 🐉] 첫 번째 화염/대지 드래곤 둥지 앞 대치.";
+  else if(m === 14) text = "[협곡의 전령 👁️] 활성화! 상단 라인 전령 압박.";
+  else if(m === 17) text = "정글 시야 싸움 및 주요 궁극기 쿨타임 교전.";
+  else if(m === 20) text = "[드래곤 🐉] 영혼이 걸린 세 번째 드래곤 한타 개시! [🔥 궁극기 작렬]";
+  else if(m === 24) text = "사이드 라인 스플릿 및 억제기 공성전.";
+  else if(m === 27) text = "[내셔 남작 🪱 (바론)] 버스트 시도! 바론 둥지 앞 치열한 공방전.";
+  else if(m === 30) text = "[장로 드래곤] 및 넥서스 앞 마지막 최후의 5:5 대규모 한타!";
+  events.push({m: timeStr, text: text, minute: m});
+ }
 
  const canvas = $("simCanvas");
  const ctx = canvas.getContext("2d");
 
- // Authentic Summoner's Rift Map Layout Coordinates (720 x 420)
- const blueBase = {x: 70, y: 360};   // Bottom-left fountain
- const redBase = {x: 650, y: 60};   // Top-right fountain
+ const blueBase = {x: 80, y: 380};
+ const redBase = {x: 680, y: 60};
 
  const lanePositions = {
-  blue: [{x: 70, y: 110}, {x: 180, y: 240}, {x: 360, y: 210}, {x: 580, y: 360}, {x: 550, y: 360}],
-  red:  [{x: 210, y: 60}, {x: 520, y: 180}, {x: 360, y: 210}, {x: 650, y: 130}, {x: 650, y: 160}]
+  blue: [{x: 80, y: 120}, {x: 200, y: 260}, {x: 380, y: 220}, {x: 610, y: 380}, {x: 580, y: 380}],
+  red:  [{x: 230, y: 60}, {x: 550, y: 190}, {x: 380, y: 220}, {x: 680, y: 140}, {x: 680, y: 180}]
  };
 
  const objectivePositions = {
-  baron: {x: 270, y: 130},
-  dragon: {x: 450, y: 300},
-  midTeamfight: {x: 360, y: 210}
+  baron: {x: 290, y: 130},
+  dragon: {x: 470, y: 310},
+  midTeamfight: {x: 380, y: 220}
  };
 
- function drawMap(progressRatio, activeUltChamps = []) {
+ function drawMap(minute, activeUltChamps = []) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Background map texture
-  ctx.fillStyle = "#09121d";
+  ctx.fillStyle = "#070e17";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // --- Authentic Rift Layout & Lanes ---
-  // Top Lane (curves along left and top)
-  ctx.strokeStyle = "#16283c"; ctx.lineWidth = 16;
-  ctx.beginPath(); ctx.moveTo(70, 360); ctx.lineTo(70, 60); ctx.lineTo(650, 60); ctx.stroke();
-  // Mid Lane (diagonal straight)
-  ctx.beginPath(); ctx.moveTo(70, 360); ctx.lineTo(650, 60); ctx.stroke();
-  // Bot Lane (curves along bottom and right)
-  ctx.beginPath(); ctx.moveTo(70, 360); ctx.lineTo(650, 360); ctx.lineTo(650, 60); ctx.stroke();
+  // Lanes
+  ctx.strokeStyle = "#16283c"; ctx.lineWidth = 18;
+  ctx.beginPath(); ctx.moveTo(80, 380); ctx.lineTo(80, 60); ctx.lineTo(680, 60); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80, 380); ctx.lineTo(680, 60); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80, 380); ctx.lineTo(680, 380); ctx.lineTo(680, 60); ctx.stroke();
 
-  // River (diagonal from top-left-ish to bottom-right)
-  ctx.strokeStyle = "#1b3550"; ctx.lineWidth = 38;
-  ctx.beginPath(); ctx.moveTo(110, 20); ctx.lineTo(610, 400); ctx.stroke();
+  // River
+  ctx.strokeStyle = "#1b3550"; ctx.lineWidth = 42;
+  ctx.beginPath(); ctx.moveTo(120, 20); ctx.lineTo(640, 420); ctx.stroke();
 
-  // Bases (Blue bottom-left, Red top-right)
+  // Bases
   ctx.fillStyle = "rgba(30, 144, 255, 0.25)";
-  ctx.beginPath(); ctx.arc(blueBase.x, blueBase.y, 45, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(blueBase.x, blueBase.y, 48, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "rgba(255, 71, 87, 0.25)";
-  ctx.beginPath(); ctx.arc(redBase.x, redBase.y, 45, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(redBase.x, redBase.y, 48, 0, Math.PI*2); ctx.fill();
 
-  // --- Objective Markers ---
-  // Baron / Rift Herald Pit
+  // Objectives
   ctx.fillStyle = "#9b59b6";
-  ctx.beginPath(); ctx.arc(objectivePositions.baron.x, objectivePositions.baron.y, 14, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(objectivePositions.baron.x, objectivePositions.baron.y, 15, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#e0d0f0"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
   ctx.fillText("🪱 바론/전령", objectivePositions.baron.x, objectivePositions.baron.y - 18);
 
-  // Voidgrubs Pit
   ctx.fillStyle = "#e67e22";
-  ctx.beginPath(); ctx.arc(210, 100, 9, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(220, 100, 10, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#f8c471"; ctx.font = "10px sans-serif";
-  ctx.fillText("🐛 유충", 210, 84);
+  ctx.fillText("🐛 유충", 220, 84);
 
-  // Dragon Pit
   ctx.fillStyle = "#e74c3c";
-  ctx.beginPath(); ctx.arc(objectivePositions.dragon.x, objectivePositions.dragon.y, 14, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(objectivePositions.dragon.x, objectivePositions.dragon.y, 15, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#f5b7b1"; ctx.font = "bold 11px sans-serif";
-  ctx.fillText("🐉 드래곤", objectivePositions.dragon.x, objectivePositions.dragon.y + 24);
+  ctx.fillText("🐉 드래곤", objectivePositions.dragon.x, objectivePositions.dragon.y + 26);
 
-  // Helper function to draw champion avatar node
   function drawChampNode(c, x, y, teamColor) {
    ctx.save();
    ctx.beginPath();
-   ctx.arc(x, y, 19, 0, Math.PI * 2);
+   ctx.arc(x, y, 20, 0, Math.PI * 2);
    ctx.closePath();
    ctx.clip();
 
    if (c.img && c.img.complete && c.img.naturalWidth !== 0) {
-    ctx.drawImage(c.img, x - 19, y - 19, 38, 38);
+    ctx.drawImage(c.img, x - 20, y - 20, 40, 40);
    } else {
     ctx.fillStyle = "#1b2a38";
-    ctx.fillRect(x - 19, y - 19, 38, 38);
+    ctx.fillRect(x - 20, y - 20, 40, 40);
     ctx.fillStyle = "#fff";
     ctx.font = "bold 11px sans-serif";
     ctx.textAlign = "center";
@@ -787,56 +819,48 @@ function runSimulationPlayback(){
    }
    ctx.restore();
 
-   // Team border (Blue / Red)
    ctx.strokeStyle = teamColor;
    ctx.lineWidth = 4;
    ctx.beginPath();
-   ctx.arc(x, y, 19, 0, Math.PI * 2);
+   ctx.arc(x, y, 20, 0, Math.PI * 2);
    ctx.stroke();
 
-   // Ultimate Indicator (R)
    if (activeUltChamps.includes(c.name)) {
     ctx.strokeStyle = "#ffd36a";
     ctx.lineWidth = 2.5;
     ctx.beginPath();
-    ctx.arc(x, y, 23, 0, Math.PI * 2);
+    ctx.arc(x, y, 24, 0, Math.PI * 2);
     ctx.stroke();
 
     ctx.fillStyle = "#ffd36a";
     ctx.font = "bold 10px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("[ R ]", x, y - 25);
+    ctx.fillText("[ R ]", x, y - 26);
    }
   }
 
-  // Calculate coordinates based on progress ratio (Game flow: Base -> Lanes -> Objectives -> Teamfights)
   const blueChamps = uniqueTeam(blue);
   blueChamps.forEach((c, idx) => {
    const baseLane = lanePositions.blue[idx] || lanePositions.blue[0];
    let targetX, targetY;
 
-   if (progressRatio <= 0.1) {
-    // Start at Blue Fountain Base
+   if (minute <= 2) {
     targetX = blueBase.x + (idx * 6) - 15;
     targetY = blueBase.y - (idx * 6);
-   } else if (progressRatio <= 0.4) {
-    // Moving out to lanes
-    const t = (progressRatio - 0.1) / 0.3;
+   } else if (minute <= 8) {
+    const t = (minute - 2) / 6;
     targetX = blueBase.x + (baseLane.x - blueBase.x) * t;
     targetY = blueBase.y + (baseLane.y - blueBase.y) * t;
-   } else if (progressRatio <= 0.7) {
-    // Mid game objective skirmishes (Dragon / Baron)
+   } else if (minute <= 22) {
     const objTarget = (idx % 2 === 0) ? objectivePositions.dragon : objectivePositions.baron;
-    const t = (progressRatio - 0.4) / 0.3;
-    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.sin(progressRatio * Math.PI * 4 + idx) * 15;
-    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.cos(progressRatio * Math.PI * 4 + idx) * 15;
+    const t = (minute - 8) / 14;
+    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.sin(minute + idx) * 15;
+    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.cos(minute + idx) * 15;
    } else {
-    // Late game teamfights around mid / enemy base
-    const t = (progressRatio - 0.7) / 0.3;
+    const t = (minute - 22) / 8;
     targetX = objectivePositions.midTeamfight.x + (redBase.x - objectivePositions.midTeamfight.x) * t + Math.sin(idx) * 20;
     targetY = objectivePositions.midTeamfight.y + (redBase.y - objectivePositions.midTeamfight.y) * t + Math.cos(idx) * 20;
    }
-
    drawChampNode(c, targetX, targetY, "#1e90ff");
   });
 
@@ -845,45 +869,41 @@ function runSimulationPlayback(){
    const baseLane = lanePositions.red[idx] || lanePositions.red[0];
    let targetX, targetY;
 
-   if (progressRatio <= 0.1) {
-    // Start at Red Fountain Base
+   if (minute <= 2) {
     targetX = redBase.x - (idx * 6) + 15;
     targetY = redBase.y + (idx * 6);
-   } else if (progressRatio <= 0.4) {
-    // Moving out to lanes
-    const t = (progressRatio - 0.1) / 0.3;
+   } else if (minute <= 8) {
+    const t = (minute - 2) / 6;
     targetX = redBase.x + (baseLane.x - redBase.x) * t;
     targetY = redBase.y + (baseLane.y - redBase.y) * t;
-   } else if (progressRatio <= 0.7) {
-    // Mid game objective skirmishes
+   } else if (minute <= 22) {
     const objTarget = (idx % 2 === 0) ? objectivePositions.dragon : objectivePositions.baron;
-    const t = (progressRatio - 0.4) / 0.3;
-    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.cos(progressRatio * Math.PI * 4 + idx) * 15;
-    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.sin(progressRatio * Math.PI * 4 + idx) * 15;
+    const t = (minute - 8) / 14;
+    targetX = baseLane.x + (objTarget.x - baseLane.x) * t + Math.cos(minute + idx) * 15;
+    targetY = baseLane.y + (objTarget.y - baseLane.y) * t + Math.sin(minute + idx) * 15;
    } else {
-    // Late game teamfights
-    const t = (progressRatio - 0.7) / 0.3;
+    const t = (minute - 22) / 8;
     targetX = objectivePositions.midTeamfight.x + (blueBase.x - objectivePositions.midTeamfight.x) * t + Math.cos(idx) * 20;
     targetY = objectivePositions.midTeamfight.y + (blueBase.y - objectivePositions.midTeamfight.y) * t + Math.sin(idx) * 20;
    }
-
    drawChampNode(c, targetX, targetY, "#ff4757");
   });
  }
 
  let step = 0;
  const totalSteps = events.length;
- const intervalTime = 2000; 
 
- const timer = setInterval(()=>{
+ function executeStep() {
+  if(isPaused) return;
+
   if(step >= totalSteps){
-   clearInterval(timer);
+   clearInterval(simTimer);
    const blueWon = (b.teamfight + diff >= r.teamfight);
    const winner = blueWon ? "🔵 블루 팀 승리!" : "🔴 레드 팀 승리!";
    $("pbStatus").textContent = "시뮬레이션 완료 (" + winner + ")";
    logStream.innerHTML += `<div class="log-item" style="color:var(--gold); font-weight:bold;">[경기 종료] ${winner}</div>`;
    logStream.scrollTop = logStream.scrollHeight;
-   drawMap(1.0, []);
+   drawMap(30, []);
    showPostMatchStats(blue, red, blueWon);
    return;
   }
@@ -894,19 +914,18 @@ function runSimulationPlayback(){
   $("pbProgress").style.width = (ratio * 100) + "%";
 
   let activeUlts = [];
-  if (step >= 4) {
+  if (ev.minute >= 10 && ev.minute % 3 === 0) {
     const allC = [...uniqueTeam(blue), ...uniqueTeam(red)];
     if (allC.length > 0) {
       activeUlts.push(allC[Math.floor(Math.random() * allC.length)].name);
-      if(step >= 7) activeUlts.push(allC[Math.floor(Math.random() * allC.length)].name);
     }
   }
 
-  drawMap(ratio, activeUlts);
+  drawMap(ev.minute, activeUlts);
 
-  let bkInc = Math.random() > 0.4 ? Math.floor(Math.random() * 2) : 0;
-  let rkInc = Math.random() > 0.4 ? Math.floor(Math.random() * 2) : 0;
-  if(diff > 1) bkInc += 1; else if(diff < -1) rkInc += 1;
+  let bkInc = Math.random() > 0.6 ? 1 : 0;
+  let rkInc = Math.random() > 0.6 ? 1 : 0;
+  if(diff > 1 && ev.minute > 5) bkInc += 1; else if(diff < -1 && ev.minute > 5) rkInc += 1;
 
   bKills += bkInc; rKills += rkInc;
   $("blueKills").textContent = bKills;
@@ -917,7 +936,20 @@ function runSimulationPlayback(){
   logStream.scrollTop = logStream.scrollHeight;
 
   step++;
- }, intervalTime);
+ }
+
+ function startInterval() {
+  if(simTimer) clearInterval(simTimer);
+  let intervalMs = Math.max(100, 300 / currentSpeedMultiplier);
+  simTimer = setInterval(executeStep, intervalMs);
+ }
+
+ startInterval();
+
+ $("btnPause").onclick = () => { isPaused = true; $("pbStatus").textContent = "일시정지됨"; };
+ $("btnResume").onclick = () => { isPaused = false; $("pbStatus").textContent = "관전 재개..."; startInterval(); };
+ $("btnSpeed1x").onclick = () => { currentSpeedMultiplier = 1; $("speedIndicator").textContent = "현재 속도: 1x"; startInterval(); };
+ $("btnSpeed2x").onclick = () => { currentSpeedMultiplier = 2; $("speedIndicator").textContent = "현재 속도: 2x"; startInterval(); };
 }
 
 function showPostMatchStats(blue, red, blueWon) {
@@ -925,12 +957,12 @@ function showPostMatchStats(blue, red, blueWon) {
  const allRed = uniqueTeam(red);
  if(allBlue.length === 0 || allRed.length === 0) return;
 
- let html = `<div class="panel" style="margin-top:16px;">
+ let html = `<div class="panel" style="margin-top:18px;">
   <h2>🏆 상세 전투 정산 리포트 (${blueWon ? "블루 팀 승리" : "레드 팀 승리"})</h2>
-  <p class="muted">1분간의 30배속 교전 및 플레이어 티어 가중치가 반영된 최종 결과입니다.</p>`;
+  <p class="muted">30분간의 실시간 교전 및 플레이어 티어 가중치가 반영된 최종 결과입니다.</p>`;
 
  function buildTable(team, teamName, isWin) {
-  let tableHtml = `<h3 style="color:${isWin ? 'var(--blue)' : 'var(--red)'}; margin-top:14px;">${teamName} ${isWin ? '👑 (승리)' : '(패배)'}</h3>
+  let tableHtml = `<h3 style="color:${isWin ? 'var(--blue)' : 'var(--red)'}; margin-top:16px;">${teamName} ${isWin ? '👑 (승리)' : '(패배)'}</h3>
   <table class="stats-table">
    <tr><th>포지션</th><th>챔피언</th><th>티어</th><th>K / D / A</th><th>넣은 데미지</th><th>받은 피해량</th><th>주 룬</th><th>최종 아이템</th></tr>`;
    
@@ -965,7 +997,7 @@ function showPostMatchStats(blue, red, blueWon) {
  const mvpCandidate = blueWon ? allBlue[0] : allRed[0];
  const aceCandidate = blueWon ? allRed[0] : allBlue[0];
 
- html += `<div class="mvp-box" style="margin-top:16px;">
+ html += `<div class="mvp-box" style="margin-top:18px;">
   <div class="mvp-badge">MVP / ACE 선정</div>
   <div>
    <p style="margin:0 0 4px">⭐ <b>경기 MVP:</b> ${esc(mvpCandidate.name || "캐리 챔피언")} (최고의 한타 기여도 및 딜량 기록)</p>
@@ -993,6 +1025,7 @@ function setup(){
   $("analysisOutput").innerHTML="";
   $("simPlaybackContainer").style.display="none";
   $("simOutput").innerHTML="";
+  if(simTimer) clearInterval(simTimer);
  };
 }
 setup();
