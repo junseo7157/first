@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#060b12">
-<title>협곡 전략 연구소 — Ultimate Mega-Expanded Pro Edition</title>
+<meta name="theme-color" content="#080f18">
+<title>협곡 전략 연구소 — Ultimate Search Fixed Pro Edition</title>
 <style>
 :root{
   --bg: #060b12;
@@ -318,8 +318,8 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </head>
 <body>
 <header>
-<h1>⚔️ 협곡 전략 연구소 — Ultimate Mega-Expanded Pro Edition</h1>
-<p class="sub">2026 시즌 메타 · 밴픽 시뮬레이터 · 골드 그래프 연동 · 30초 단위 초정밀 관전 엔진</p>
+<h1>⚔️ 협곡 전략 연구소 — Ultimate Search Fixed Pro Edition</h1>
+<p class="sub">한글 검색 & IME 입력 최적화 · 밴픽 시뮬레이터 · 골드 그래프 연동</p>
 </header>
 
 <div class="wrap">
@@ -333,7 +333,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 
 <!-- PAGE 1: BUILDER -->
 <section class="page active" id="builder">
-<div class="notice">💡 챔피언 중복 선택 자동 방어 시스템 및 2026 시즌 역할군 맞춤 룬 데이터가 완벽 적용되어 있습니다.</div>
+<div class="notice">💡 챔피언 검색창에 한글(예: 아리, 아트록스) 또는 영어(예: Ahri, Aatrox)를 자유롭게 입력하여 검색할 수 있습니다.</div>
 
 <div class="preset-bar">
 <span>🔥 실전 메타 조합 & 랜덤:</span>
@@ -476,7 +476,7 @@ label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-wei
 </div>
 </section>
 
-<div class="footer">협곡 전략 연구소 Ultimate Mega-Expanded Pro Edition — 리그 오브 레전드 전략 시뮬레이터</div>
+<div class="footer">협곡 전략 연구소 — Ultimate Search Fixed Pro Edition</div>
 </div>
 
 <script>
@@ -580,21 +580,33 @@ function renderSlots(color){
   const l=document.createElement("div");l.className="lane";l.textContent=label;
   
   const wrap=document.createElement("div");wrap.className="picker";
-  const search=document.createElement("input");search.type="search";search.className="picker-search";search.placeholder="챔피언 검색…";
+  const search=document.createElement("input");search.type="search";search.className="picker-search";search.placeholder="챔피언 검색 (한글/영문)…";
   
   const s=document.createElement("select");s.className="champ";s.id=color+"_"+key;
   
   function populateSelect(filterText="") {
    const q = filterText.trim().toLowerCase();
-   const filtered = champs.filter(c => c.name.toLowerCase().includes(q));
+   const filtered = champs.filter(c => c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q));
    s.innerHTML = '<option value="미선택">— 챔피언 선택 —</option>' + filtered.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
   }
   
   populateSelect();
 
-  search.addEventListener("input",()=>{
+  let isComposing = false;
+  search.addEventListener("compositionstart", () => { isComposing = true; });
+  search.addEventListener("compositionend", (e) => {
+   isComposing = false;
    const curVal = s.value;
-   populateSelect(search.value);
+   populateSelect(e.target.value);
+   if([...s.options].some(o => o.value === curVal)) {
+    s.value = curVal;
+   }
+  });
+
+  search.addEventListener("input",(e)=>{
+   if(isComposing) return;
+   const curVal = s.value;
+   populateSelect(e.target.value);
    if([...s.options].some(o => o.value === curVal)) {
     s.value = curVal;
    }
@@ -752,10 +764,8 @@ function loadRandomPreset(){
  analysis();
 }
 
-// Draft Ban/Pick Simulator Logic
 function startDraftSimulation() {
   const poolCopy = [...champs];
-  // Shuffle pool
   poolCopy.sort(() => Math.random() - 0.5);
   
   const bluePicks = poolCopy.slice(0, 5);
@@ -782,7 +792,6 @@ function startDraftSimulation() {
   analysis();
 }
 
-// 30-Second Interval Interactive Simulation Engine with Gold Graph
 let simTimer = null;
 let isPaused = false;
 let currentSpeedMultiplier = 1;
@@ -821,7 +830,6 @@ function runSimulationPlayback(){
   let secInt = (m % 1 === 0.5) ? 30 : 0;
   let timeStr = (minInt < 10 ? "0" + minInt : minInt) + ":" + (secInt === 0 ? "00" : "30");
   
-  // Gold diff simulation
   currentGoldDiff += (Math.random() - 0.48) * 400 + (blueWon ? 80 : -80);
   goldHistory.push(currentGoldDiff);
 
@@ -879,7 +887,6 @@ function runSimulationPlayback(){
   for (let i = 0; i <= currentIndex; i++) {
    const g = goldHistory[i];
    const x = i * stepX;
-   // map gold diff (-15000 to +15000) to canvas height (0 to height)
    const y = (goldCanvas.height / 2) - (g / 300);
    if (i === 0) goldCtx.moveTo(x, y);
    else goldCtx.lineTo(x, y);
@@ -893,23 +900,19 @@ function runSimulationPlayback(){
   ctx.fillStyle = "#070e17";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Lanes
   ctx.strokeStyle = "#16283c"; ctx.lineWidth = 18;
   ctx.beginPath(); ctx.moveTo(80, 360); ctx.lineTo(80, 60); ctx.lineTo(680, 60); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(80, 360); ctx.lineTo(680, 60); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(80, 360); ctx.lineTo(680, 360); ctx.lineTo(680, 60); ctx.stroke();
 
-  // River
   ctx.strokeStyle = "#1b3550"; ctx.lineWidth = 42;
   ctx.beginPath(); ctx.moveTo(120, 20); ctx.lineTo(640, 400); ctx.stroke();
 
-  // Bases
   ctx.fillStyle = "rgba(30, 144, 255, 0.25)";
   ctx.beginPath(); ctx.arc(blueBase.x, blueBase.y, 45, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "rgba(255, 71, 87, 0.25)";
   ctx.beginPath(); ctx.arc(redBase.x, redBase.y, 45, 0, Math.PI*2); ctx.fill();
 
-  // Objectives
   ctx.fillStyle = "#9b59b6";
   ctx.beginPath(); ctx.arc(objectivePositions.baron.x, objectivePositions.baron.y, 14, 0, Math.PI*2); ctx.fill();
   ctx.fillStyle = "#e0d0f0"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
@@ -1112,7 +1115,7 @@ function showPostMatchStats(blue, red, blueWon) {
 
  let html = `<div class="panel" style="margin-top:18px;">
   <h2>🏆 상세 전투 정산 리포트 (${blueWon ? "블루 팀 승리" : "레드 팀 승리"})</h2>
-  <p class="muted">30분간의 밴픽, 골드 트렌드, 한타 승리 후 넥서스 파괴까지 완벽 반영된 최종 리포트입니다.</p>`;
+  <p class="muted">한타 승리 및 넥서스 파괴 과정까지 완벽 반영된 최종 결과입니다.</p>`;
 
  function buildTable(team, teamName, isWin) {
   let tableHtml = `<h3 style="color:${isWin ? 'var(--blue)' : 'var(--red)'}; margin-top:16px;">${teamName} ${isWin ? '👑 (승리)' : '(패배)'}</h3>
